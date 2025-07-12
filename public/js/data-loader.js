@@ -10,6 +10,7 @@ class DataLoader {
         this.currentPage = 1;
         this.itemsPerPage = 24;
         this.isLoading = false;
+        this.viewMode = 'card'; // Default view mode
     }
 
     /**
@@ -110,7 +111,10 @@ class DataLoader {
         const resultsContainer = document.getElementById('results-container');
         const resultsCount = document.getElementById('results-count');
 
-        if (!resultsContainer) return;
+        if (!resultsContainer) {
+            console.error('results-container elementi bulunamadı');
+            return;
+        }
 
         // Sonuç sayısını güncelle
         if (resultsCount) {
@@ -134,12 +138,15 @@ class DataLoader {
         const endIndex = startIndex + this.itemsPerPage;
         const pageData = this.filteredData.slice(startIndex, endIndex);
 
-        // Kartları render et
-        resultsContainer.innerHTML = `
-            <div class="results-grid">
-                ${pageData.map(kurum => this.createInstitutionCard(kurum)).join('')}
-            </div>
-        `;
+        // View mode'a göre render et
+        if (this.viewMode === 'list') {
+            this.renderListView(pageData, resultsContainer);
+        } else if (this.viewMode === 'map') {
+            this.renderMapView(pageData, resultsContainer);
+        } else {
+            // Default: card view
+            this.renderCardView(pageData, resultsContainer);
+        }
 
         // Sayfalamayı güncelle
         this.renderPagination();
@@ -172,6 +179,68 @@ class DataLoader {
                 <div class="card-click-hint">
                     <span class="material-symbols-outlined">info</span>
                     <span>Detaylar için tıklayın</span>
+                </div>
+            </div>
+        `;
+    }
+
+    /**
+     * Liste öğesi oluştur
+     */
+    createInstitutionListItem(kurum) {
+        const hasPhone = kurum.telefon && kurum.telefon.trim();
+        const hasWebsite = kurum.web_sitesi && kurum.web_sitesi.trim();
+        const typeColor = kurum.kurum_tipi_renk || '#424242';
+
+        return `
+            <div class="institution-list-item" data-id="${kurum.kurum_id}" onclick="dataLoader.showInstitutionDetail('${kurum.kurum_id}')">
+                <div class="institution-type-badge" style="background-color: ${typeColor}">
+                    ${kurum.kurum_tipi}
+                </div>
+                <div class="institution-info">
+                    <h3>${kurum.kurum_adi}</h3>
+                    <div class="institution-details">
+                        <div class="detail-item">
+                            <span class="material-symbols-outlined">location_on</span>
+                            <span>${kurum.adres || `${kurum.ilce_adi}, ${kurum.il_adi}`}</span>
+                        </div>
+                        ${hasPhone ? `
+                            <div class="detail-item">
+                                <span class="material-symbols-outlined">phone</span>
+                                <span>${kurum.telefon}</span>
+                            </div>
+                        ` : ''}
+                        ${hasWebsite ? `
+                            <div class="detail-item">
+                                <span class="material-symbols-outlined">language</span>
+                                <span>${kurum.web_sitesi}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+                <div class="list-item-action">
+                    <span class="material-symbols-outlined">arrow_forward_ios</span>
+                </div>
+            </div>
+        `;
+    }
+
+    /**
+     * Harita öğesi oluştur
+     */
+    createInstitutionMapItem(kurum) {
+        const typeColor = kurum.kurum_tipi_renk || '#424242';
+        const hasCoords = kurum.koordinat_lat && kurum.koordinat_lon;
+
+        return `
+            <div class="institution-map-item" data-id="${kurum.kurum_id}" onclick="dataLoader.showInstitutionDetail('${kurum.kurum_id}')">
+                <div class="map-marker" style="background-color: ${typeColor}">
+                    <span class="material-symbols-outlined">location_on</span>
+                </div>
+                <div class="map-info">
+                    <h4>${kurum.kurum_adi}</h4>
+                    <p>${kurum.ilce_adi}, ${kurum.il_adi}</p>
+                    ${hasCoords ? `<small>Koordinat: ${kurum.koordinat_lat}, ${kurum.koordinat_lon}</small>` : '<small>Koordinat bilgisi yok</small>'}
                 </div>
             </div>
         `;
@@ -531,6 +600,53 @@ class DataLoader {
                                 </button>
                             ` : ''}
                         </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    /**
+     * View mode ayarla
+     */
+    setViewMode(mode) {
+        this.viewMode = mode;
+    }
+
+    /**
+     * Kart görünümü render et
+     */
+    renderCardView(pageData, resultsContainer) {
+        resultsContainer.innerHTML = `
+            <div class="results-grid">
+                ${pageData.map(kurum => this.createInstitutionCard(kurum)).join('')}
+            </div>
+        `;
+    }
+
+    /**
+     * Liste görünümü render et
+     */
+    renderListView(pageData, resultsContainer) {
+        resultsContainer.innerHTML = `
+            <div class="results-list">
+                ${pageData.map(kurum => this.createInstitutionListItem(kurum)).join('')}
+            </div>
+        `;
+    }
+
+    /**
+     * Harita görünümü render et
+     */
+    renderMapView(pageData, resultsContainer) {
+        resultsContainer.innerHTML = `
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <span class="material-symbols-outlined">map</span>
+                    <h3>Harita Görünümü</h3>
+                    <p>Harita entegrasyonu geliştirme aşamasındadır.</p>
+                    <div class="institutions-on-map">
+                        ${pageData.map(kurum => this.createInstitutionMapItem(kurum)).join('')}
                     </div>
                 </div>
             </div>

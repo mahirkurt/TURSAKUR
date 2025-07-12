@@ -10,10 +10,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Uygulamayı başlat
     app.init();
     
-    // Veri yükleyiciyi başlat
+    // Veri yükleyiciyi başlat ve global'e ata
+    window.dataLoader = dataLoader;
     dataLoader.loadData().then(() => {
         // Veri yüklendikten sonra arama ve filtreleri başlat
         searchFilter.init();
+        
+        // Default view mode'u ayarla
+        dataLoader.setViewMode('card');
+        
         console.log('✅ Uygulama başarıyla başlatıldı');
     }).catch(error => {
         console.error('❌ Uygulama başlatma hatası:', error);

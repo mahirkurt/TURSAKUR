@@ -66,7 +66,12 @@ class App {
         // Görünüm değiştirme butonları
         document.querySelectorAll('.view-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                this.changeView(e.target.dataset.view);
+                // En yakın .view-btn elementini bul (icon'a tıklandığında)
+                const button = e.target.closest('.view-btn');
+                const view = button ? button.dataset.view : null;
+                if (view) {
+                    this.changeView(view);
+                }
             });
         });
     }
@@ -158,7 +163,12 @@ class App {
             activeBtn.classList.add('active');
         }
 
-        // Görünüm logic'i burada implement edilecek
+        // DataLoader ile görünümü değiştir
+        if (window.dataLoader && typeof window.dataLoader.setViewMode === 'function') {
+            window.dataLoader.setViewMode(view);
+            window.dataLoader.renderResults();
+        }
+
         console.log(`Görünüm değiştirildi: ${view}`);
     }
 
