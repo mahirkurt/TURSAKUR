@@ -42,6 +42,7 @@ class DataLoader {
                 // UI'ı güncelle
                 this.updateStats();
                 this.populateFilters();
+                this.setupFilters();
                 this.renderResults();
                 
                 console.log(`✅ ${jsonData.kurumlar.length} kurum yüklendi`);
@@ -148,54 +149,29 @@ class DataLoader {
      * Kurum kartı oluştur
      */
     createInstitutionCard(kurum) {
-        const hasCoordinates = kurum.koordinat_lat && kurum.koordinat_lon;
         const hasPhone = kurum.telefon && kurum.telefon.trim();
-        const hasWebsite = kurum.web_sitesi && kurum.web_sitesi.trim();
+        const typeColor = kurum.kurum_tipi_renk || '#424242';
 
         return `
-            <div class="institution-card" data-id="${kurum.kurum_id}">
-                <div class="card-header">
-                    <div class="institution-type">${kurum.kurum_tipi}</div>
+            <div class="institution-card" data-id="${kurum.kurum_id}" onclick="dataLoader.showInstitutionDetail('${kurum.kurum_id}')">
+                <div class="institution-type" style="background-color: ${typeColor}">${kurum.kurum_tipi}</div>
+                <h3>${kurum.kurum_adi}</h3>
+                
+                <div class="institution-location">
+                    <span class="material-symbols-outlined">location_on</span>
+                    <span>${kurum.ilce_adi}, ${kurum.il_adi}</span>
                 </div>
                 
-                <div class="card-content">
-                    <h3 class="institution-name">${kurum.kurum_adi}</h3>
-                    
-                    <div class="institution-location">
-                        <span class="material-symbols-outlined">location_on</span>
-                        <span>${kurum.ilce_adi}, ${kurum.il_adi}</span>
+                ${hasPhone ? `
+                    <div class="institution-phone">
+                        <span class="material-symbols-outlined">phone</span>
+                        <span>${kurum.telefon}</span>
                     </div>
-                    
-                    ${kurum.adres ? `
-                        <div class="institution-address">
-                            <span class="material-symbols-outlined">home</span>
-                            <span>${kurum.adres}</span>
-                        </div>
-                    ` : ''}
-                </div>
+                ` : ''}
                 
-                <div class="card-actions">
-                    ${hasPhone ? `
-                        <button class="action-button" onclick="window.open('tel:${kurum.telefon}')">
-                            <span class="material-symbols-outlined">call</span>
-                        </button>
-                    ` : ''}
-                    
-                    ${hasWebsite ? `
-                        <button class="action-button" onclick="window.open('${kurum.web_sitesi}', '_blank')">
-                            <span class="material-symbols-outlined">language</span>
-                        </button>
-                    ` : ''}
-                    
-                    ${hasCoordinates ? `
-                        <button class="action-button" onclick="window.open('https://maps.google.com/?q=${kurum.koordinat_lat},${kurum.koordinat_lon}', '_blank')">
-                            <span class="material-symbols-outlined">directions</span>
-                        </button>
-                    ` : ''}
-                    
-                    <button class="action-button primary" onclick="showInstitutionDetail('${kurum.kurum_id}')">
-                        <span class="material-symbols-outlined">info</span>
-                    </button>
+                <div class="card-click-hint">
+                    <span class="material-symbols-outlined">info</span>
+                    <span>Detaylar için tıklayın</span>
                 </div>
             </div>
         `;
@@ -238,6 +214,327 @@ class DataLoader {
         document.querySelector('.results-section').scrollIntoView({ 
             behavior: 'smooth' 
         });
+    }
+
+    /**
+     * Meta bilgileri güncelle
+     */
+    updateMetaInfo(meta) {
+        if (!meta) return;
+        
+        // Son güncelleme tarihini göster
+        const lastUpdateElement = document.getElementById('last-update');
+        if (lastUpdateElement && meta.last_updated) {
+            lastUpdateElement.textContent = new Date(meta.last_updated).toLocaleDateString('tr-TR');
+        }
+        
+        // Footer'daki son güncelleme
+        const lastUpdateFooter = document.getElementById('last-update-footer');
+        if (lastUpdateFooter && meta.last_updated) {
+            lastUpdateFooter.textContent = `Son güncelleme: ${new Date(meta.last_updated).toLocaleDateString('tr-TR')}`;
+        }
+        
+        // Veri kaynağı bilgisini göster
+        const dataSourceElement = document.getElementById('data-source');
+        if (dataSourceElement && meta.description) {
+            dataSourceElement.textContent = meta.description;
+        }
+    }
+
+    /**
+     * Hata mesajı göster
+     */
+    showError(message) {
+        // Mevcut error container'ı kontrol et
+        let errorContainer = document.getElementById('error-container');
+        
+        if (!errorContainer) {
+            // Error container oluştur
+            errorContainer = document.createElement('div');
+            errorContainer.id = 'error-container';
+            errorContainer.className = 'error-container';
+            
+            // Ana content'in başına ekle
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                mainContent.insertBefore(errorContainer, mainContent.firstChild);
+            }
+        }
+        
+        errorContainer.innerHTML = `
+            <div class="error-card">
+                <span class="material-symbols-outlined">error</span>
+                <div class="error-content">
+                    <h3>Bir Hata Oluştu</h3>
+                    <p>${message}</p>
+                    <button class="md-button-filled" onclick="location.reload()">
+                        Sayfayı Yenile
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        errorContainer.style.display = 'block';
+    }
+
+    /**
+     * Filtreleri doldur
+     */
+    populateFilters() {
+        if (!this.data) return;
+
+        // İl filtresini doldur
+        const cityFilter = document.getElementById('city-filter');
+        if (cityFilter) {
+            const cities = [...new Set(this.data.kurumlar.map(k => k.il_adi))].sort();
+            cityFilter.innerHTML = '<option value="">Tüm İller</option>' +
+                cities.map(city => `<option value="${city}">${city}</option>`).join('');
+        }
+
+        // Kurum tipi filtresini doldur
+        const typeFilter = document.getElementById('type-filter');
+        if (typeFilter) {
+            const types = [...new Set(this.data.kurumlar.map(k => k.kurum_tipi))].sort();
+            typeFilter.innerHTML = '<option value="">Tüm Kurum Tipleri</option>' +
+                types.map(type => `<option value="${type}">${type}</option>`).join('');
+        }
+    }
+
+    /**
+     * Arama ve filtreleme
+     */
+    setupFilters() {
+        const searchInput = document.getElementById('search-input');
+        const cityFilter = document.getElementById('city-filter');
+        const typeFilter = document.getElementById('type-filter');
+        const clearFilters = document.getElementById('clear-filters');
+
+        if (searchInput) {
+            searchInput.addEventListener('input', () => this.applyFilters());
+        }
+
+        if (cityFilter) {
+            cityFilter.addEventListener('change', () => this.applyFilters());
+        }
+
+        if (typeFilter) {
+            typeFilter.addEventListener('change', () => this.applyFilters());
+        }
+
+        if (clearFilters) {
+            clearFilters.addEventListener('click', () => this.clearAllFilters());
+        }
+    }
+
+    /**
+     * Filtreleri uygula
+     */
+    applyFilters() {
+        if (!this.data) return;
+
+        const searchValue = document.getElementById('search-input')?.value.toLowerCase() || '';
+        const cityValue = document.getElementById('city-filter')?.value || '';
+        const typeValue = document.getElementById('type-filter')?.value || '';
+
+        this.filteredData = this.data.kurumlar.filter(kurum => {
+            const matchesSearch = !searchValue || 
+                kurum.kurum_adi.toLowerCase().includes(searchValue) ||
+                kurum.il_adi.toLowerCase().includes(searchValue) ||
+                kurum.ilce_adi.toLowerCase().includes(searchValue);
+
+            const matchesCity = !cityValue || kurum.il_adi === cityValue;
+            const matchesType = !typeValue || kurum.kurum_tipi === typeValue;
+
+            return matchesSearch && matchesCity && matchesType;
+        });
+
+        this.currentPage = 1;
+        this.renderResults();
+    }
+
+    /**
+     * Tüm filtreleri temizle
+     */
+    clearAllFilters() {
+        const searchInput = document.getElementById('search-input');
+        const cityFilter = document.getElementById('city-filter');
+        const typeFilter = document.getElementById('type-filter');
+
+        if (searchInput) searchInput.value = '';
+        if (cityFilter) cityFilter.value = '';
+        if (typeFilter) typeFilter.value = '';
+
+        this.filteredData = this.data ? this.data.kurumlar : [];
+        this.currentPage = 1;
+        this.renderResults();
+    }
+
+    /**
+     * Kurum detayını göster
+     */
+    showInstitutionDetail(kurumId) {
+        const kurum = this.getInstitutionById(kurumId);
+        if (!kurum) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'institution-detail-modal';
+        modal.innerHTML = this.createInstitutionDetailHTML(kurum);
+        
+        document.body.appendChild(modal);
+        
+        // Modal kapatma fonksiyonu
+        const closeModal = (e) => {
+            e.stopPropagation();
+            if (modal.parentNode) {
+                document.body.removeChild(modal);
+            }
+        };
+        
+        // X butonuna tıklama
+        const closeBtn = modal.querySelector('.close-modal');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
+        
+        // Backdrop'a tıklayınca kapatma
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || e.target.classList.contains('institution-detail-backdrop')) {
+                closeModal(e);
+            }
+        });
+        
+        // Modal içeriği tıklanınca event propagation'ı durdur
+        const modalContent = modal.querySelector('.institution-detail-content');
+        if (modalContent) {
+            modalContent.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
+        
+        // ESC tuşu ile kapatma
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                closeModal(e);
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+    }
+
+    /**
+     * Kurum detay HTML'i oluştur
+     */
+    createInstitutionDetailHTML(kurum) {
+        const hasCoordinates = kurum.koordinat_lat && kurum.koordinat_lon;
+        const hasPhone = kurum.telefon && kurum.telefon.trim();
+        const hasWebsite = kurum.web_sitesi && kurum.web_sitesi.trim();
+
+        return `
+            <div class="institution-detail-backdrop">
+                <div class="institution-detail-content">
+                    <div class="institution-detail-header">
+                        <div class="institution-header-info">
+                            <div class="institution-type-badge" style="background-color: ${kurum.kurum_tipi_renk || '#424242'}">
+                                ${kurum.kurum_tipi}
+                            </div>
+                            <h2>${kurum.kurum_adi}</h2>
+                        </div>
+                        <button class="close-modal icon-button">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    
+                    <div class="institution-detail-body">
+                        <div class="detail-section">
+                            <div class="detail-item">
+                                <span class="material-symbols-outlined">badge</span>
+                                <div class="detail-content">
+                                    <label>Kurum ID</label>
+                                    <span>${kurum.kurum_id}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <span class="material-symbols-outlined">location_on</span>
+                                <div class="detail-content">
+                                    <label>Konum</label>
+                                    <span>${kurum.ilce_adi}, ${kurum.il_adi}</span>
+                                </div>
+                            </div>
+                            
+                            ${kurum.adres ? `
+                                <div class="detail-item">
+                                    <span class="material-symbols-outlined">home</span>
+                                    <div class="detail-content">
+                                        <label>Adres</label>
+                                        <span>${kurum.adres}</span>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            
+                            ${hasPhone ? `
+                                <div class="detail-item">
+                                    <span class="material-symbols-outlined">phone</span>
+                                    <div class="detail-content">
+                                        <label>Telefon</label>
+                                        <a href="tel:${kurum.telefon}">${kurum.telefon}</a>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            
+                            ${hasWebsite ? `
+                                <div class="detail-item">
+                                    <span class="material-symbols-outlined">language</span>
+                                    <div class="detail-content">
+                                        <label>Web Sitesi</label>
+                                        <a href="${kurum.web_sitesi}" target="_blank">${kurum.web_sitesi}</a>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            
+                            <div class="detail-item">
+                                <span class="material-symbols-outlined">source</span>
+                                <div class="detail-content">
+                                    <label>Veri Kaynağı</label>
+                                    <span>${kurum.veri_kaynagi || 'Resmi Kaynak'}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <span class="material-symbols-outlined">update</span>
+                                <div class="detail-content">
+                                    <label>Son Güncelleme</label>
+                                    <span>${new Date(kurum.son_guncelleme).toLocaleDateString('tr-TR')}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-actions">
+                            ${hasPhone ? `
+                                <button class="md-button-filled" onclick="window.open('tel:${kurum.telefon}')">
+                                    <span class="material-symbols-outlined">call</span>
+                                    Ara
+                                </button>
+                            ` : ''}
+                            
+                            ${hasWebsite ? `
+                                <button class="md-button-outlined" onclick="window.open('${kurum.web_sitesi}', '_blank')">
+                                    <span class="material-symbols-outlined">language</span>
+                                    Web Sitesi
+                                </button>
+                            ` : ''}
+                            
+                            ${hasCoordinates ? `
+                                <button class="md-button-outlined" onclick="window.open('https://maps.google.com/?q=${kurum.koordinat_lat},${kurum.koordinat_lon}', '_blank')">
+                                    <span class="material-symbols-outlined">directions</span>
+                                    Haritada Göster
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 }
 

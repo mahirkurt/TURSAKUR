@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Türkiye Sağlık Kurumları - Açık Veritabanı</title>
+    <title>TURSAKUR - Türkiye Sağlık Kuruluşları</title>
+    <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
     
     <!-- Material Design 3 Expressive CSS -->
     <link rel="stylesheet" href="css/light.css" id="theme-light">
@@ -24,8 +25,7 @@
     <!-- Top App Bar -->
     <header class="top-app-bar">
         <div class="top-app-bar-content">
-            <span class="material-symbols-outlined leading-icon">local_hospital</span>
-            <h1 class="headline-small">Türkiye Sağlık Kurumları</h1>
+            <img src="assets/logos/TURSAKUR-Color.svg" alt="TURSAKUR" class="app-logo">
             <div class="top-app-bar-actions">
                 <button class="icon-button" id="theme-toggle" title="Tema Değiştir">
                     <span class="material-symbols-outlined">dark_mode</span>
@@ -43,7 +43,7 @@
         <section class="hero-section">
             <div class="container">
                 <div class="hero-content">
-                    <h2 class="display-small">Açık Sağlık Verisi</h2>
+                    <h2 class="display-small">Türkiye Sağlık Kuruluşları</h2>
                     <p class="body-large">Türkiye'deki tüm sağlık kurumlarını keşfedin. Hastaneler, poliklinikler ve sağlık merkezlerinin güncel bilgilerine ulaşın.</p>
                     <div class="stats-cards">
                         <div class="stat-card">
@@ -76,23 +76,23 @@
                         </button>
                     </div>
 
-                    <!-- Filter Chips -->
+                    <!-- Filter Section -->
                     <div class="filter-section">
-                        <div class="filter-group">
-                            <span class="filter-label">Kurum Tipi:</span>
-                            <div class="chip-group" id="type-filters">
-                                <!-- Dynamic filter chips will be added here -->
-                            </div>
+                        <div class="filter-dropdown">
+                            <label for="city-filter">İl:</label>
+                            <select id="city-filter" class="filter-select">
+                                <option value="">Tüm İller</option>
+                            </select>
                         </div>
                         
-                        <div class="filter-group">
-                            <span class="filter-label">İl:</span>
-                            <div class="chip-group" id="province-filters">
-                                <!-- Dynamic filter chips will be added here -->
-                            </div>
+                        <div class="filter-dropdown">
+                            <label for="type-filter">Kurum Tipi:</label>
+                            <select id="type-filter" class="filter-select">
+                                <option value="">Tüm Kurum Tipleri</option>
+                            </select>
                         </div>
 
-                        <button class="filter-clear-btn" id="clear-filters" style="display: none;">
+                        <button class="filter-clear-btn" id="clear-filters">
                             <span class="material-symbols-outlined">filter_list_off</span>
                             Filtreleri Temizle
                         </button>
@@ -207,7 +207,55 @@
     <!-- Toast Notifications -->
     <div class="toast-container" id="toast-container"></div>
 
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="assets/logos/TURSAKUR-Color.svg" alt="TURSAKUR" class="footer-logo">
+                    <h3>TURSAKUR</h3>
+                    <p class="body-medium">Türkiye Sağlık Kuruluşları açık veritabanı projesi. Sağlık verilerini herkes için erişilebilir kılıyoruz.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hukuki</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showLegalPage('privacy')">Gizlilik Politikası</a></li>
+                        <li><a href="#" onclick="showLegalPage('terms')">Kullanım Koşulları</a></li>
+                        <li><a href="#" onclick="showLegalPage('kvkk')">KVKK</a></li>
+                        <li><a href="#" onclick="showLegalPage('about')">Hakkımızda</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Proje</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/mahirkurt/TURSAKUR" target="_blank">GitHub</a></li>
+                        <li><a href="api.html">API Dokümantasyonu</a></li>
+                        <li><a href="#" onclick="showLegalPage('contribute')">Katkıda Bulun</a></li>
+                        <li><a href="#" onclick="showLegalPage('contact')">İletişim</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Veri Kaynakları</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://shgm.saglik.gov.tr" target="_blank">Sağlık Bakanlığı</a></li>
+                        <li><a href="https://www.trhastane.com" target="_blank">TRHastane</a></li>
+                        <li><a href="#" onclick="showLegalPage('sources')">Tüm Kaynaklar</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="body-small">© 2025 TURSAKUR. Açık kaynak lisansı ile sunulmaktadır.</p>
+                <p class="body-small" id="last-update-footer">Son güncelleme: -</p>
+            </div>
+        </div>
+    </footer>
+
     <!-- Scripts - Düzeltilmiş yollar -->
+    <script src="js/api.js"></script>
     <script src="js/data-loader.js"></script>
     <script src="js/search-filter.js"></script>
     <script src="js/app.js"></script>

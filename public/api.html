@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TURSAKUR API Dokümantasyonu</title>
+    
+    <!-- Material Design 3 Expressive CSS -->
+    <link rel="stylesheet" href="css/light.css" id="theme-light">
+    <link rel="stylesheet" href="css/dark.css" id="theme-dark" disabled>
+    
+    <!-- Figtree Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Material Design Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <style>
+        .api-docs {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+        
+        .endpoint {
+            background: var(--md-sys-color-surface-container);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            border-left: 4px solid var(--md-sys-color-primary);
+        }
+        
+        .method {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            background: #4CAF50;
+            margin-bottom: 8px;
+        }
+        
+        .endpoint-url {
+            font-family: 'Courier New', monospace;
+            background: var(--md-sys-color-surface-variant);
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        
+        .params-table th,
+        .params-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--md-sys-color-outline-variant);
+        }
+        
+        .params-table th {
+            background: var(--md-sys-color-surface-variant);
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background: var(--md-sys-color-surface-variant);
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 16px 0;
+        }
+        
+        .copy-btn {
+            float: right;
+            margin-top: -8px;
+        }
+        
+        .try-btn {
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top App Bar -->
+    <header class="top-app-bar">
+        <div class="top-app-bar-content">
+            <a href="/">
+                <img src="assets/logos/TURSAKUR-Light.svg" alt="TURSAKUR" class="app-logo" width="350" height="100">
+            </a>
+            <div class="top-app-bar-actions">
+                <button class="icon-button" id="theme-toggle" title="Tema Değiştir">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="api-docs">
+        <h1>TURSAKUR API Dokümantasyonu</h1>
+        <p class="body-large">Türkiye Sağlık Kuruluşları verilerine programatik erişim için RESTful API.</p>
+
+        <div class="endpoint">
+            <h3>API Bilgileri</h3>
+            <div class="method">GET</div>
+            <div class="endpoint-url">/api/v1/</div>
+            <p>API hakkında genel bilgileri döndürür.</p>
+            <button class="md-button-outlined try-btn" onclick="tryAPI('/api/v1/')">Dene</button>
+        </div>
+
+        <div class="endpoint">
+            <h3>Tüm Kurumları Listele</h3>
+            <div class="method">GET</div>
+            <div class="endpoint-url">/api/v1/institutions</div>
+            <p>Tüm sağlık kurumlarını listeler. Filtreleme ve sayfalama destekler.</p>
+            
+            <h4>Parametreler</h4>
+            <table class="params-table">
+                <thead>
+                    <tr>
+                        <th>Parametre</th>
+                        <th>Tip</th>
+                        <th>Açıklama</th>
+                        <th>Örnek</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>province</td>
+                        <td>string</td>
+                        <td>İl adına göre filtrele</td>
+                        <td>İstanbul</td>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>string</td>
+                        <td>Kurum tipine göre filtrele</td>
+                        <td>Özel Hastane</td>
+                    </tr>
+                    <tr>
+                        <td>search</td>
+                        <td>string</td>
+                        <td>Genel arama</td>
+                        <td>üniversite</td>
+                    </tr>
+                    <tr>
+                        <td>limit</td>
+                        <td>integer</td>
+                        <td>Sonuç sayısı (varsayılan: 50, max: 1000)</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>offset</td>
+                        <td>integer</td>
+                        <td>Sayfalama için başlangıç</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Örnek Kullanımlar</h4>
+            <div class="code-block">
+                <button class="copy-btn md-button-text" onclick="copyToClipboard(this.nextElementSibling.textContent)">
+                    <span class="material-symbols-outlined">content_copy</span>
+                </button>
+                <div>GET /api/v1/institutions?province=İstanbul&limit=10</div>
+            </div>
+            
+            <button class="md-button-outlined try-btn" onclick="tryAPI('/api/v1/institutions?limit=5')">Dene</button>
+        </div>
+
+        <div class="endpoint">
+            <h3>Kurum Detayı</h3>
+            <div class="method">GET</div>
+            <div class="endpoint-url">/api/v1/institutions/{id}</div>
+            <p>Belirli bir kurumun detaylarını döndürür.</p>
+            
+            <h4>Örnek</h4>
+            <div class="code-block">
+                <button class="copy-btn md-button-text" onclick="copyToClipboard(this.nextElementSibling.textContent)">
+                    <span class="material-symbols-outlined">content_copy</span>
+                </button>
+                <div>GET /api/v1/institutions/TR-01-DH-001</div>
+            </div>
+            
+            <button class="md-button-outlined try-btn" onclick="tryAPI('/api/v1/institutions/TR-01-DH-001')">Dene</button>
+        </div>
+
+        <div class="endpoint">
+            <h3>İller</h3>
+            <div class="method">GET</div>
+            <div class="endpoint-url">/api/v1/provinces</div>
+            <p>Tüm illeri ve her ildeki kurum sayısını döndürür.</p>
+            
+            <button class="md-button-outlined try-btn" onclick="tryAPI('/api/v1/provinces')">Dene</button>
+        </div>
+
+        <div class="endpoint">
+            <h3>Kurum Tipleri</h3>
+            <div class="method">GET</div>
+            <div class="endpoint-url">/api/v1/types</div>
+            <p>Tüm kurum tiplerini, sayılarını ve renklerini döndürür.</p>
+            
+            <button class="md-button-outlined try-btn" onclick="tryAPI('/api/v1/types')">Dene</button>
+        </div>
+
+        <div class="endpoint">
+            <h3>İstatistikler</h3>
+            <div class="method">GET</div>
+            <div class="endpoint-url">/api/v1/stats</div>
+            <p>Veritabanı istatistiklerini döndürür.</p>
+            
+            <button class="md-button-outlined try-btn" onclick="tryAPI('/api/v1/stats')">Dene</button>
+        </div>
+
+        <div class="endpoint">
+            <h3>Yanıt Formatı</h3>
+            <p>Tüm API yanıtları JSON formatındadır:</p>
+            <div class="code-block">
+{
+  "data": [...], // veya {...}
+  "meta": {
+    "total": 1674,
+    "limit": 50,
+    "offset": 0,
+    "has_more": true
+  }
+}
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <h3>Hata Yanıtları</h3>
+            <div class="code-block">
+{
+  "error": {
+    "message": "Institution not found",
+    "status": 404,
+    "timestamp": "2025-07-12T10:30:00.000Z"
+  }
+}
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <h3>Rate Limiting</h3>
+            <p>API istekleri dakikada 100 istek ile sınırlandırılmıştır. Aşırı kullanım durumunda 429 status kodu döndürülür.</p>
+        </div>
+
+        <div class="endpoint">
+            <h3>CORS</h3>
+            <p>API, tüm originlerden erişime izin verir. JavaScript ile doğrudan kullanabilirsiniz.</p>
+        </div>
+    </div>
+
+    <!-- API Test Area -->
+    <div id="api-test-result" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; padding: 20px; overflow: auto;">
+        <div style="background: white; border-radius: 8px; padding: 20px; max-width: 800px; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>API Test Sonucu</h3>
+                <button onclick="closeAPITest()" class="md-button-text">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <pre id="api-result-content" style="background: #f5f5f5; padding: 16px; border-radius: 8px; overflow: auto; max-height: 60vh;"></pre>
+        </div>
+    </div>
+
+    <script>
+        function tryAPI(endpoint) {
+            const url = window.location.origin + endpoint;
+            
+            document.getElementById('api-test-result').style.display = 'block';
+            document.getElementById('api-result-content').textContent = 'Yükleniyor...';
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('api-result-content').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('api-result-content').textContent = 'Hata: ' + error.message;
+                });
+        }
+        
+        function closeAPITest() {
+            document.getElementById('api-test-result').style.display = 'none';
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show toast or feedback
+                console.log('Kopyalandı:', text);
+            });
+        }
+        
+        // Theme toggle
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const lightTheme = document.getElementById('theme-light');
+            const darkTheme = document.getElementById('theme-dark');
+            const icon = document.querySelector('#theme-toggle .material-symbols-outlined');
+            
+            if (lightTheme.disabled) {
+                lightTheme.disabled = false;
+                darkTheme.disabled = true;
+                icon.textContent = 'dark_mode';
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                lightTheme.disabled = true;
+                darkTheme.disabled = false;
+                icon.textContent = 'light_mode';
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>

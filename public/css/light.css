@@ -1,22 +1,22 @@
-/* Material Design 3 Light Theme - Expressive */
+/* Material Design 3 Light Theme - Expressive with #ff1f26 */
 :root {
-  /* Primary Colors - Expressive Blue */
-  --md-sys-color-primary: #1565C0;
+  /* Primary Colors - TURSAKUR Red #ff1f26 */
+  --md-sys-color-primary: #ff1f26;
   --md-sys-color-on-primary: #FFFFFF;
-  --md-sys-color-primary-container: #BBDEFB;
-  --md-sys-color-on-primary-container: #0D47A1;
+  --md-sys-color-primary-container: #ffebec;
+  --md-sys-color-on-primary-container: #8b0000;
 
-  /* Secondary Colors - Teal */
+  /* Secondary Colors - Medical Teal */
   --md-sys-color-secondary: #00695C;
   --md-sys-color-on-secondary: #FFFFFF;
   --md-sys-color-secondary-container: #B2DFDB;
   --md-sys-color-on-secondary-container: #004D40;
 
-  /* Tertiary Colors - Orange */
-  --md-sys-color-tertiary: #E65100;
+  /* Tertiary Colors - Healthcare Blue */
+  --md-sys-color-tertiary: #1976D2;
   --md-sys-color-on-tertiary: #FFFFFF;
-  --md-sys-color-tertiary-container: #FFE0B2;
-  --md-sys-color-on-tertiary-container: #BF360C;
+  --md-sys-color-tertiary-container: #BBDEFB;
+  --md-sys-color-on-tertiary-container: #0D47A1;
 
   /* Error Colors */
   --md-sys-color-error: #D32F2F;
@@ -46,7 +46,7 @@
   /* Inverse Colors */
   --md-sys-color-inverse-surface: #212121;
   --md-sys-color-inverse-on-surface: #F5F5F5;
-  --md-sys-color-inverse-primary: #64B5F6;
+  --md-sys-color-inverse-primary: #ff6b6b;
 
   /* Shadow and Elevation */
   --md-sys-elevation-level0: none;
