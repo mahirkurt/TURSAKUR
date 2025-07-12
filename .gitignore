@@ -1,0 +1,44 @@
+# Firebase dosyaları
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# Build dosyaları
+dist/
+build/
+
+# Node modules
+node_modules/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Log dosyaları
+*.log
+
+# Geçici dosyalar
+*.tmp
+*.temp
+temp_*
+debug_*
+
+# Excel dosyaları (geçici)
+*.xls
+*.xlsx
+
+# Test dosyaları
+test.html
+test_*.py
+
+# IDE dosyaları
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS dosyaları
+.DS_Store
+Thumbs.db

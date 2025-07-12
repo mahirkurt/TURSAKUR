@@ -4,15 +4,17 @@ Bu proje, Türkiye'deki sağlık kuruluşlarının kapsamlı ve güncel bir veri
 
 ## 🌐 Canlı Uygulama
 
-**Web Arayüzü:** [https://USERNAME.github.io/REPOSITORY](https://USERNAME.github.io/REPOSITORY)
+**Web Arayüzü:** [https://turkiye-sakur.web.app](https://turkiye-sakur.web.app)
 
-Material Design 3 expressive teması ile tasarlanmış modern web arayüzü:
+Firebase Hosting ile sunulan modern web arayüzü:
 - 🔍 Gelişmiş arama ve filtreleme
 - 📱 Mobil uyumlu responsive tasarım
 - 🌙 6 farklı tema seçeneği (açık/koyu + erişilebilirlik)
 - 📍 Harita entegrasyonu
 - 📞 Direkt arama ve yönlendirme linkleri
 - ⚡ Offline çalışma desteği (Service Worker)
+- 🚀 Firebase CDN ile hızlı yükleme
+- 🔒 Otomatik HTTPS
 
 ## 📊 Veri İstatistikleri
 

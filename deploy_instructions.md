@@ -1,45 +1,74 @@
-# GitHub Pages Deploy Talimatları
+# Firebase Deployment Talimatları
 
-Bu dosya https://mahirkurt.github.io/Turkiye-Saglik-Kurumlari/ sayfasına deploy etmek için gerekli adımları içerir.
+Bu dosya Firebase Hosting üzerinde deploy etmek için gerekli adımları içerir.
 
-## 1. GitHub Repository Oluşturma
+## 1. Ön Gereksinimler
 
-1. https://github.com/new adresine gidin
-2. Repository name: `Turkiye-Saglik-Kurumlari`
-3. Description: "Türkiye Sağlık Kurumları - Açık Kaynak Veritabanı ve İnteraktif Web Uygulaması"
-4. Public seçeneğini işaretleyin
-5. "Create repository" butonuna tıklayın
-
-## 2. Local Repository'yi GitHub ile Bağlama
-
-Aşağıdaki komutları PowerShell'de çalıştırın:
-
-```powershell
-# GitHub repository'sini remote olarak ekleyin
-git remote add origin https://github.com/mahirkurt/Turkiye-Saglik-Kurumlari.git
-
-# Kodu GitHub'a push edin
-git push -u origin main
+### Node.js yükleyin
+```bash
+# https://nodejs.org/ adresinden indirin
 ```
 
-## 3. GitHub Pages Ayarları
+### Firebase CLI yükleyin
+```bash
+npm install -g firebase-tools
+```
 
-1. GitHub repository sayfasında "Settings" sekmesine gidin
-2. Sol menüden "Pages" seçeneğini bulun
-3. Source olarak "GitHub Actions" seçin
-4. Workflow otomatik olarak çalışacak ve sayfanız deploy edilecek
+### Firebase'e giriş yapın
+```bash
+firebase login
+```
 
-## 4. Deploy Durumunu Kontrol Etme
+## 2. Manuel Deployment
 
-1. Repository'nin "Actions" sekmesine gidin
-2. "Deploy to GitHub Pages" workflow'unu kontrol edin
-3. Yeşil ✅ işareti deploy'un başarılı olduğunu gösterir
-4. Site URL'si: https://mahirkurt.github.io/Turkiye-Saglik-Kurumlari/
+### Veriyi güncelleyin
+```bash
+python scripts/process_data.py
+```
+
+### Public klasörünü hazırlayın
+```powershell
+# Windows PowerShell
+Copy-Item index.html public/
+Copy-Item -Recurse js public/
+Copy-Item -Recurse css public/
+Copy-Item -Recurse styles public/
+Copy-Item -Recurse data public/
+Copy-Item sw.js public/
+```
+
+### Firebase'e deploy edin
+```bash
+firebase deploy
+```
+
+## 3. GitHub Actions ile Otomatik Deployment
+
+### GitHub Secrets Ekleme
+
+1. Firebase CI token oluşturun:
+   ```bash
+   firebase login:ci
+   ```
+
+2. GitHub repository > Settings > Secrets and variables > Actions:
+   - `FIREBASE_TOKEN`: Yukarıdaki komuttan aldığınız token
+
+### Tetikleme Yöntemleri
+
+- **Otomatik**: `main` branch'e push yapıldığında
+- **Manuel**: GitHub Actions sekmesinden "Run workflow"
+- **Zamanlanmış**: Her gün saat 02:00'da veri güncellemesi
+
+## 4. Firebase Proje URL'leri
+
+- **Hosting URL**: https://turkiye-sakur.web.app
+- **Firebase Console**: https://console.firebase.google.com/project/turkiye-sakur
 
 ## 5. Özellikler
 
 ### Web Uygulaması Özellikleri:
-- ✅ 1,674 sağlık kurumu veritabanı
+- ✅ 1,674+ sağlık kurumu veritabanı
 - ✅ Material Design 3 tema sistemi (6 farklı tema)
 - ✅ Gelişmiş arama ve filtreleme
 - ✅ İnteraktif kurum detay sayfaları
@@ -47,6 +76,9 @@ git push -u origin main
 - ✅ Offline çalışma desteği (Service Worker)
 - ✅ Karanlık/Aydınlık tema geçişi
 - ✅ Erişilebilirlik desteği
+- ✅ Firebase Hosting ile hızlı CDN
+- ✅ Otomatik HTTPS
+- ✅ Global deployment
 
 ### Otomatik Güncellemeler:
 - ✅ Günlük veri güncelleme kontrolü
