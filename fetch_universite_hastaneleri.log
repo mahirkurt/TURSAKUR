@@ -1,0 +1,28 @@
+2025-07-11 12:18:26,268 - INFO - Üniversite hastaneleri veri çekme başlıyor...
+2025-07-11 12:18:41,280 - ERROR - Ana sayfa çekme hatası: HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /universite-hastaneleri-listesi.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001B7DF2606E0>, 'Connection to www.trhastane.com timed out. (connect timeout=15)'))
+2025-07-11 12:18:41,280 - WARNING - Web'den veri çekilemedi, bilinen liste kullanılıyor
+2025-07-11 12:18:41,282 - INFO - ✅ İşlem tamamlandı!
+2025-07-11 12:18:41,282 - INFO - 📊 Toplam üniversite hastanesi: 8
+2025-07-11 12:18:41,282 - INFO - 💾 JSON dosyası: C:\Users\mahir\OneDrive\Documents\Türkiye Sağlık Kurumları\scripts\..\data\raw\universite_hastaneleri.json
+2025-07-11 12:18:41,282 - INFO - 🏙️ İl bazlı dağılım:
+2025-07-11 12:18:41,282 - INFO -   - Adana: 1
+2025-07-11 12:18:41,282 - INFO -   - Ankara: 2
+2025-07-11 12:18:41,282 - INFO -   - Bursa: 1
+2025-07-11 12:18:41,283 - INFO -   - Kayseri: 1
+2025-07-11 12:18:41,283 - INFO -   - Konya: 1
+2025-07-11 12:18:41,283 - INFO -   - İstanbul: 1
+2025-07-11 12:18:41,283 - INFO -   - İzmir: 1
+2025-07-11 12:30:41,884 - INFO - Üniversite hastaneleri veri çekme başlıyor...
+2025-07-11 12:30:56,967 - ERROR - Ana sayfa çekme hatası: HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /universite-hastaneleri-listesi.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x00000170446C46E0>, 'Connection to www.trhastane.com timed out. (connect timeout=15)'))
+2025-07-11 12:30:56,968 - WARNING - Web'den veri çekilemedi, bilinen liste kullanılıyor
+2025-07-11 12:30:57,005 - INFO - ✅ İşlem tamamlandı!
+2025-07-11 12:30:57,005 - INFO - 📊 Toplam üniversite hastanesi: 8
+2025-07-11 12:30:57,006 - INFO - 💾 JSON dosyası: C:\Users\mahir\OneDrive\Documents\Türkiye Sağlık Kurumları\scripts\..\data\raw\universite_hastaneleri.json
+2025-07-11 12:30:57,006 - INFO - 🏙️ İl bazlı dağılım:
+2025-07-11 12:30:57,006 - INFO -   - Adana: 1
+2025-07-11 12:30:57,007 - INFO -   - Ankara: 2
+2025-07-11 12:30:57,007 - INFO -   - Bursa: 1
+2025-07-11 12:30:57,007 - INFO -   - Kayseri: 1
+2025-07-11 12:30:57,007 - INFO -   - Konya: 1
+2025-07-11 12:30:57,007 - INFO -   - İstanbul: 1
+2025-07-11 12:30:57,008 - INFO -   - İzmir: 1

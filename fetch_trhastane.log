@@ -1,0 +1,57 @@
+2025-07-11 12:07:11,642 - INFO - TR Hastane veri çekme işlemi başlıyor...
+2025-07-11 12:07:11,643 - INFO - İşlem 1/648: Adana - universite-hastaneleri
+2025-07-11 12:07:13,349 - INFO - Adana - universite-hastaneleri: 8 kurum bulundu
+2025-07-11 12:07:26,950 - INFO - ✓ 8 kurum eklendi
+2025-07-11 12:07:27,950 - INFO - İşlem 2/648: Adana - tip-merkezleri
+2025-07-11 12:07:29,090 - INFO - Adana - tip-merkezleri: 24 kurum bulundu
+2025-07-11 12:08:09,683 - INFO - ✓ 24 kurum eklendi
+2025-07-11 12:08:10,684 - INFO - İşlem 3/648: Adana - diyaliz-merkezleri
+2025-07-11 12:08:11,836 - INFO - Adana - diyaliz-merkezleri: 14 kurum bulundu
+2025-07-11 12:08:35,169 - INFO - ✓ 14 kurum eklendi
+2025-07-11 12:08:36,170 - INFO - İşlem 4/648: Adana - fizik-tedavi-ve-rehabilitasyon-merkezleri
+2025-07-11 12:08:37,557 - INFO - Adana - fizik-tedavi-ve-rehabilitasyon-merkezleri: 14 kurum bulundu
+2025-07-11 12:09:01,236 - INFO - ✓ 14 kurum eklendi
+2025-07-11 12:09:02,238 - INFO - İşlem 5/648: Adana - goz-hastaliklari-merkezleri
+2025-07-11 12:09:03,399 - INFO - Adana - goz-hastaliklari-merkezleri: 10 kurum bulundu
+2025-07-11 12:09:20,224 - INFO - ✓ 10 kurum eklendi
+2025-07-11 12:09:21,224 - INFO - İşlem 6/648: Adana - onkoloji-merkezleri
+2025-07-11 12:09:22,608 - INFO - Adana - onkoloji-merkezleri: 14 kurum bulundu
+2025-07-11 12:09:46,299 - INFO - ✓ 14 kurum eklendi
+2025-07-11 12:09:47,300 - INFO - İşlem 7/648: Adana - tup-bebek-merkezleri
+2025-07-11 12:09:48,600 - INFO - Adana - tup-bebek-merkezleri: 14 kurum bulundu
+2025-07-11 12:10:08,061 - WARNING - Deneme 1/3 başarısız: https://www.trhastane.com/adana-dr-ekrem-tok-ruh-sagligi-ve-hastaliklari-hastanesi-80.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Read timed out. (read timeout=10)
+2025-07-11 12:10:20,104 - WARNING - Deneme 2/3 başarısız: https://www.trhastane.com/adana-dr-ekrem-tok-ruh-sagligi-ve-hastaliklari-hastanesi-80.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /adana-dr-ekrem-tok-ruh-sagligi-ve-hastaliklari-hastanesi-80.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000012970760410>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:10:33,121 - WARNING - Deneme 3/3 başarısız: https://www.trhastane.com/adana-dr-ekrem-tok-ruh-sagligi-ve-hastaliklari-hastanesi-80.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /adana-dr-ekrem-tok-ruh-sagligi-ve-hastaliklari-hastanesi-80.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x00000129707611D0>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:10:33,121 - ERROR - Sayfa çekilemedi: https://www.trhastane.com/adana-dr-ekrem-tok-ruh-sagligi-ve-hastaliklari-hastanesi-80.html
+2025-07-11 12:10:44,135 - WARNING - Deneme 1/3 başarısız: https://www.trhastane.com/ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x00000129707616D0>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:10:56,140 - WARNING - Deneme 2/3 başarısız: https://www.trhastane.com/ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000012970761950>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:11:09,149 - WARNING - Deneme 3/3 başarısız: https://www.trhastane.com/ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000012970761BD0>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:11:09,150 - ERROR - Sayfa çekilemedi: https://www.trhastane.com/ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html
+2025-07-11 12:11:20,163 - WARNING - Deneme 1/3 başarısız: https://www.trhastane.com/ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000012970761E50>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:11:32,215 - WARNING - Deneme 2/3 başarısız: https://www.trhastane.com/ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x00000129707620D0>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:11:45,225 - WARNING - Deneme 3/3 başarısız: https://www.trhastane.com/ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000012970761E50>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:11:45,225 - ERROR - Sayfa çekilemedi: https://www.trhastane.com/ozel-adana-hiperbarik-oksijen-tedavi-merkezi-265.html
+2025-07-11 12:11:56,232 - WARNING - Deneme 1/3 başarısız: https://www.trhastane.com/ozel-fmc-adana-seyhan-diyaliz-merkezi-277.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /ozel-fmc-adana-seyhan-diyaliz-merkezi-277.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000012970761BD0>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:12:08,248 - WARNING - Deneme 2/3 başarısız: https://www.trhastane.com/ozel-fmc-adana-seyhan-diyaliz-merkezi-277.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /ozel-fmc-adana-seyhan-diyaliz-merkezi-277.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000012970761950>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:15:08,432 - INFO - TR Hastane hızlı veri çekme işlemi başlıyor...
+2025-07-11 12:15:08,432 - INFO - 🎯 Hedef: Üniversite hastaneleri ve tıp merkezleri (öncelikli şehirler)
+2025-07-11 12:15:08,433 - INFO - Hızlı veri çekme: 10 öncelikli şehir, 2 kategori
+2025-07-11 12:15:08,433 - INFO - İşlem 1/20: Istanbul - universite-hastaneleri
+2025-07-11 12:15:18,959 - WARNING - Deneme 1/1 başarısız: https://www.trhastane.com/istanbul-universite-hastaneleri-listesi.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /istanbul-universite-hastaneleri-listesi.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001B68E8286E0>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:15:18,959 - ERROR - Sayfa çekilemedi: https://www.trhastane.com/istanbul-universite-hastaneleri-listesi.html
+2025-07-11 12:15:19,460 - INFO - İşlem 2/20: Istanbul - tip-merkezleri
+2025-07-11 12:15:29,970 - WARNING - Deneme 1/1 başarısız: https://www.trhastane.com/istanbul-tip-merkezleri-listesi.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /istanbul-tip-merkezleri-listesi.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001B68E7B2FD0>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:15:29,971 - ERROR - Sayfa çekilemedi: https://www.trhastane.com/istanbul-tip-merkezleri-listesi.html
+2025-07-11 12:15:30,473 - INFO - İşlem 3/20: Ankara - universite-hastaneleri
+2025-07-11 12:15:40,990 - WARNING - Deneme 1/1 başarısız: https://www.trhastane.com/ankara-universite-hastaneleri-listesi.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /ankara-universite-hastaneleri-listesi.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001B68E7B34D0>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:15:40,991 - ERROR - Sayfa çekilemedi: https://www.trhastane.com/ankara-universite-hastaneleri-listesi.html
+2025-07-11 12:15:41,491 - INFO - İşlem 4/20: Ankara - tip-merkezleri
+2025-07-11 12:15:51,996 - WARNING - Deneme 1/1 başarısız: https://www.trhastane.com/ankara-tip-merkezleri-listesi.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /ankara-tip-merkezleri-listesi.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001B68E7B3750>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:15:51,997 - ERROR - Sayfa çekilemedi: https://www.trhastane.com/ankara-tip-merkezleri-listesi.html
+2025-07-11 12:15:52,498 - INFO - İşlem 5/20: Izmir - universite-hastaneleri
+2025-07-11 12:16:03,009 - WARNING - Deneme 1/1 başarısız: https://www.trhastane.com/izmir-universite-hastaneleri-listesi.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /izmir-universite-hastaneleri-listesi.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001B68E7B39D0>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:16:03,010 - ERROR - Sayfa çekilemedi: https://www.trhastane.com/izmir-universite-hastaneleri-listesi.html
+2025-07-11 12:16:03,511 - INFO - İşlem 6/20: Izmir - tip-merkezleri
+2025-07-11 12:16:14,021 - WARNING - Deneme 1/1 başarısız: https://www.trhastane.com/izmir-tip-merkezleri-listesi.html - HTTPSConnectionPool(host='www.trhastane.com', port=443): Max retries exceeded with url: /izmir-tip-merkezleri-listesi.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001B68E7B3C50>, 'Connection to www.trhastane.com timed out. (connect timeout=10)'))
+2025-07-11 12:16:14,021 - ERROR - Sayfa çekilemedi: https://www.trhastane.com/izmir-tip-merkezleri-listesi.html
+2025-07-11 12:16:14,522 - INFO - İşlem 7/20: Bursa - universite-hastaneleri

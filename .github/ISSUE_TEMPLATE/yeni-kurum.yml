@@ -1,0 +1,200 @@
+name: Yeni Kurum Önerisi
+description: Veritabanına yeni bir sağlık kurumu eklemek için bu şablonu kullanın
+title: "[YENİ KURUM] "
+labels: ["veri-ekleme", "yeni-kurum"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        🏥 **Yeni Sağlık Kurumu Önerisi**
+        
+        Bu formu kullanarak veritabanımıza yeni bir sağlık kurumu eklenmesini önerebilirsiniz.
+        Lütfen tüm alanları mümkün olduğunca eksiksiz doldurun.
+
+  - type: input
+    id: kurum_adi
+    attributes:
+      label: Kurum Adı
+      description: Kurumun tam ve resmi adını yazın
+      placeholder: "Örn: İstanbul Üniversitesi-Cerrahpaşa Tıp Fakültesi Hastanesi"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kurum_tipi
+    attributes:
+      label: Kurum Tipi
+      description: Kurumun kategorisini seçin
+      options:
+        - Devlet Hastanesi
+        - Üniversite Hastanesi
+        - Eğitim ve Araştırma Hastanesi
+        - Özel Hastane
+        - Aile Sağlığı Merkezi
+        - Toplum Sağlığı Merkezi
+        - Ağız ve Diş Sağlığı Merkezi
+        - Özel Poliklinik
+        - Özel Tıp Merkezi
+        - Diyaliz Merkezi
+        - Fizik Tedavi ve Rehabilitasyon Merkezi
+        - Ambulans İstasyonu
+    validations:
+      required: true
+
+  - type: dropdown
+    id: il_adi
+    attributes:
+      label: İl
+      description: Kurumun bulunduğu ili seçin
+      options:
+        - Adana
+        - Adıyaman
+        - Afyonkarahisar
+        - Ağrı
+        - Amasya
+        - Ankara
+        - Antalya
+        - Artvin
+        - Aydın
+        - Balıkesir
+        - Bilecik
+        - Bingöl
+        - Bitlis
+        - Bolu
+        - Burdur
+        - Bursa
+        - Çanakkale
+        - Çankırı
+        - Çorum
+        - Denizli
+        - Diyarbakır
+        - Edirne
+        - Elazığ
+        - Erzincan
+        - Erzurum
+        - Eskişehir
+        - Gaziantep
+        - Giresun
+        - Gümüşhane
+        - Hakkâri
+        - Hatay
+        - Isparta
+        - Mersin
+        - İstanbul
+        - İzmir
+        - Kars
+        - Kastamonu
+        - Kayseri
+        - Kırklareli
+        - Kırşehir
+        - Kocaeli
+        - Konya
+        - Kütahya
+        - Malatya
+        - Manisa
+        - Kahramanmaraş
+        - Mardin
+        - Muğla
+        - Muş
+        - Nevşehir
+        - Niğde
+        - Ordu
+        - Rize
+        - Sakarya
+        - Samsun
+        - Siirt
+        - Sinop
+        - Sivas
+        - Tekirdağ
+        - Tokat
+        - Trabzon
+        - Tunceli
+        - Şanlıurfa
+        - Uşak
+        - Van
+        - Yozgat
+        - Zonguldak
+        - Aksaray
+        - Bayburt
+        - Karaman
+        - Kırıkkale
+        - Batman
+        - Şırnak
+        - Bartın
+        - Ardahan
+        - Iğdır
+        - Yalova
+        - Karabük
+        - Kilis
+        - Osmaniye
+        - Düzce
+    validations:
+      required: true
+
+  - type: input
+    id: ilce_adi
+    attributes:
+      label: İlçe
+      description: Kurumun bulunduğu ilçe
+      placeholder: "Örn: Fatih"
+    validations:
+      required: true
+
+  - type: textarea
+    id: adres
+    attributes:
+      label: Tam Adres
+      description: Kurumun tam adresini yazın
+      placeholder: "Örn: Kocamustafapaşa Cd. No: 53, 34098 Fatih/İstanbul"
+    validations:
+      required: true
+
+  - type: input
+    id: telefon
+    attributes:
+      label: Telefon
+      description: Ana telefon numarası (+90 ile başlayarak)
+      placeholder: "Örn: +902124143000"
+
+  - type: input
+    id: web_sitesi
+    attributes:
+      label: Web Sitesi
+      description: Resmi web sitesi adresi
+      placeholder: "Örn: https://cerrahpasa.iuc.edu.tr/"
+
+  - type: input
+    id: koordinat_lat
+    attributes:
+      label: Enlem (Latitude)
+      description: Koordinat bilgisi (opsiyonel)
+      placeholder: "Örn: 41.003923"
+
+  - type: input
+    id: koordinat_lon
+    attributes:
+      label: Boylam (Longitude)  
+      description: Koordinat bilgisi (opsiyonel)
+      placeholder: "Örn: 28.939267"
+
+  - type: input
+    id: veri_kaynagi
+    attributes:
+      label: Veri Kaynağı
+      description: Bu bilgileri hangi kaynaktan aldınız?
+      placeholder: "Örn: Sağlık Bakanlığı resmi sitesi, Kurum web sitesi"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: dogrulama
+    attributes:
+      label: Doğrulama
+      description: Lütfen aşağıdaki onay kutularını işaretleyin
+      options:
+        - label: Bu bilgilerin doğru olduğunu onaylıyorum
+          required: true
+        - label: Veri kaynağının güvenilir olduğunu onaylıyorum
+          required: true
+        - label: Bu kurumun veritabanında daha önce eklenmediğini kontrol ettim
+          required: true

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Türkiye Sağlık Kurumları - Açık Veritabanı</title>
+    
+    <!-- Material Design 3 CSS - Düzeltilmiş yollar -->
+    <link rel="stylesheet" href="css/light.css" id="theme-light">
+    <link rel="stylesheet" href="css/dark.css" id="theme-dark" disabled>
+    
+    <!-- Material Design 3 CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Flex:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- Top App Bar -->
+    <header class="top-app-bar">
+        <div class="top-app-bar-content">
+            <span class="material-symbols-outlined leading-icon">local_hospital</span>
+            <h1 class="headline-small">Türkiye Sağlık Kurumları</h1>
+            <div class="top-app-bar-actions">
+                <button class="icon-button" id="theme-toggle" title="Tema Değiştir">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </button>
+                <button class="icon-button" id="info-button" title="Hakkında">
+                    <span class="material-symbols-outlined">info</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="display-small">Açık Sağlık Verisi</h2>
+                    <p class="body-large">Türkiye'deki tüm sağlık kurumlarını keşfedin. Hastaneler, poliklinikler ve sağlık merkezlerinin güncel bilgilerine ulaşın.</p>
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <span class="stat-number" id="total-institutions">0</span>
+                            <span class="stat-label">Toplam Kurum</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="total-provinces">0</span>
+                            <span class="stat-label">İl</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="total-types">0</span>
+                            <span class="stat-label">Kurum Tipi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search and Filter Section -->
+        <section class="search-section">
+            <div class="container">
+                <div class="search-container">
+                    <!-- Search Bar -->
+                    <div class="search-bar">
+                        <span class="material-symbols-outlined leading-icon">search</span>
+                        <input type="text" id="search-input" placeholder="Kurum adı, il veya ilçe ile arayın..." class="search-input">
+                        <button class="icon-button trailing-icon" id="clear-search" style="display: none;">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+
+                    <!-- Filter Chips -->
+                    <div class="filter-section">
+                        <div class="filter-group">
+                            <span class="filter-label">Kurum Tipi:</span>
+                            <div class="chip-group" id="type-filters">
+                                <!-- Dynamic filter chips will be added here -->
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <span class="filter-label">İl:</span>
+                            <div class="chip-group" id="province-filters">
+                                <!-- Dynamic filter chips will be added here -->
+                            </div>
+                        </div>
+
+                        <button class="filter-clear-btn" id="clear-filters" style="display: none;">
+                            <span class="material-symbols-outlined">filter_list_off</span>
+                            Filtreleri Temizle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section">
+            <div class="container">
+                <div class="results-header">
+                    <div class="results-info">
+                        <span class="results-count" id="results-count">Yükleniyor...</span>
+                        <span class="results-sort">
+                            <select id="sort-select" class="sort-select">
+                                <option value="name">İsme göre</option>
+                                <option value="type">Tipe göre</option>
+                                <option value="province">İle göre</option>
+                            </select>
+                        </span>
+                    </div>
+                    
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="card" title="Kart Görünümü">
+                            <span class="material-symbols-outlined">grid_view</span>
+                        </button>
+                        <button class="view-btn" data-view="list" title="Liste Görünümü">
+                            <span class="material-symbols-outlined">view_list</span>
+                        </button>
+                        <button class="view-btn" data-view="map" title="Harita Görünümü">
+                            <span class="material-symbols-outlined">map</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loading Spinner -->
+                <div class="loading-spinner" id="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Veriler yükleniyor...</p>
+                </div>
+
+                <!-- Results Grid/List -->
+                <div class="results-container" id="results-container">
+                    <!-- Dynamic content will be added here -->
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="pagination" style="display: none;">
+                    <!-- Dynamic pagination will be added here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Institution Detail Modal -->
+    <div class="modal-overlay" id="detail-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Kurum Detayları</h3>
+                <button class="icon-button" id="close-modal">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Dynamic content will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div class="modal-overlay" id="about-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Hakkında</h3>
+                <button class="icon-button" id="close-about">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="about-content">
+                    <h4>Türkiye Sağlık Kurumları Açık Veritabanı</h4>
+                    <p>Bu proje, Türkiye'deki tüm sağlık kurumlarının açık kaynak veritabanını oluşturmayı amaçlamaktadır.</p>
+                    
+                    <h5>Özellikler:</h5>
+                    <ul>
+                        <li>1,600+ sağlık kurumu</li>
+                        <li>Gerçek zamanlı arama ve filtreleme</li>
+                        <li>Detaylı kurum bilgileri</li>
+                        <li>Modern material design arayüz</li>
+                        <li>Mobil uyumlu tasarım</li>
+                    </ul>
+
+                    <h5>Veri Kaynakları:</h5>
+                    <ul>
+                        <li>T.C. Sağlık Bakanlığı</li>
+                        <li>Özel Hastaneler Genel Müdürlüğü</li>
+                        <li>Üniversite Hastaneleri</li>
+                    </ul>
+
+                    <div class="about-links">
+                        <a href="https://github.com/mahirkurt/Turkiye-Saglik-Kurumlari" target="_blank" class="link-button">
+                            <span class="material-symbols-outlined">code</span>
+                            GitHub Repository
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Scripts - Düzeltilmiş yollar -->
+    <script src="js/data-loader.js"></script>
+    <script src="js/search-filter.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
