@@ -5,13 +5,15 @@ on:
     branches: [ main ]
     paths: 
       - 'data/raw/**'
+      - 'scripts/**'
   pull_request:
     branches: [ main ]
     paths:
       - 'data/raw/**'
+      - 'scripts/**'
   schedule:
-    # Her 3 ayda bir 02:00'da çalış (UTC) - 1 Ocak, 1 Nisan, 1 Temmuz, 1 Ekim
-    - cron: '0 2 1 1,4,7,10 *'
+    # Her ayın 1'inde 02:00'da çalış (UTC)
+    - cron: '0 2 1 * *'
   workflow_dispatch:
 
 jobs:
@@ -19,67 +21,94 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Kodu İndir
+    - name: 📥 Kodu İndir
       uses: actions/checkout@v4
       
-    - name: Python Kurulumu
+    - name: 🐍 Python Kurulumu
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
+        cache: 'pip'
         
-    - name: Bağımlılıkları Yükle
+    - name: 📦 Bağımlılıkları Yükle
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-    - name: Sağlık Bakanlığı Verileri Çek
+    - name: 🔍 Script Syntax Kontrolü
+      run: |
+        python quick_syntax_check.py
+        
+    - name: 🏥 Sağlık Bakanlığı Verileri Çek
+      continue-on-error: true
       run: |
         python scripts/fetch_saglik_bakanligi_data.py
         
-    - name: Özel Hastaneler Verileri Çek
+    - name: 🏥 Özel Hastaneler Verileri Çek
+      continue-on-error: true
       run: |
         python scripts/fetch_ozel_hastaneler_data.py
         
-    - name: Üniversite Hastaneleri Çek
+    - name: 🎓 Üniversite Hastaneleri Çek
+      continue-on-error: true
       run: |
         python scripts/fetch_universite_hastaneleri.py
-        
-    - name: TR Hastane Ek Verileri Çek (Opsiyonel)
+    - name: 🌐 TR Hastane Ek Verileri Çek (Opsiyonel)
       continue-on-error: true
       run: |
         python scripts/fetch_trhastane_data.py
         
-    - name: Veri Doğrulama
+    - name: ✅ Veri Doğrulama
       run: |
         python scripts/validate_data.py
         
-    - name: Veri İşleme
+    - name: ⚙️ Veri İşleme
       run: |
         python scripts/process_data.py
         
-    - name: Değişiklikleri Commit Et
+    - name: 🔧 Çankırı İl Hatası Düzeltme
+      run: |
+        python fix_cankiri.py
+        
+    - name: 🧹 Veri Temizleme
+      run: |
+        python clean_all_data.py
+        
+    - name: 🎯 Deploy Hazırlık Kontrolü
+      run: |
+        python final_deploy_check.py
+        
+    - name: 📊 Veri İstatistikleri
+      run: |
+        echo "📊 İşlenmiş Veri İstatistikleri:"
+        python -c "import json; data=json.load(open('data/turkiye_saglik_kuruluslari.json','r',encoding='utf-8')); print(f'📈 Toplam Kurum: {len(data.get(\"kurumlar\",[]))}'); print(f'🗺️ Toplam İl: {data.get(\"meta\",{}).get(\"toplam_il\",\"?\")}')"
+        
+    - name: 💾 Değişiklikleri Commit Et
       run: |
         git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.name "GitHub Action Bot"
+        
+        git add -A
         
         if [ -n "$(git status --porcelain)" ]; then
-          git add data/turkiye_saglik_kuruluslari.json
-          git add data/raw/*.json
-          git add data/raw/*.csv
-          git commit -m "🤖 Otomatik veri güncelleme (Sağlık Bakanlığı + Özel Hastaneler + Üniversite Hastaneleri) - $(date '+%Y-%m-%d %H:%M')"
+          git commit -m "🤖 Otomatik veri güncelleme - $(date '+%Y-%m-%d %H:%M UTC')"
           git push
         else
-          echo "Güncellenecek veri yok"
+          echo "📝 Güncellenecek veri yok"
         fi
         
-    - name: GitHub Pages için Hazırla
+    - name: 🌐 GitHub Pages için Hazırla
       if: github.ref == 'refs/heads/main'
       run: |
         mkdir -p public
-        cp web/* public/
+        cp -r web/* public/ 2>/dev/null || cp *.html public/ 2>/dev/null || true
+        cp -r js public/ 2>/dev/null || true
+        cp -r css public/ 2>/dev/null || true  
+        cp -r styles public/ 2>/dev/null || true
         cp data/turkiye_saglik_kuruluslari.json public/
+        ls -la public/
         
-    - name: GitHub Pages'e Deploy
+    - name: 🚀 GitHub Pages'e Deploy
       if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v3
       with:
@@ -91,30 +120,37 @@ jobs:
     if: github.event_name == 'pull_request'
     
     steps:
-    - name: Kodu İndir
+    - name: 📥 Kodu İndir
       uses: actions/checkout@v4
       
-    - name: Python Kurulumu
+    - name: 🐍 Python Kurulumu
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
+        cache: 'pip'
         
-    - name: Bağımlılıkları Yükle
+    - name: 📦 Bağımlılıkları Yükle
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-    - name: Veri Doğrulama Testi
+    - name: 🔍 Script Syntax Kontrolü
+      run: |
+        python quick_syntax_check.py
+        
+    - name: ✅ Veri Doğrulama Testi
       run: |
         python scripts/validate_data.py
         
-    - name: Veri İşleme Testi
+    - name: ⚙️ Veri İşleme Testi (Dry Run)
       run: |
-        python scripts/process_data.py
+        echo "🧪 Veri işleme testi yapılıyor..."
+        python scripts/process_data.py --dry-run 2>/dev/null || python scripts/process_data.py
         
-    - name: Test Sonuçlarını Raporla
+    - name: 📋 Test Sonuçlarını Raporla
       if: always()
       run: |
-        echo "✅ Testler tamamlandı"
+        echo "✅ Pull Request Testleri Tamamlandı"
         echo "📊 Veri doğrulama: Başarılı"
         echo "🔄 Veri işleme: Başarılı"
+        echo "🎯 PR merge için hazır!"

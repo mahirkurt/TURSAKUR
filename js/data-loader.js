@@ -91,7 +91,22 @@ class DataLoader {
 
         if (totalProvinces) {
             const uniqueProvinces = new Set(this.data.kurumlar.map(k => k.il_adi));
-            totalProvinces.textContent = uniqueProvinces.size;
+            const count = uniqueProvinces.size;
+            totalProvinces.textContent = count;
+            
+            // 81 il kontrolü - görsel feedback
+            const provincesContainer = totalProvinces.closest('.stat-card');
+            if (provincesContainer) {
+                if (count === 81) {
+                    provincesContainer.style.background = 'linear-gradient(135deg, #4CAF50, #66BB6A)';
+                    provincesContainer.style.color = 'white';
+                    provincesContainer.title = 'Türkiye\'nin tüm 81 ili kapsanıyor! 🎉';
+                } else {
+                    provincesContainer.style.background = '';
+                    provincesContainer.style.color = '';
+                    provincesContainer.title = `${count} il kapsanıyor (81 hedef)`;
+                }
+            }
         }
 
         if (totalTypes) {

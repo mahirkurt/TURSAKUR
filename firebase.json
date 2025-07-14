@@ -1,16 +1,20 @@
 {
   "hosting": {
-    "public": "public",
+    "public": ".",
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "**/__pycache__/**",
+      "scripts/**",
+      "requirements.txt",
+      "*.py",
+      "*.log",
+      "*.md",
+      "*.yml",
+      "data/raw/**"
     ],
     "rewrites": [
-      {
-        "source": "/api/v1/**",
-        "destination": "/index.html"
-      },
       {
         "source": "**",
         "destination": "/index.html"
@@ -22,16 +26,7 @@
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "max-age=31536000"
-          }
-        ]
-      },
-      {
-        "source": "data/**/*.json",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "max-age=300"
+            "value": "max-age=86400"
           }
         ]
       }

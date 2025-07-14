@@ -71,14 +71,31 @@ class SearchFilter {
         const typeFiltersContainer = document.getElementById('type-filters');
         if (!typeFiltersContainer) return;
 
-        // Benzersiz kurum tiplerini al
-        const types = [...new Set(dataLoader.data.kurumlar.map(k => k.kurum_tipi))]
-            .filter(type => type && type.trim())
-            .sort((a, b) => a.localeCompare(b, 'tr'));
+        // Benzersiz kurum tiplerini al ve renk bilgileriyle birleştir
+        const typeData = {};
+        dataLoader.data.kurumlar.forEach(k => {
+            if (k.kurum_tipi && k.kurum_tipi.trim()) {
+                if (!typeData[k.kurum_tipi]) {
+                    typeData[k.kurum_tipi] = {
+                        count: 0,
+                        color: k.kurum_tipi_renk || '#757575',
+                        textColor: k.kurum_tipi_text_renk || '#FFFFFF'
+                    };
+                }
+                typeData[k.kurum_tipi].count++;
+            }
+        });
 
-        typeFiltersContainer.innerHTML = types.map(type => `
-            <button class="filter-chip" data-filter="type" data-value="${type}">
+        const types = Object.entries(typeData)
+            .sort((a, b) => b[1].count - a[1].count); // Sayıya göre sırala
+
+        typeFiltersContainer.innerHTML = types.map(([type, data]) => `
+            <button class="filter-chip" 
+                    data-filter="type" 
+                    data-value="${type}"
+                    style="--chip-color: ${data.color}; --chip-text-color: ${data.textColor};">
                 ${type}
+                <span class="chip-count">${data.count}</span>
             </button>
         `).join('');
 
@@ -97,7 +114,7 @@ class SearchFilter {
         const provinceFiltersContainer = document.getElementById('province-filters');
         if (!provinceFiltersContainer) return;
 
-        // En çok kurum olan 20 ili göster
+        // Tüm illeri sayılarıyla birlikte al
         const provinceCounts = {};
         dataLoader.data.kurumlar.forEach(k => {
             if (k.il_adi) {
@@ -105,14 +122,16 @@ class SearchFilter {
             }
         });
 
+        // En çok kurum olan 25 ili göster
         const topProvinces = Object.entries(provinceCounts)
             .sort((a, b) => b[1] - a[1])
-            .slice(0, 20)
-            .map(([province]) => province);
+            .slice(0, 25)
+            .map(([province, count]) => ({ province, count }));
 
-        provinceFiltersContainer.innerHTML = topProvinces.map(province => `
+        provinceFiltersContainer.innerHTML = topProvinces.map(({province, count}) => `
             <button class="filter-chip" data-filter="province" data-value="${province}">
                 ${province}
+                <span class="chip-count">${count}</span>
             </button>
         `).join('');
 

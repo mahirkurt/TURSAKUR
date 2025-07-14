@@ -1,32 +1,19 @@
 {
-  "name": "turkiye-saglik-kuruluslari",
+  "name": "tursakur",
   "version": "1.0.0",
-  "description": "Türkiye Sağlık Kurumları Rehberi - Firebase ile deploy edilmiş web uygulaması",
-  "main": "public/js/app.js",
+  "description": "Türkiye Sağlık Kuruluşları Veritabanı",
+  "main": "index.html",
   "scripts": {
-    "build": "python scripts/process_data.py && cp -r js css styles data sw.js index.html public/",
-    "serve": "firebase serve",
-    "deploy": "npm run build && firebase deploy",
-    "dev": "firebase serve --only hosting"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mahirkurt/TURSAKUR.git"
+    "build": "python scripts/process_data.py",
+    "dev": "python -m http.server 8000",
+    "deploy": "firebase deploy"
   },
   "keywords": [
     "türkiye",
     "sağlık",
     "hastane",
-    "rehber",
-    "firebase"
+    "database"
   ],
-  "author": "mahirkurt",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mahirkurt/TURSAKUR/issues"
-  },
-  "homepage": "https://turkiye-sakur.web.app",
-  "devDependencies": {
-    "firebase-tools": "^13.0.0"
-  }
+  "author": "TURSAKUR",
+  "license": "MIT"
 }

@@ -1,0 +1,67 @@
+{
+  "timestamp": "2025-07-14T03:12:29.053527",
+  "total_records": 1858,
+  "quality_scores": {
+    "completeness": {
+      "kurum_id": 100.0,
+      "kurum_adi": 100.0,
+      "kurum_tipi": 100.0,
+      "il_adi": 96.1248654467169,
+      "adres": 100.0,
+      "telefon": 0.1076426264800861,
+      "koordinat_lat": 7.427341227125941,
+      "koordinat_lon": 7.427341227125941,
+      "web_sitesi": 1.1302475780409043
+    },
+    "data_freshness": {
+      "last_updated": "2025-07-14T02:56:04.498288",
+      "age_days": 0,
+      "age_hours": 0,
+      "severity": "info"
+    }
+  },
+  "issues": [
+    {
+      "type": "consistency",
+      "severity": "warning",
+      "message": "Geçersiz kurum ID formatı: 88 kayıt",
+      "affected_records": 88
+    },
+    {
+      "type": "consistency",
+      "severity": "warning",
+      "message": "Türkiye dışı koordinatlar: 3 kayıt",
+      "affected_records": 3
+    }
+  ],
+  "recommendations": [
+    {
+      "category": "data_enrichment",
+      "priority": "medium",
+      "action": "Telefon bilgilerini manuel araştırma ile tamamlayın",
+      "impact": "Kullanıcı deneyimi iyileştirmesi"
+    },
+    {
+      "category": "data_enrichment",
+      "priority": "high",
+      "action": "Geocoding API kullanarak eksik koordinatları tamamlayın",
+      "impact": "Harita özelliği kullanılabilirliği"
+    },
+    {
+      "category": "data_enrichment",
+      "priority": "low",
+      "action": "Web sitesi bilgilerini Google araması ile tamamlayın",
+      "impact": "Kullanıcıların kurumları bulması"
+    }
+  ],
+  "overall_quality_score": {
+    "score": 98.1,
+    "grade": "A",
+    "component_scores": {
+      "completeness": 99.03121636167923,
+      "consistency": 95.10226049515609,
+      "duplicates": 100,
+      "freshness": 100
+    }
+  }
+}

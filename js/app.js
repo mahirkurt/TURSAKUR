@@ -1,316 +1,269 @@
-/**
- * App.js - Ana uygulama modülü
- * Tema yönetimi ve genel UI işlevleri
- */
-
-class App {
+// Türkiye Sağlık Kuruluşları - Ana Uygulama
+class HealthInstitutionsApp {
     constructor() {
-        this.currentTheme = 'light';
-        this.themes = ['light', 'dark', 'light-hc', 'dark-hc', 'light-mc', 'dark-mc'];
-        this.themeIndex = 0;
+        this.data = [];
+        this.filteredData = [];
+        this.filters = {
+            search: '',
+            type: '',
+            province: ''
+        };
+        this.init();
     }
 
-    /**
-     * Uygulamayı başlat
-     */
-    init() {
-        this.loadTheme();
-        this.bindEvents();
-        this.initServiceWorker();
+    async init() {
+        await this.loadData();
+        this.setupEventListeners();
+        this.createFilters();
+        this.renderResults();
+        this.hideLoading();
     }
 
-    /**
-     * Event listener'ları bağla
-     */
-    bindEvents() {
-        // Tema değiştirme butonu
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                this.toggleTheme();
-            });
+    async loadData() {
+        try {
+            const response = await fetch('data/turkiye_saglik_kuruluslari.json');
+            const result = await response.json();
+            this.data = result.kurumlar || [];
+            this.filteredData = [...this.data];
+            this.updateStats(result.metadata);
+        } catch (error) {
+            console.error('Veri yüklenirken hata:', error);
+            this.showError('Veriler yüklenemedi');
         }
+    }
 
-        // Hakkında butonu
-        const infoButton = document.getElementById('info-button');
-        if (infoButton) {
-            infoButton.addEventListener('click', () => {
-                this.showAboutModal();
-            });
-        }
+    updateStats(metadata) {
+        document.getElementById('total-institutions').textContent = metadata.total_kurumlar || this.data.length;
+        document.getElementById('total-types').textContent = this.getUniqueTypes().length;
+    }
 
-        // Modal kapatma
-        const closeModal = document.getElementById('close-modal');
-        if (closeModal) {
-            closeModal.addEventListener('click', () => {
-                this.closeModal('detail-modal');
-            });
-        }
-
-        const closeAbout = document.getElementById('close-about');
-        if (closeAbout) {
-            closeAbout.addEventListener('click', () => {
-                this.closeModal('about-modal');
-            });
-        }
-
-        // Modal overlay tıklama
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    this.closeModal(overlay.id);
-                }
-            });
+    setupEventListeners() {
+        // Arama
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            this.filters.search = e.target.value;
+            this.applyFilters();
         });
 
-        // Görünüm değiştirme butonları
-        document.querySelectorAll('.view-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                this.changeView(e.target.dataset.view);
-            });
+        // Sıralama
+        document.getElementById('sort-select').addEventListener('change', (e) => {
+            this.sortResults(e.target.value);
+        });
+
+        // Filtreleri temizle
+        document.getElementById('clear-filters').addEventListener('click', () => {
+            this.clearFilters();
+        });
+
+        // Tema değiştirici
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            this.toggleTheme();
         });
     }
 
-    /**
-     * Tema yükle
-     */
-    loadTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        this.currentTheme = savedTheme;
-        this.themeIndex = this.themes.indexOf(savedTheme);
-        this.applyTheme();
+    createFilters() {
+        this.createTypeFilters();
+        this.createProvinceFilters();
     }
 
-    /**
-     * Tema değiştir
-     */
-    toggleTheme() {
-        this.themeIndex = (this.themeIndex + 1) % this.themes.length;
-        this.currentTheme = this.themes[this.themeIndex];
-        this.applyTheme();
-        localStorage.setItem('theme', this.currentTheme);
-    }
-
-    /**
-     * Temayı uygula
-     */
-    applyTheme() {
-        // Tüm tema dosyalarını deaktive et
-        this.themes.forEach(theme => {
-            const link = document.getElementById(`theme-${theme}`);
-            if (link) {
-                link.disabled = true;
-            }
+    createTypeFilters() {
+        const types = this.getUniqueTypes();
+        const container = document.getElementById('type-filters');
+        
+        types.forEach(type => {
+            const count = this.data.filter(item => item.kurum_tipi === type).length;
+            const chip = this.createFilterChip(type, count, 'type');
+            container.appendChild(chip);
         });
-
-        // Aktif temayı etkinleştir
-        const activeTheme = document.getElementById(`theme-${this.currentTheme}`);
-        if (activeTheme) {
-            activeTheme.disabled = false;
-        }
-
-        // Tema butonunu güncelle
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-            const icon = themeToggle.querySelector('.material-symbols-outlined');
-            if (icon) {
-                icon.textContent = this.currentTheme.includes('dark') ? 'light_mode' : 'dark_mode';
-            }
-        }
-
-        // Body'ye tema class'ı ekle
-        document.body.className = `theme-${this.currentTheme}`;
     }
 
-    /**
-     * Hakkında modal'ını göster
-     */
-    showAboutModal() {
-        const modal = document.getElementById('about-modal');
-        if (modal) {
-            modal.style.display = 'flex';
-            document.body.classList.add('modal-open');
-        }
+    createProvinceFilters() {
+        const provinces = this.getUniqueProvinces();
+        const container = document.getElementById('province-filters');
+        
+        provinces.slice(0, 10).forEach(province => { // İlk 10 il
+            const count = this.data.filter(item => item.il_adi === province).length;
+            const chip = this.createFilterChip(province, count, 'province');
+            container.appendChild(chip);
+        });
     }
 
-    /**
-     * Modal kapat
-     */
-    closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = 'none';
-            document.body.classList.remove('modal-open');
-        }
-    }
-
-    /**
-     * Görünüm değiştir
-     */
-    changeView(view) {
-        // Aktif butonu güncelle
-        document.querySelectorAll('.view-btn').forEach(btn => {
-            btn.classList.remove('active');
+    createFilterChip(text, count, type) {
+        const chip = document.createElement('button');
+        chip.className = 'filter-chip';
+        chip.dataset.filter = type;
+        chip.dataset.value = text;
+        chip.innerHTML = `${text} <span class="chip-count">${count}</span>`;
+        
+        chip.addEventListener('click', () => {
+            this.toggleFilter(type, text, chip);
         });
         
-        const activeBtn = document.querySelector(`[data-view="${view}"]`);
-        if (activeBtn) {
-            activeBtn.classList.add('active');
-        }
-
-        // Görünüm logic'i burada implement edilecek
-        console.log(`Görünüm değiştirildi: ${view}`);
+        return chip;
     }
 
-    /**
-     * Service Worker'ı başlat
-     */
-    async initServiceWorker() {
-        if ('serviceWorker' in navigator) {
-            try {
-                await navigator.serviceWorker.register('/sw.js');
-                console.log('✅ Service Worker kayıt edildi');
-            } catch (error) {
-                console.log('❌ Service Worker kayıt hatası:', error);
-            }
+    toggleFilter(type, value, element) {
+        if (this.filters[type] === value) {
+            this.filters[type] = '';
+            element.classList.remove('active');
+        } else {
+            // Aynı tip filtreleri temizle
+            document.querySelectorAll(`[data-filter="${type}"]`).forEach(chip => {
+                chip.classList.remove('active');
+            });
+            
+            this.filters[type] = value;
+            element.classList.add('active');
         }
+        
+        this.applyFilters();
+        this.updateClearButton();
     }
 
-    /**
-     * Toast bildirimi göster
-     */
-    showToast(message, type = 'info') {
-        const toastContainer = document.getElementById('toast-container');
-        if (!toastContainer) return;
-
-        const toast = document.createElement('div');
-        toast.className = `toast toast-${type}`;
-        toast.innerHTML = `
-            <span class="toast-message">${message}</span>
-            <button class="toast-close">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        `;
-
-        // Kapatma butonu
-        toast.querySelector('.toast-close').addEventListener('click', () => {
-            toast.remove();
+    applyFilters() {
+        this.filteredData = this.data.filter(item => {
+            const searchMatch = !this.filters.search || 
+                item.kurum_adi.toLowerCase().includes(this.filters.search.toLowerCase()) ||
+                item.il_adi.toLowerCase().includes(this.filters.search.toLowerCase()) ||
+                item.ilce_adi.toLowerCase().includes(this.filters.search.toLowerCase());
+            
+            const typeMatch = !this.filters.type || item.kurum_tipi === this.filters.type;
+            const provinceMatch = !this.filters.province || item.il_adi === this.filters.province;
+            
+            return searchMatch && typeMatch && provinceMatch;
         });
+        
+        this.renderResults();
+        this.updateResultsCount();
+    }
 
-        toastContainer.appendChild(toast);
+    renderResults() {
+        const container = document.getElementById('results-grid');
+        const noResults = document.getElementById('no-results');
+        
+        if (this.filteredData.length === 0) {
+            container.style.display = 'none';
+            noResults.style.display = 'block';
+            return;
+        }
+        
+        container.style.display = 'grid';
+        noResults.style.display = 'none';
+        
+        container.innerHTML = this.filteredData.map(item => this.createInstitutionCard(item)).join('');
+    }
 
-        // Otomatik kapat
-        setTimeout(() => {
-            if (toast.parentNode) {
-                toast.remove();
+    createInstitutionCard(item) {
+        const typeClass = this.getTypeClass(item.kurum_tipi);
+        return `
+            <div class="institution-card">
+                <div class="card-header">
+                    <span class="institution-type" data-type="${item.kurum_tipi}">${this.formatType(item.kurum_tipi)}</span>
+                </div>
+                <h3 class="institution-name">${item.kurum_adi}</h3>
+                <div class="institution-location">
+                    <span class="material-symbols-outlined">location_on</span>
+                    <span>${item.il_adi} / ${item.ilce_adi}</span>
+                </div>
+                ${item.adres ? `<div class="institution-address">
+                    <span class="material-symbols-outlined">home</span>
+                    <span>${item.adres}</span>
+                </div>` : ''}
+                <div class="card-actions">
+                    ${item.telefon ? `<button class="action-button" onclick="window.open('tel:${item.telefon}')">
+                        <span class="material-symbols-outlined">call</span>
+                        Ara
+                    </button>` : ''}
+                    ${item.web_sitesi ? `<button class="action-button" onclick="window.open('${item.web_sitesi}', '_blank')">
+                        <span class="material-symbols-outlined">language</span>
+                        Web
+                    </button>` : ''}
+                </div>
+            </div>
+        `;
+    }
+
+    getTypeClass(type) {
+        const typeMap = {
+            'DEVLET_HASTANESI': 'devlet-hastanesi',
+            'OZEL_HASTANE': 'ozel-hastane', 
+            'UNIVERSITE_HASTANESI': 'universite-hastanesi',
+            'GENEL': 'genel'
+        };
+        return typeMap[type] || 'genel';
+    }
+
+    formatType(type) {
+        const types = {
+            'DEVLET_HASTANESI': 'Devlet Hastanesi',
+            'OZEL_HASTANE': 'Özel Hastane',
+            'UNIVERSITE_HASTANESI': 'Üniversite Hastanesi',
+            'GENEL': 'Genel'
+        };
+        return types[type] || type;
+    }
+
+    getUniqueTypes() {
+        return [...new Set(this.data.map(item => item.kurum_tipi))].sort();
+    }
+
+    getUniqueProvinces() {
+        return [...new Set(this.data.map(item => item.il_adi))].sort();
+    }
+
+    sortResults(criteria) {
+        this.filteredData.sort((a, b) => {
+            switch (criteria) {
+                case 'name':
+                    return a.kurum_adi.localeCompare(b.kurum_adi, 'tr');
+                case 'province':
+                    return a.il_adi.localeCompare(b.il_adi, 'tr');
+                case 'type':
+                    return a.kurum_tipi.localeCompare(b.kurum_tipi, 'tr');
+                default:
+                    return 0;
             }
-        }, 5000);
+        });
+        this.renderResults();
+    }
+
+    clearFilters() {
+        this.filters = { search: '', type: '', province: '' };
+        document.getElementById('search-input').value = '';
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.classList.remove('active');
+        });
+        this.applyFilters();
+        this.updateClearButton();
+    }
+
+    updateClearButton() {
+        const hasFilters = this.filters.search || this.filters.type || this.filters.province;
+        document.getElementById('clear-filters').style.display = hasFilters ? 'flex' : 'none';
+    }
+
+    updateResultsCount() {
+        document.getElementById('results-count').textContent = 
+            `${this.filteredData.length} kurum gösteriliyor`;
+    }
+
+    hideLoading() {
+        document.getElementById('loading').style.display = 'none';
+    }
+
+    showError(message) {
+        document.getElementById('loading').innerHTML = `
+            <span class="material-symbols-outlined">error</span>
+            <span>${message}</span>
+        `;
+    }
+
+    toggleTheme() {
+        // Tema değiştirme fonksiyonu - gelecekte implement edilecek
+        console.log('Tema değiştirme özelliği gelecekte eklenecek');
     }
 }
 
-// Global instance
-const app = new App();
-
-/**
- * Kurum detayını göster
- */
-function showInstitutionDetail(kurumId) {
-    const kurum = dataLoader.getInstitutionById(kurumId);
-    if (!kurum) return;
-
-    const modal = document.getElementById('detail-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalBody = document.getElementById('modal-body');
-
-    if (!modal || !modalTitle || !modalBody) return;
-
-    modalTitle.textContent = kurum.kurum_adi;
-    
-    modalBody.innerHTML = `
-        <div class="institution-detail">
-            <div class="detail-section">
-                <h4>Genel Bilgiler</h4>
-                <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">Kurum Tipi:</span>
-                        <span class="detail-value">${kurum.kurum_tipi}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Kurum ID:</span>
-                        <span class="detail-value">${kurum.kurum_id}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="detail-section">
-                <h4>Konum Bilgileri</h4>
-                <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">İl:</span>
-                        <span class="detail-value">${kurum.il_adi}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">İlçe:</span>
-                        <span class="detail-value">${kurum.ilce_adi}</span>
-                    </div>
-                    ${kurum.adres ? `
-                        <div class="detail-item full-width">
-                            <span class="detail-label">Adres:</span>
-                            <span class="detail-value">${kurum.adres}</span>
-                        </div>
-                    ` : ''}
-                </div>
-            </div>
-
-            ${kurum.telefon || kurum.web_sitesi ? `
-                <div class="detail-section">
-                    <h4>İletişim</h4>
-                    <div class="detail-grid">
-                        ${kurum.telefon ? `
-                            <div class="detail-item">
-                                <span class="detail-label">Telefon:</span>
-                                <span class="detail-value">
-                                    <a href="tel:${kurum.telefon}">${kurum.telefon}</a>
-                                </span>
-                            </div>
-                        ` : ''}
-                        ${kurum.web_sitesi ? `
-                            <div class="detail-item">
-                                <span class="detail-label">Web Sitesi:</span>
-                                <span class="detail-value">
-                                    <a href="${kurum.web_sitesi}" target="_blank">${kurum.web_sitesi}</a>
-                                </span>
-                            </div>
-                        ` : ''}
-                    </div>
-                </div>
-            ` : ''}
-
-            <div class="detail-section">
-                <h4>Veri Bilgileri</h4>
-                <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">Veri Kaynağı:</span>
-                        <span class="detail-value">${kurum.veri_kaynagi || 'Bilinmiyor'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Son Güncelleme:</span>
-                        <span class="detail-value">${kurum.son_guncelleme || 'Bilinmiyor'}</span>
-                    </div>
-                </div>
-            </div>
-
-            ${kurum.koordinat_lat && kurum.koordinat_lon ? `
-                <div class="detail-actions">
-                    <button class="action-button primary" onclick="window.open('https://maps.google.com/?q=${kurum.koordinat_lat},${kurum.koordinat_lon}', '_blank')">
-                        <span class="material-symbols-outlined">directions</span>
-                        Google Maps'te Aç
-                    </button>
-                </div>
-            ` : ''}
-        </div>
-    `;
-
-    modal.style.display = 'flex';
-    document.body.classList.add('modal-open');
-}
+// Uygulama başlat
+document.addEventListener('DOMContentLoaded', () => {
+    new HealthInstitutionsApp();
+});
