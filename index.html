@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" href="assets/logos/TURSAKUR-Color.png">
 </head>
 <body>
@@ -17,8 +18,9 @@
     <header class="top-app-bar">
         <div class="top-app-bar-content">
             <div class="logo-section">
-                <img src="assets/logos/TURSAKUR-Color.png" alt="TURSAKUR Logo" class="app-logo" id="app-logo">
-                <h1 class="headline-small">Türkiye Sağlık Kuruluşları</h1>
+                <a href="/" class="logo-link">
+                    <img src="assets/logos/TURSAKUR-Color.png" alt="TURSAKUR Logo" class="app-logo" id="app-logo">
+                </a>
             </div>
             <div class="top-app-bar-actions">
                 <button class="icon-button" id="theme-toggle" title="Tema Değiştir">
@@ -64,20 +66,55 @@
                     </div>
                     
                     <div class="filter-section">
-                        <div class="filter-group">
-                            <span class="filter-label">Kurum Tipi:</span>
-                            <div class="chip-group" id="type-filters"></div>
+                        <!-- Advanced Filter Container -->
+                        <div class="advanced-filters">
+                            <!-- Institution Type Filters -->
+                            <div class="filter-group">
+                                <span class="filter-label">
+                                    <span class="material-symbols-outlined">local_hospital</span>
+                                    Kurum Tipi
+                                </span>
+                                <div class="chip-group type-chips" id="type-filters"></div>
+                            </div>
+                            
+                            <!-- Location Filters -->
+                            <div class="filter-group location-filters">
+                                <div class="location-filter-row">
+                                    <div class="province-filter">
+                                        <span class="filter-label">
+                                            <span class="material-symbols-outlined">location_on</span>
+                                            İl Seçin
+                                        </span>
+                                        <select class="province-select" id="province-select">
+                                            <option value="">Tüm İller</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="district-filter" id="district-filter-container" style="display: none;">
+                                        <span class="filter-label">
+                                            <span class="material-symbols-outlined">place</span>
+                                            İlçe Seçin
+                                        </span>
+                                        <select class="district-select" id="district-select">
+                                            <option value="">Tüm İlçeler</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!-- Selected Location Chips -->
+                                <div class="selected-filters" id="selected-location-filters"></div>
+                            </div>
                         </div>
                         
-                        <div class="filter-group">
-                            <span class="filter-label">İl:</span>
-                            <div class="chip-group" id="province-filters"></div>
+                        <!-- Active Filters Display -->
+                        <div class="active-filters" id="active-filters" style="display: none;">
+                            <span class="active-filters-label">Aktif Filtreler:</span>
+                            <div class="active-filter-chips" id="active-filter-chips"></div>
+                            <button class="filter-clear-btn" id="clear-filters">
+                                <span class="material-symbols-outlined">clear_all</span>
+                                Tümünü Temizle
+                            </button>
                         </div>
-                        
-                        <button class="filter-clear-btn" id="clear-filters" style="display: none;">
-                            <span class="material-symbols-outlined">clear</span>
-                            Filtreleri Temizle
-                        </button>
                     </div>
                 </div>
             </div>
@@ -112,6 +149,74 @@
             </div>
         </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Brand Section -->
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <img src="assets/logos/TURSAKUR-Color.png" alt="TURSAKUR Logo" class="footer-logo">
+                        <p class="footer-description">
+                            Türkiye'deki sağlık kuruluşlarının en kapsamlı ve güncel veritabanı. 
+                            Açık kaynak kodlu proje olarak geliştirilmektedir.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4 class="footer-section-title">Hızlı Erişim</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Tüm Kurumlar</a></li>
+                        <li><a href="#" class="footer-link">Devlet Hastaneleri</a></li>
+                        <li><a href="#" class="footer-link">Özel Hastaneler</a></li>
+                        <li><a href="#" class="footer-link">Üniversite Hastaneleri</a></li>
+                        <li><a href="#" class="footer-link">İstatistikler</a></li>
+                    </ul>
+                </div>
+
+                <!-- API & Developer -->
+                <div class="footer-section">
+                    <h4 class="footer-section-title">Geliştiriciler</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/mahirkurt/TURSAKUR" class="footer-link" target="_blank">GitHub Repository</a></li>
+                        <li><a href="#" class="footer-link">API Dokümantasyonu</a></li>
+                        <li><a href="#" class="footer-link">Veri İndirme</a></li>
+                        <li><a href="#" class="footer-link">Katkıda Bulunun</a></li>
+                        <li><a href="#" class="footer-link">Bug Raporu</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal & Info -->
+                <div class="footer-section">
+                    <h4 class="footer-section-title">Hukuki</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Kullanım Koşulları</a></li>
+                        <li><a href="#" class="footer-link">Gizlilik Politikası</a></li>
+                        <li><a href="#" class="footer-link">Açık Kaynak Lisansı</a></li>
+                        <li><a href="#" class="footer-link">Veri Kaynakları</a></li>
+                        <li><a href="#" class="footer-link">İletişim</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="footer-copyright">
+                        © 2025 TURSAKUR. Tüm hakları saklıdır. 
+                        <span class="footer-license">MIT Lisansı ile açık kaynak</span>
+                    </p>
+                    <div class="footer-meta">
+                        <span class="footer-version">v2.0.0</span>
+                        <span class="footer-update">Son güncelleme: <span id="last-update">14 Temmuz 2025</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="js/app.js"></script>
 </body>
