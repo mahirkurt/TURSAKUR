@@ -62,6 +62,17 @@ class HealthInstitutionsApp {
         document.getElementById('theme-toggle').addEventListener('click', () => {
             this.toggleTheme();
         });
+
+        // Modal kapatma
+        document.getElementById('modal-close').addEventListener('click', () => {
+            this.closeModal();
+        });
+        
+        document.getElementById('institution-modal-overlay').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                this.closeModal();
+            }
+        });
     }
 
     createFilters() {
@@ -104,13 +115,15 @@ class HealthInstitutionsApp {
     }
     
     onProvinceChange(selectedProvince) {
-        const districtContainer = document.getElementById('district-filter-container');
         const districtSelect = document.getElementById('district-select');
         
         // İlçe seçiciyi temizle
         districtSelect.innerHTML = '<option value="">Tüm İlçeler</option>';
         
         if (selectedProvince) {
+            // İlçe seçiciyi etkinleştir
+            districtSelect.disabled = false;
+            
             // Seçili ile ait ilçeleri getir
             const districts = this.getDistrictsByProvince(selectedProvince);
             
@@ -121,15 +134,13 @@ class HealthInstitutionsApp {
                 districtSelect.appendChild(option);
             });
             
-            // İlçe seçiciyi göster
-            districtContainer.style.display = 'block';
-            
             // İl filtresini uygula
             this.filters.province = selectedProvince;
             this.filters.district = '';
         } else {
-            // İlçe seçiciyi gizle
-            districtContainer.style.display = 'none';
+            // İl seçilmemişse ilçe seçiciyi devre dışı bırak
+            districtSelect.disabled = true;
+            districtSelect.innerHTML = '<option value="">İlçe seçmek için önce il seçin</option>';
             this.filters.province = '';
             this.filters.district = '';
         }
@@ -257,6 +268,10 @@ class HealthInstitutionsApp {
                     <span>${item.adres}</span>
                 </div>` : ''}
                 <div class="card-actions">
+                    <button class="action-button detail-btn" onclick="app.showInstitutionDetail('${item.kurum_id}')">
+                        <span class="material-symbols-outlined">info</span>
+                        Detay
+                    </button>
                     ${item.telefon ? `<button class="action-button" onclick="window.open('tel:${item.telefon}')">
                         <span class="material-symbols-outlined">call</span>
                         Ara
@@ -275,6 +290,8 @@ class HealthInstitutionsApp {
             'DEVLET_HASTANESI': 'devlet-hastanesi',
             'OZEL_HASTANE': 'ozel-hastane', 
             'UNIVERSITE_HASTANESI': 'universite-hastanesi',
+            'AGIZ_DIS_SAGLIGI_MERKEZI': 'agiz-dis-sagligi-merkezi',
+            'EGITIM_ARASTIRMA_HASTANESI': 'egitim-arastirma-hastanesi',
             'GENEL': 'genel'
         };
         return typeMap[type] || 'genel';
@@ -336,8 +353,12 @@ class HealthInstitutionsApp {
         this.filters = { search: '', type: '', province: '', district: '' };
         document.getElementById('search-input').value = '';
         document.getElementById('province-select').value = '';
-        document.getElementById('district-select').value = '';
-        document.getElementById('district-filter-container').style.display = 'none';
+        
+        // İlçe seçiciyi sıfırla ve devre dışı bırak
+        const districtSelect = document.getElementById('district-select');
+        districtSelect.value = '';
+        districtSelect.disabled = true;
+        districtSelect.innerHTML = '<option value="">İlçe seçmek için önce il seçin</option>';
         
         document.querySelectorAll('.filter-chip').forEach(chip => {
             chip.classList.remove('active');
@@ -376,6 +397,7 @@ class HealthInstitutionsApp {
         const body = document.body;
         const themeToggle = document.getElementById('theme-toggle');
         const logo = document.getElementById('app-logo');
+        const footerLogo = document.querySelector('.footer-logo');
         const icon = themeToggle.querySelector('.material-symbols-outlined');
         
         // Toggle dark mode class
@@ -384,11 +406,14 @@ class HealthInstitutionsApp {
         // Update theme icon
         icon.textContent = isDarkMode ? 'light_mode' : 'dark_mode';
         
-        // Update logo based on theme - her zaman color logo kullan
-        logo.src = 'assets/logos/TURSAKUR-Color.png';
+        // Update logos based on theme
         if (isDarkMode) {
+            logo.src = 'assets/logos/TURSAKUR-Light.png';
+            if (footerLogo) footerLogo.src = 'assets/logos/TURSAKUR-Light.png';
             body.style.colorScheme = 'dark';
         } else {
+            logo.src = 'assets/logos/TURSAKUR-Color.png';
+            if (footerLogo) footerLogo.src = 'assets/logos/TURSAKUR-Color.png';
             body.style.colorScheme = 'light';
         }
         
@@ -407,13 +432,18 @@ class HealthInstitutionsApp {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const shouldUseDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
         
+        const logo = document.getElementById('app-logo');
+        const footerLogo = document.querySelector('.footer-logo');
+        
         if (shouldUseDark) {
             document.body.classList.add('dark-mode');
             document.body.style.colorScheme = 'dark';
-            document.getElementById('app-logo').src = 'assets/logos/TURSAKUR-Color.png'; // Her zaman color logo
+            logo.src = 'assets/logos/TURSAKUR-Light.png';
+            if (footerLogo) footerLogo.src = 'assets/logos/TURSAKUR-Light.png';
             document.querySelector('#theme-toggle .material-symbols-outlined').textContent = 'light_mode';
         } else {
-            document.getElementById('app-logo').src = 'assets/logos/TURSAKUR-Color.png'; // Her zaman color logo
+            logo.src = 'assets/logos/TURSAKUR-Color.png';
+            if (footerLogo) footerLogo.src = 'assets/logos/TURSAKUR-Color.png';
         }
     }
 
@@ -474,6 +504,8 @@ class HealthInstitutionsApp {
         if (this.filters.type) {
             const chip = document.createElement('div');
             chip.className = 'active-filter-chip';
+            chip.setAttribute('data-filter', 'type');
+            chip.setAttribute('data-value', this.filters.type);
             chip.innerHTML = `
                 ${this.formatType(this.filters.type)}
                 <span class="remove-filter material-symbols-outlined" onclick="app.removeFilter('type')">close</span>
@@ -486,6 +518,8 @@ class HealthInstitutionsApp {
         if (this.filters.province) {
             const chip = document.createElement('div');
             chip.className = 'active-filter-chip';
+            chip.setAttribute('data-filter', 'province');
+            chip.setAttribute('data-value', this.filters.province);
             chip.innerHTML = `
                 ${this.filters.province}
                 <span class="remove-filter material-symbols-outlined" onclick="app.removeFilter('province')">close</span>
@@ -498,6 +532,8 @@ class HealthInstitutionsApp {
         if (this.filters.district) {
             const chip = document.createElement('div');
             chip.className = 'active-filter-chip';
+            chip.setAttribute('data-filter', 'district');
+            chip.setAttribute('data-value', this.filters.district);
             chip.innerHTML = `
                 ${this.filters.district}
                 <span class="remove-filter material-symbols-outlined" onclick="app.removeFilter('district')">close</span>
@@ -510,6 +546,8 @@ class HealthInstitutionsApp {
         if (this.filters.search) {
             const chip = document.createElement('div');
             chip.className = 'active-filter-chip';
+            chip.setAttribute('data-filter', 'search');
+            chip.setAttribute('data-value', this.filters.search);
             chip.innerHTML = `
                 "${this.filters.search}"
                 <span class="remove-filter material-symbols-outlined" onclick="app.removeFilter('search')">close</span>
@@ -529,7 +567,11 @@ class HealthInstitutionsApp {
             document.getElementById('search-input').value = '';
         } else if (filterType === 'province') {
             document.getElementById('province-select').value = '';
-            document.getElementById('district-filter-container').style.display = 'none';
+            // İlçe seçiciyi sıfırla ve devre dışı bırak
+            const districtSelect = document.getElementById('district-select');
+            districtSelect.value = '';
+            districtSelect.disabled = true;
+            districtSelect.innerHTML = '<option value="">İlçe seçmek için önce il seçin</option>';
             this.filters.district = '';
         } else if (filterType === 'district') {
             document.getElementById('district-select').value = '';
@@ -542,6 +584,120 @@ class HealthInstitutionsApp {
         
         this.applyFilters();
         this.updateActiveFilters();
+    }
+
+    showInstitutionDetail(kurumId) {
+        const institution = this.data.find(item => item.kurum_id === kurumId);
+        if (!institution) return;
+
+        const modal = document.getElementById('institution-modal-overlay');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+
+        modalTitle.textContent = institution.kurum_adi;
+        
+        modalContent.innerHTML = `
+            <div class="detail-section">
+                <div class="detail-title">
+                    <span class="material-symbols-outlined">business</span>
+                    Genel Bilgiler
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Kurum Adı</div>
+                    <div class="detail-value large">${institution.kurum_adi}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Kurum Türü</div>
+                    <div class="detail-value">
+                        <span class="institution-type-badge ${this.getTypeClass(institution.kurum_tipi)}">
+                            ${this.formatType(institution.kurum_tipi)}
+                        </span>
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Kurum ID</div>
+                    <div class="detail-value">${institution.kurum_id}</div>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <div class="detail-title">
+                    <span class="material-symbols-outlined">location_on</span>
+                    Konum Bilgileri
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">İl</div>
+                    <div class="detail-value">${institution.il_adi} (${institution.il_kodu})</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">İlçe</div>
+                    <div class="detail-value">${institution.ilce_adi}</div>
+                </div>
+                ${institution.adres ? `
+                <div class="detail-row">
+                    <div class="detail-label">Adres</div>
+                    <div class="detail-value">${institution.adres}</div>
+                </div>
+                ` : ''}
+                ${institution.koordinat_lat && institution.koordinat_lon ? `
+                <div class="detail-row">
+                    <div class="detail-label">Koordinatlar</div>
+                    <div class="detail-value">${institution.koordinat_lat}, ${institution.koordinat_lon}</div>
+                </div>
+                ` : ''}
+            </div>
+
+            <div class="detail-section">
+                <div class="detail-title">
+                    <span class="material-symbols-outlined">contact_phone</span>
+                    İletişim Bilgileri
+                </div>
+                ${institution.telefon ? `
+                <div class="detail-row">
+                    <div class="detail-label">Telefon</div>
+                    <div class="detail-value">
+                        <a href="tel:${institution.telefon}" style="color: var(--md-sys-color-primary); text-decoration: none;">
+                            ${institution.telefon}
+                        </a>
+                    </div>
+                </div>
+                ` : ''}
+                ${institution.web_sitesi ? `
+                <div class="detail-row">
+                    <div class="detail-label">Web Sitesi</div>
+                    <div class="detail-value">
+                        <a href="${institution.web_sitesi}" target="_blank" style="color: var(--md-sys-color-primary); text-decoration: none;">
+                            ${institution.web_sitesi}
+                        </a>
+                    </div>
+                </div>
+                ` : ''}
+            </div>
+
+            <div class="detail-section">
+                <div class="detail-title">
+                    <span class="material-symbols-outlined">database</span>
+                    Veri Kaynağı
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Kaynak</div>
+                    <div class="detail-value">${institution.veri_kaynagi}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Son Güncelleme</div>
+                    <div class="detail-value">${institution.son_guncelleme}</div>
+                </div>
+            </div>
+        `;
+
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    closeModal() {
+        const modal = document.getElementById('institution-modal-overlay');
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
     }
 }
 

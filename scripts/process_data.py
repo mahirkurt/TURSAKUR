@@ -115,6 +115,8 @@ def generate_kurum_id(kurum_data: Dict[str, Any]) -> str:
         'SAGLIK_OCAGI': 'SO',
         'ECZANE': 'EC',
         'OZEL_TIP_MERKEZI': 'OTM',
+        'AGIZ_DIS_SAGLIGI_MERKEZI': 'ADM',
+        'EGITIM_ARASTIRMA_HASTANESI': 'EAH',
         'GENEL': 'GN'
     }
     
@@ -132,29 +134,52 @@ def normalize_kurum_tipi(tip: str) -> str:
     if not tip:
         return 'GENEL'
     
-    tip_upper = tip.upper().strip()
+    tip_cleaned = tip.strip()
     
-    # Tip eşlemeleri
+    # Direkt eşlemeler (büyük harf problemi için)
     tip_esleme = {
+        'Devlet Hastanesi': 'DEVLET_HASTANESI',
         'DEVLET HASTANESİ': 'DEVLET_HASTANESI',
         'DEVLET HASTANESI': 'DEVLET_HASTANESI',
         'KAMU HASTANESİ': 'DEVLET_HASTANESI',
         'KAMU HASTANESI': 'DEVLET_HASTANESI',
+        'Üniversite Hastanesi': 'UNIVERSITE_HASTANESI',
         'ÜNİVERSİTE HASTANESİ': 'UNIVERSITE_HASTANESI',
         'UNIVERSITE HASTANESI': 'UNIVERSITE_HASTANESI',
+        'Özel Hastane': 'OZEL_HASTANE',
         'ÖZEL HASTANE': 'OZEL_HASTANE',
         'OZEL HASTANE': 'OZEL_HASTANE',
         'ÖZEL HASTANESİ': 'OZEL_HASTANE',
+        'Sağlık Merkezi': 'SAGLIK_MERKEZI',
         'SAĞLIK MERKEZİ': 'SAGLIK_MERKEZI',
         'SAGLIK MERKEZI': 'SAGLIK_MERKEZI',
+        'Sağlık Ocağı': 'SAGLIK_OCAGI',
         'SAĞLIK OCAĞI': 'SAGLIK_OCAGI',
         'SAGLIK OCAGI': 'SAGLIK_OCAGI',
+        'Eczane': 'ECZANE',
         'ECZANE': 'ECZANE',
+        'Özel Tıp Merkezi': 'OZEL_TIP_MERKEZI',
         'ÖZEL TIP MERKEZİ': 'OZEL_TIP_MERKEZI',
-        'OZEL TIP MERKEZI': 'OZEL_TIP_MERKEZI'
+        'OZEL TIP MERKEZI': 'OZEL_TIP_MERKEZI',
+        # Yeni kategoriler - hem orijinal hem büyük harf versiyonları
+        'Ağız ve Diş Sağlığı Merkezi': 'AGIZ_DIS_SAGLIGI_MERKEZI',
+        'AĞIZ VE DİŞ SAĞLIĞI MERKEZİ': 'AGIZ_DIS_SAGLIGI_MERKEZI',
+        'AGIZ VE DIS SAGLIGI MERKEZI': 'AGIZ_DIS_SAGLIGI_MERKEZI',
+        'Eğitim ve Araştırma Hastanesi': 'EGITIM_ARASTIRMA_HASTANESI',
+        'EĞİTİM VE ARAŞTIRMA HASTANESİ': 'EGITIM_ARASTIRMA_HASTANESI',
+        'EGITIM VE ARASTIRMA HASTANESI': 'EGITIM_ARASTIRMA_HASTANESI'
     }
     
-    return tip_esleme.get(tip_upper, 'GENEL')
+    # Önce direkt eşleme dene
+    if tip_cleaned in tip_esleme:
+        return tip_esleme[tip_cleaned]
+    
+    # Büyük harf versiyonunu dene
+    tip_upper = tip_cleaned.upper()
+    if tip_upper in tip_esleme:
+        return tip_esleme[tip_upper]
+    
+    return 'GENEL'
 
 def validate_coordinates(lat: float, lon: float) -> bool:
     """Koordinatların Türkiye sınırları içinde olup olmadığını kontrol eder."""

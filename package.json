@@ -1,19 +1,29 @@
 {
   "name": "tursakur",
-  "version": "1.0.0",
-  "description": "Türkiye Sağlık Kuruluşları Veritabanı",
+  "version": "2.0.0",
+  "description": "Türkiye Sağlık Kuruluşları Kapsamlı Veritabanı - Material Design 3 ile Modern Web Uygulaması",
   "main": "index.html",
   "scripts": {
     "build": "python scripts/process_data.py",
+    "validate": "python scripts/validate_data.py",
     "dev": "python -m http.server 8000",
     "deploy": "firebase deploy"
   },
   "keywords": [
     "türkiye",
     "sağlık",
-    "hastane",
-    "database"
+    "hastane", 
+    "kurum",
+    "database",
+    "material-design",
+    "web-app",
+    "healthcare"
   ],
-  "author": "TURSAKUR",
-  "license": "MIT"
+  "author": "TURSAKUR Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mahirkurt/TURSAKUR.git"
+  },
+  "homepage": "https://tursakur.web.app"
 }

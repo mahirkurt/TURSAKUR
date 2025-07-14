@@ -1,53 +1,32 @@
-# Türkiye Sağlık Kurumları Veritabanı
+# TURSAKUR - Türkiye Sağlık Kuruluşları
 
-Bu proje, Türkiye'deki sağlık kuruluşlarının kapsamlı ve güncel bir veritabanını oluşturmayı amaçlar. Tüm hastaneler, sağlık ocakları, özel klinikler ve diğer sağlık tesislerinin adres, telefon ve diğer iletişim bilgilerini içerir.
+> Modern ve kapsamlı Türkiye sağlık kuruluşları veritabanı - Material Design 3 ile
+
+Bu proje, Türkiye'deki tüm sağlık kuruluşlarının kapsamlı, güncel ve kullanıcı dostu bir veritabanını sunar. Hastaneler, özel klinikler, sağlık ocakları ve diğer sağlık tesislerinin detaylı bilgilerini içerir.
 
 ## 🌐 Canlı Uygulama
 
-**Web Arayüzü:** [https://turkiye-sakur.web.app](https://turkiye-sakur.web.app)
+**Web Arayüzü:** [https://tursakur.web.app](https://tursakur.web.app)
 
-Firebase Hosting ile sunulan modern web arayüzü:
-- 🔍 Gelişmiş arama ve filtreleme
-- 📱 Mobil uyumlu responsive tasarım
-- 🌙 6 farklı tema seçeneği (açık/koyu + erişilebilirlik)
-- 📍 Harita entegrasyonu
-- 📞 Direkt arama ve yönlendirme linkleri
-- ⚡ Offline çalışma desteği (Service Worker)
-- 🚀 Firebase CDN ile hızlı yükleme
-- 🔒 Otomatik HTTPS
+## ✨ Ana Özellikler
 
-## 📊 Veri İstatistikleri
+### 🎨 Modern Tasarım
+- **Material Design 3 Expressive** tema sistemi
+- **Responsive Design** - Tüm cihazlarda mükemmel görünüm
+- **Tema Switching** - Açık/koyu mod otomatik geçiş
+- **Accessibility Ready** - Erişilebilirlik standartları
 
-- **Toplam Kurum Sayısı:** 1,674
-- **Devlet Hastaneleri:** 837
-- **Özel Hastaneler:** 571
-- **Diş Sağlığı Merkezleri:** 167
-- **Eğitim ve Araştırma Hastaneleri:** 91
-- **Üniversite Hastaneleri:** 8
-- **Kapsanan İl Sayısı:** 106
+### 🔍 Güçlü Arama & Filtreleme
+- **Multi-level Filtering** - İl → İlçe progressive seçimi
+- **Type-based Filtering** - Kurum tipine göre renkli kategoriler
+- **Real-time Search** - Anlık arama sonuçları
+- **Advanced Sorting** - Ada, ile, türe göre sıralama
 
-## 🎯 Özellikler
-
-### Web Arayüzü
-- **Modern Tasarım:** Material Design 3 expressive tema sistemi
-- **Arama ve Filtreleme:** İl, ilçe, kurum tipi ve metin bazlı arama
-- **Responsive Design:** Tüm cihazlarda mükemmel görünüm
-- **Tema Seçenekleri:**
-  - Açık Tema (light.css)
-  - Koyu Tema (dark.css)
-  - Yüksek Kontrast Açık/Koyu (light-hc.css, dark-hc.css)
-  - Orta Kontrast Açık/Koyu (light-mc.css, dark-mc.css)
-- **Klavye Kısayolları:** Hızlı navigasyon
-- **Offline Desteği:** Service Worker ile çevrimdışı çalışma
-
-### Veri İşleme
-- **Otomatik Güncellemeler:** GitHub Actions ile günlük veri kontrolü
-- **Çoklu Kaynak Entegrasyonu:** 3 farklı veri kaynağından toplama
-- **Veri Doğrulama:** Kapsamlı hata kontrolü ve temizleme
-- **Geocoding:** Adres bazlı koordinat belirleme
-- **Unicode Desteği:** Türkçe karakter sorunlarının çözümü
-
-## 🚀 Teknolojiler
+### 📱 Modern Web App
+- **PWA Ready** - Progressive Web App desteği
+- **Offline Support** - Service Worker ile çevrimdışı çalışma
+- **Fast Loading** - Firebase CDN optimizasyonu
+- **Mobile First** - Mobil öncelikli tasarım
 
 ### Frontend
 - **HTML5** - Semantic web yapısı
