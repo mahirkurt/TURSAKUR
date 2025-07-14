@@ -12,6 +12,7 @@ class HealthInstitutionsApp {
     }
 
     async init() {
+        this.initializeTheme(); // Tema başlatma
         await this.loadData();
         this.setupEventListeners();
         this.createFilters();
@@ -258,8 +259,49 @@ class HealthInstitutionsApp {
     }
 
     toggleTheme() {
-        // Tema değiştirme fonksiyonu - gelecekte implement edilecek
-        console.log('Tema değiştirme özelliği gelecekte eklenecek');
+        const body = document.body;
+        const themeToggle = document.getElementById('theme-toggle');
+        const logo = document.getElementById('app-logo');
+        const icon = themeToggle.querySelector('.material-symbols-outlined');
+        
+        // Toggle dark mode class
+        const isDarkMode = body.classList.toggle('dark-mode');
+        
+        // Update theme icon
+        icon.textContent = isDarkMode ? 'light_mode' : 'dark_mode';
+        
+        // Update logo based on theme
+        if (isDarkMode) {
+            logo.src = 'assets/logos/TURSAKUR-Dark.png';
+            body.style.colorScheme = 'dark';
+        } else {
+            logo.src = 'assets/logos/TURSAKUR-Light.png';
+            body.style.colorScheme = 'light';
+        }
+        
+        // Save theme preference
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        
+        // Add visual feedback
+        themeToggle.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            themeToggle.style.transform = 'scale(1)';
+        }, 150);
+    }
+
+    initializeTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const shouldUseDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+        
+        if (shouldUseDark) {
+            document.body.classList.add('dark-mode');
+            document.body.style.colorScheme = 'dark';
+            document.getElementById('app-logo').src = 'assets/logos/TURSAKUR-Dark.png';
+            document.querySelector('#theme-toggle .material-symbols-outlined').textContent = 'light_mode';
+        } else {
+            document.getElementById('app-logo').src = 'assets/logos/TURSAKUR-Light.png';
+        }
     }
 }
 

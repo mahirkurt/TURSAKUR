@@ -12,7 +12,8 @@
       "*.log",
       "*.md",
       "*.yml",
-      "data/raw/**"
+      "data/raw/**",
+      "logo/**"
     ],
     "rewrites": [
       {
