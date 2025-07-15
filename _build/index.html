@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Türkiye Sağlık Kuruluşları</title>
+    <titl                <div class="results-header">
+                    <div class="results-count" id="results-count">Arama yapmak için filtreleri kullanın</div>
+                </div>ık Kuruluşları</title>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,62 +93,79 @@
                     </div>
                     
                     <div class="filter-section">
-                        <!-- Institution Type Filters - 6'lı Yan Yana -->
-                        <div class="institution-type-filters">
-                            <div class="filter-chips-row">
-                                <div class="filter-chip active" data-type="ALL">
-                                    <span class="material-symbols-outlined">filter_list</span>
-                                    <span>Tümü</span>
+                        <!-- Compact Filter Bar -->
+                        <div class="compact-filter-bar">
+                            <!-- Institution Type Filters with Color-Coded Design -->
+                            <div class="institution-filters-compact">
+                                <div class="filter-chip-compact active" data-type="ALL">
+                                    <span class="filter-icon">⚡</span>
+                                    <span class="filter-text">Tümü</span>
+                                    <span class="filter-count" id="count-all">1704</span>
                                 </div>
-                                <div class="filter-chip" data-type="DEVLET_HASTANESI">
-                                    <span class="material-symbols-outlined">local_hospital</span>
-                                    <span>Devlet Hastanesi</span>
+                                <div class="filter-chip-compact devlet-hastanesi" data-type="DEVLET_HASTANESI">
+                                    <span class="filter-icon">🏥</span>
+                                    <span class="filter-text">Devlet</span>
+                                    <span class="filter-count" id="count-devlet">0</span>
                                 </div>
-                                <div class="filter-chip" data-type="OZEL_HASTANE">
-                                    <span class="material-symbols-outlined">business</span>
-                                    <span>Özel Hastane</span>
+                                <div class="filter-chip-compact ozel-hastane" data-type="OZEL_HASTANE">
+                                    <span class="filter-icon">🏢</span>
+                                    <span class="filter-text">Özel</span>
+                                    <span class="filter-count" id="count-ozel">0</span>
                                 </div>
-                                <div class="filter-chip" data-type="UNIVERSITE_HASTANESI">
-                                    <span class="material-symbols-outlined">school</span>
-                                    <span>Üniversite</span>
+                                <div class="filter-chip-compact universite" data-type="UNIVERSITE_HASTANESI">
+                                    <span class="filter-icon">🎓</span>
+                                    <span class="filter-text">Üniversite</span>
+                                    <span class="filter-count" id="count-universite">0</span>
                                 </div>
-                                <div class="filter-chip" data-type="EGITIM_ARASTIRMA_HASTANESI">
-                                    <span class="material-symbols-outlined">science</span>
-                                    <span>Eğitim-Araştırma</span>
+                                <div class="filter-chip-compact egitim-arastirma" data-type="EGITIM_ARASTIRMA_HASTANESI">
+                                    <span class="filter-icon">🔬</span>
+                                    <span class="filter-text">Eğt-Arş</span>
+                                    <span class="filter-count" id="count-egitim">0</span>
                                 </div>
-                                <div class="filter-chip" data-type="AGIZ_DIS_SAGLIGI_MERKEZI">
-                                    <span class="material-symbols-outlined">medical_services</span>
-                                    <span>Diş Sağlığı</span>
+                                <div class="filter-chip-compact dis-sagligi" data-type="AGIZ_DIS_SAGLIGI_MERKEZI">
+                                    <span class="filter-icon">🦷</span>
+                                    <span class="filter-text">Diş</span>
+                                    <span class="filter-count" id="count-dis">0</span>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Location Filters - Alt Satırda -->
-                        <div class="location-filters">
-                            <div class="dropdown-container">
-                                <span class="material-symbols-outlined dropdown-icon">location_on</span>
-                                <select id="provinceFilter" class="filter-dropdown">
-                                    <option value="">Tüm İller</option>
-                                </select>
-                            </div>
-                            
-                            <div class="dropdown-container">
-                                <span class="material-symbols-outlined dropdown-icon">place</span>
-                                <select id="districtFilter" class="filter-dropdown" disabled>
-                                    <option value="">İlçe Seçin</option>
-                                </select>
+                            <!-- Enhanced Location Filters -->
+                            <div class="location-filters-compact">
+                                <div class="location-input-group">
+                                    <span class="location-icon">📍</span>
+                                    <select id="provinceFilter" class="location-select">
+                                        <option value="">Tüm İller</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="location-input-group">
+                                    <span class="location-icon">📌</span>
+                                    <select id="districtFilter" class="location-select" disabled>
+                                        <option value="">İlçe Seçin</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Sort & Map Integration -->
+                                <div class="action-buttons-group">
+                                    <select class="sort-select-compact" id="sort-select">
+                                        <option value="name">Ada Göre</option>
+                                        <option value="province">İle Göre</option>
+                                        <option value="type">Türe Göre</option>
+                                    </select>
+                                    
+                                    <a href="map.html" class="map-btn-compact" title="Harita Görünümü">
+                                        <span class="map-icon">🗺️</span>
+                                        <span class="map-text">Harita</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         
-                        <!-- Active Filters Display -->
-                        <div class="active-filters" id="active-filters" style="display: none;">
-                            <span class="active-filters-label">Aktif Filtreler:</span>
-                            <div class="active-filter-chips" id="active-filter-chips"></div>
-                            <button class="filter-clear-btn" id="clear-filters">
-                                <span class="material-symbols-outlined">clear_all</span>
-                                Tümünü Temizle
-                            </button>
-                        </div>
+                        <!-- Active Filters Display - Minimal -->
+                        <div class="active-filters-minimal" id="active-filters-minimal" style="display: none;">
+                            <div class="active-filter-tags" id="active-filter-tags"></div>
+                            <button class="clear-all-btn" id="clear-filters">
+                                <span>×</span> Temizle
                             </button>
                         </div>
                     </div>

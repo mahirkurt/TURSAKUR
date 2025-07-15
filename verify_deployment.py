@@ -12,8 +12,8 @@ from urllib.parse import urljoin
 class DeploymentVerifier:
     def __init__(self):
         self.base_urls = [
-            "https://mahirkurt.github.io/TURSAKUR/",
-            "https://tursakur.web.app/"
+            "https://turkiye-sakur.web.app/",  # Firebase Hosting (PRIMARY)
+            "https://mahirkurt.github.io/TURSAKUR/"  # GitHub Pages (BACKUP)
         ]
         self.endpoints_to_check = [
             "",  # Homepage

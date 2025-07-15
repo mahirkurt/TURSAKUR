@@ -88,10 +88,10 @@ class HealthInstitutionsApp {
         });
 
         // Kurum tipi chip filtreleri
-        document.querySelectorAll('.filter-chip[data-type]').forEach(chip => {
+        document.querySelectorAll('.filter-chip-compact[data-type]').forEach(chip => {
             chip.addEventListener('click', (e) => {
                 // Önceki aktif chip'i kaldır
-                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.filter-chip-compact').forEach(c => c.classList.remove('active'));
                 
                 // Yeni chip'i aktif yap
                 chip.classList.add('active');
@@ -153,12 +153,20 @@ class HealthInstitutionsApp {
         const provinces = this.getUniqueProvinces();
         const provinceSelect = document.getElementById('provinceFilter');
         
+        // Önce mevcut option'ları temizle (default option hariç)
+        const options = provinceSelect.querySelectorAll('option:not(:first-child)');
+        options.forEach(option => option.remove());
+        
         provinces.forEach(province => {
-            const option = document.createElement('option');
-            option.value = province;
-            option.textContent = province;
-            provinceSelect.appendChild(option);
+            if (province && province.trim()) {
+                const option = document.createElement('option');
+                option.value = province;
+                option.textContent = province;
+                provinceSelect.appendChild(option);
+            }
         });
+        
+        console.log(`✅ ${provinces.length} il seçenekleri eklendi`);
     }
 
     updateDistrictFilter() {
@@ -238,7 +246,7 @@ class HealthInstitutionsApp {
 
     createFilterChip(text, count, type, originalValue = null) {
         const chip = document.createElement('button');
-        chip.className = 'filter-chip';
+        chip.className = 'filter-chip-compact';
         chip.dataset.filter = type;
         chip.dataset.value = originalValue || text;
         
@@ -421,7 +429,21 @@ class HealthInstitutionsApp {
     }
 
     getUniqueProvinces() {
-        return [...new Set(this.data.map(item => item.il_adi))].sort();
+        // İl adlarını normalize et ve duplicate'leri kaldır
+        const provinces = this.data.map(item => {
+            let province = item.il_adi || '';
+            // Normalize et (büyük harf, trim)
+            province = province.trim().toUpperCase();
+            return province;
+        });
+        
+        // Unique yap ve sırala
+        const uniqueProvinces = [...new Set(provinces)]
+            .filter(p => p && p.length > 0)
+            .sort((a, b) => a.localeCompare(b, 'tr'));
+        
+        console.log(`📊 ${uniqueProvinces.length} unique il bulundu`);
+        return uniqueProvinces;
     }
 
     sortResults(criteria) {
@@ -443,17 +465,18 @@ class HealthInstitutionsApp {
     clearFilters() {
         this.filters = { search: '', type: '', province: '', district: '' };
         document.getElementById('search-input').value = '';
-        document.getElementById('province-select').value = '';
+        document.getElementById('provinceFilter').value = '';
         
         // İlçe seçiciyi sıfırla ve devre dışı bırak
-        const districtSelect = document.getElementById('district-select');
+        const districtSelect = document.getElementById('districtFilter');
         districtSelect.value = '';
         districtSelect.disabled = true;
-        districtSelect.innerHTML = '<option value="">İlçe seçmek için önce il seçin</option>';
+        districtSelect.innerHTML = '<option value="">İlçe Seçin</option>';
         
-        document.querySelectorAll('.filter-chip').forEach(chip => {
+        document.querySelectorAll('.filter-chip-compact').forEach(chip => {
             chip.classList.remove('active');
         });
+        document.querySelector('.filter-chip-compact[data-type="ALL"]').classList.add('active');
         
         this.applyFilters();
         this.updateActiveFilters();
@@ -478,7 +501,7 @@ class HealthInstitutionsApp {
         document.querySelectorAll('.filter-chip').forEach(chip => {
             chip.classList.remove('active');
         });
-        document.querySelector('.filter-chip[data-type="ALL"]').classList.add('active');
+        document.querySelector('.filter-chip-compact[data-type="ALL"]').classList.add('active');
 
         // Filtreleri uygula
         this.applyFilters();
@@ -609,72 +632,78 @@ class HealthInstitutionsApp {
     }
 
     updateActiveFilters() {
-        const activeFiltersContainer = document.getElementById('active-filters');
-        const activeFilterChips = document.getElementById('active-filter-chips');
+        const activeFiltersContainer = document.getElementById('active-filters-minimal');
+        const activeFilterTags = document.getElementById('active-filter-tags');
         
-        // Mevcut chip'leri temizle
-        activeFilterChips.innerHTML = '';
+        // Container varsa temizle
+        if (activeFilterTags) {
+            activeFilterTags.innerHTML = '';
+        }
         
         let hasActiveFilters = false;
         
         // Tip filtresi
         if (this.filters.type) {
-            const chip = document.createElement('div');
-            chip.className = 'active-filter-chip';
-            chip.setAttribute('data-filter', 'type');
-            chip.setAttribute('data-value', this.filters.type);
-            chip.innerHTML = `
-                ${this.formatType(this.filters.type)}
-                <span class="remove-filter material-symbols-outlined" onclick="app.removeFilter('type')">close</span>
-            `;
-            activeFilterChips.appendChild(chip);
+            const tag = document.createElement('div');
+            tag.className = 'active-filter-tag';
+            tag.textContent = this.formatType(this.filters.type);
+            activeFilterTags.appendChild(tag);
             hasActiveFilters = true;
         }
         
         // İl filtresi
         if (this.filters.province) {
-            const chip = document.createElement('div');
-            chip.className = 'active-filter-chip';
-            chip.setAttribute('data-filter', 'province');
-            chip.setAttribute('data-value', this.filters.province);
-            chip.innerHTML = `
-                ${this.filters.province}
-                <span class="remove-filter material-symbols-outlined" onclick="app.removeFilter('province')">close</span>
-            `;
-            activeFilterChips.appendChild(chip);
+            const tag = document.createElement('div');
+            tag.className = 'active-filter-tag';
+            tag.textContent = this.filters.province;
+            activeFilterTags.appendChild(tag);
             hasActiveFilters = true;
         }
         
         // İlçe filtresi
         if (this.filters.district) {
-            const chip = document.createElement('div');
-            chip.className = 'active-filter-chip';
-            chip.setAttribute('data-filter', 'district');
-            chip.setAttribute('data-value', this.filters.district);
-            chip.innerHTML = `
-                ${this.filters.district}
-                <span class="remove-filter material-symbols-outlined" onclick="app.removeFilter('district')">close</span>
-            `;
-            activeFilterChips.appendChild(chip);
+            const tag = document.createElement('div');
+            tag.className = 'active-filter-tag';
+            tag.textContent = this.filters.district;
+            activeFilterTags.appendChild(tag);
             hasActiveFilters = true;
         }
         
         // Arama filtresi
-        if (this.filters.search) {
-            const chip = document.createElement('div');
-            chip.className = 'active-filter-chip';
-            chip.setAttribute('data-filter', 'search');
-            chip.setAttribute('data-value', this.filters.search);
-            chip.innerHTML = `
-                "${this.filters.search}"
-                <span class="remove-filter material-symbols-outlined" onclick="app.removeFilter('search')">close</span>
-            `;
-            activeFilterChips.appendChild(chip);
+        if (this.filters.search && this.filters.search.trim()) {
+            const tag = document.createElement('div');
+            tag.className = 'active-filter-tag';
+            tag.textContent = `"${this.filters.search}"`;
+            activeFilterTags.appendChild(tag);
             hasActiveFilters = true;
         }
         
-        // Active filters bölümünü göster/gizle
-        activeFiltersContainer.style.display = hasActiveFilters ? 'block' : 'none';
+        // Container'ı göster/gizle
+        if (activeFiltersContainer) {
+            activeFiltersContainer.style.display = hasActiveFilters ? 'flex' : 'none';
+        }
+        
+        // Update filter counts
+        this.updateFilterCounts();
+    }
+
+    updateFilterCounts() {
+        const typeCounts = {
+            'ALL': this.data.length,
+            'DEVLET_HASTANESI': this.data.filter(item => item.kurum_tipi === 'DEVLET_HASTANESI').length,
+            'OZEL_HASTANE': this.data.filter(item => item.kurum_tipi === 'OZEL_HASTANE').length,
+            'UNIVERSITE_HASTANESI': this.data.filter(item => item.kurum_tipi === 'UNIVERSITE_HASTANESI').length,
+            'EGITIM_ARASTIRMA_HASTANESI': this.data.filter(item => item.kurum_tipi === 'EGITIM_ARASTIRMA_HASTANESI').length,
+            'AGIZ_DIS_SAGLIGI_MERKEZI': this.data.filter(item => item.kurum_tipi === 'AGIZ_DIS_SAGLIGI_MERKEZI').length
+        };
+        
+        // Update count displays
+        Object.keys(typeCounts).forEach(type => {
+            const countElement = document.getElementById(`count-${type.toLowerCase().replace(/_/g, '-')}`);
+            if (countElement) {
+                countElement.textContent = typeCounts[type];
+            }
+        });
     }
     
     removeFilter(filterType) {
