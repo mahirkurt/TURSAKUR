@@ -1,0 +1,1579 @@
+/* Material Design 3 Expressive Theme for Turkish Health Institutions Database */
+
+/* Official Material Design 3 Theme Integration */
+
+/* Light Theme (Default) */
+:root, .light {
+  /* Primary Colors - Health Care Red */
+  --md-sys-color-primary: rgb(187 0 18);
+  --md-sys-color-surface-tint: rgb(192 0 19);
+  --md-sys-color-on-primary: rgb(255 255 255);
+  --md-sys-color-primary-container: rgb(255 218 214);
+  --md-sys-color-on-primary-container: rgb(65 0 2);
+  --md-sys-color-primary-fixed: rgb(255 218 214);
+  --md-sys-color-on-primary-fixed: rgb(65 0 2);
+  --md-sys-color-primary-fixed-dim: rgb(255 180 171);
+  --md-sys-color-on-primary-fixed-variant: rgb(147 0 11);
+  
+  /* Secondary Colors - Medical Teal */
+  --md-sys-color-secondary: rgb(0 105 109);
+  --md-sys-color-on-secondary: rgb(255 255 255);
+  --md-sys-color-secondary-container: rgb(101 247 253);
+  --md-sys-color-on-secondary-container: rgb(0 32 33);
+  --md-sys-color-secondary-fixed: rgb(101 247 253);
+  --md-sys-color-on-secondary-fixed: rgb(0 32 33);
+  --md-sys-color-secondary-fixed-dim: rgb(64 218 224);
+  --md-sys-color-on-secondary-fixed-variant: rgb(0 79 82);
+  
+  /* Tertiary Colors - Health Gold */
+  --md-sys-color-tertiary: rgb(118 87 0);
+  --md-sys-color-on-tertiary: rgb(255 255 255);
+  --md-sys-color-tertiary-container: rgb(255 222 160);
+  --md-sys-color-on-tertiary-container: rgb(38 26 0);
+  --md-sys-color-tertiary-fixed: rgb(255 222 160);
+  --md-sys-color-on-tertiary-fixed: rgb(38 26 0);
+  --md-sys-color-tertiary-fixed-dim: rgb(242 191 79);
+  --md-sys-color-on-tertiary-fixed-variant: rgb(92 67 0);
+  
+  /* Error Colors */
+  --md-sys-color-error: rgb(186 26 26);
+  --md-sys-color-on-error: rgb(255 255 255);
+  --md-sys-color-error-container: rgb(255 218 214);
+  --md-sys-color-on-error-container: rgb(147 0 10);
+  
+  /* Surface Colors */
+  --md-sys-color-background: rgb(255 248 247);
+  --md-sys-color-on-background: rgb(42 22 20);
+  --md-sys-color-surface: rgb(255 248 247);
+  --md-sys-color-on-surface: rgb(42 22 20);
+  --md-sys-color-surface-variant: rgb(255 218 214);
+  --md-sys-color-on-surface-variant: rgb(95 63 59);
+  --md-sys-color-surface-dim: rgb(246 210 205);
+  --md-sys-color-surface-bright: rgb(255 248 247);
+  --md-sys-color-surface-container-lowest: rgb(255 255 255);
+  --md-sys-color-surface-container-low: rgb(255 240 238);
+  --md-sys-color-surface-container: rgb(255 233 230);
+  --md-sys-color-surface-container-high: rgb(255 226 222);
+  --md-sys-color-surface-container-highest: rgb(255 218 214);
+  
+  /* Outline Colors */
+  --md-sys-color-outline: rgb(148 110 106);
+  --md-sys-color-outline-variant: rgb(233 188 183);
+  
+  /* Utility Colors */
+  --md-sys-color-shadow: rgb(0 0 0);
+  --md-sys-color-scrim: rgb(0 0 0);
+  --md-sys-color-inverse-surface: rgb(65 43 40);
+  --md-sys-color-inverse-on-surface: rgb(255 237 234);
+  --md-sys-color-inverse-primary: rgb(255 180 171);
+}
+  /* Shape Tokens - Material Design 3 */
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-full: 50%;
+  
+  /* Elevation Tokens - Material Design 3 */
+  --md-sys-elevation-level0: none;
+  --md-sys-elevation-level1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
+  
+  /* Typography Tokens - Figtree */
+  --md-sys-typescale-display-large-font: 'Figtree';
+  --md-sys-typescale-display-large-line-height: 64px;
+  --md-sys-typescale-display-large-size: 57px;
+  --md-sys-typescale-display-large-tracking: -0.25px;
+  --md-sys-typescale-display-large-weight: 400;
+  
+  --md-sys-typescale-display-medium-font: 'Figtree';
+  --md-sys-typescale-display-medium-line-height: 52px;
+  --md-sys-typescale-display-medium-size: 45px;
+  --md-sys-typescale-display-medium-tracking: 0px;
+  --md-sys-typescale-display-medium-weight: 400;
+  
+  --md-sys-typescale-display-small-font: 'Figtree';
+  --md-sys-typescale-display-small-line-height: 44px;
+  --md-sys-typescale-display-small-size: 36px;
+  --md-sys-typescale-display-small-tracking: 0px;
+  --md-sys-typescale-display-small-weight: 500;
+  
+  --md-sys-typescale-headline-large-font: 'Figtree';
+  --md-sys-typescale-headline-large-line-height: 40px;
+  --md-sys-typescale-headline-large-size: 32px;
+  --md-sys-typescale-headline-large-tracking: 0px;
+  --md-sys-typescale-headline-large-weight: 500;
+  
+  --md-sys-typescale-headline-medium-font: 'Figtree';
+  --md-sys-typescale-headline-medium-line-height: 36px;
+  --md-sys-typescale-headline-medium-size: 28px;
+  --md-sys-typescale-headline-medium-tracking: 0px;
+  --md-sys-typescale-headline-medium-weight: 500;
+  
+  --md-sys-typescale-headline-small-font: 'Figtree';
+  --md-sys-typescale-headline-small-line-height: 32px;
+  --md-sys-typescale-headline-small-size: 24px;
+  --md-sys-typescale-headline-small-tracking: 0px;
+  --md-sys-typescale-headline-small-weight: 600;
+  
+  --md-sys-typescale-title-large-font: 'Figtree';
+  --md-sys-typescale-title-large-line-height: 28px;
+  --md-sys-typescale-title-large-size: 22px;
+  --md-sys-typescale-title-large-tracking: 0px;
+  --md-sys-typescale-title-large-weight: 500;
+  
+  --md-sys-typescale-title-medium-font: 'Figtree';
+  --md-sys-typescale-title-medium-line-height: 24px;
+  --md-sys-typescale-title-medium-size: 16px;
+  --md-sys-typescale-title-medium-tracking: 0.15px;
+  --md-sys-typescale-title-medium-weight: 600;
+  
+  --md-sys-typescale-title-small-font: 'Figtree';
+  --md-sys-typescale-title-small-line-height: 20px;
+  --md-sys-typescale-title-small-size: 14px;
+  --md-sys-typescale-title-small-tracking: 0.1px;
+  --md-sys-typescale-title-small-weight: 600;
+  
+  --md-sys-typescale-label-large-font: 'Figtree';
+  --md-sys-typescale-label-large-line-height: 20px;
+  --md-sys-typescale-label-large-size: 14px;
+  --md-sys-typescale-label-large-tracking: 0.1px;
+  --md-sys-typescale-label-large-weight: 600;
+  
+  --md-sys-typescale-label-medium-font: 'Figtree';
+  --md-sys-typescale-label-medium-line-height: 16px;
+  --md-sys-typescale-label-medium-size: 12px;
+  --md-sys-typescale-label-medium-tracking: 0.5px;
+  --md-sys-typescale-label-medium-weight: 600;
+  
+  --md-sys-typescale-label-small-font: 'Figtree';
+  --md-sys-typescale-label-small-line-height: 16px;
+  --md-sys-typescale-label-small-size: 11px;
+  --md-sys-typescale-label-small-tracking: 0.5px;
+  --md-sys-typescale-label-small-weight: 600;
+  
+  --md-sys-typescale-body-large-font: 'Figtree';
+  --md-sys-typescale-body-large-line-height: 24px;
+  --md-sys-typescale-body-large-size: 16px;
+  --md-sys-typescale-body-large-tracking: 0.5px;
+  --md-sys-typescale-body-large-weight: 400;
+  
+  --md-sys-typescale-body-medium-font: 'Figtree';
+  --md-sys-typescale-body-medium-line-height: 20px;
+  --md-sys-typescale-body-medium-size: 14px;
+  --md-sys-typescale-body-medium-tracking: 0.25px;
+  --md-sys-typescale-body-medium-weight: 400;
+  
+  --md-sys-typescale-body-small-font: 'Figtree';
+  --md-sys-typescale-body-small-line-height: 16px;
+  --md-sys-typescale-body-small-size: 12px;
+  --md-sys-typescale-body-small-tracking: 0.4px;
+  --md-sys-typescale-body-small-weight: 400;
+  
+  /* Motion Tokens - Material Design 3 */
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium3: 350ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-duration-long1: 450ms;
+  --md-sys-motion-duration-long2: 500ms;
+  --md-sys-motion-duration-long3: 550ms;
+  --md-sys-motion-duration-long4: 600ms;
+  
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0.0, 0, 1.0);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0.0, 0, 1.0);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0.0, 0.8, 0.15);
+  --md-sys-motion-easing-legacy: cubic-bezier(0.4, 0.0, 0.2, 1.0);
+}
+}
+
+/* Dark Theme Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-sys-color-primary: #90CAF9;
+    --md-sys-color-on-primary: #0D47A1;
+    --md-sys-color-primary-container: #1565C0;
+    --md-sys-color-on-primary-container: #E3F2FD;
+    
+    --md-sys-color-secondary: #80CBC4;
+    --md-sys-color-on-secondary: #004D40;
+    --md-sys-color-secondary-container: #00695C;
+    --md-sys-color-on-secondary-container: #E0F2F1;
+    
+    --md-sys-color-surface: #121212;
+    --md-sys-color-on-surface: #E0E0E0;
+    --md-sys-color-surface-variant: #1E1E1E;
+    --md-sys-color-on-surface-variant: #CAC4D0;
+    --md-sys-color-surface-container-low: #1A1A1A;
+    --md-sys-color-surface-container: #1E1E1E;
+    --md-sys-color-surface-container-high: #242424;
+    --md-sys-color-surface-container-highest: #2A2A2A;
+    
+    --md-sys-color-background: #0F0F0F;
+    --md-sys-color-on-background: #E0E0E0;
+    
+    --md-sys-color-outline: #938F99;
+    --md-sys-color-outline-variant: #49454F;
+  }
+}
+
+/* Dark Mode Implementation */
+.dark-mode {
+  --md-sys-color-primary: #90CAF9;
+  --md-sys-color-on-primary: #0D47A1;
+  --md-sys-color-primary-container: #1565C0;
+  --md-sys-color-on-primary-container: #E3F2FD;
+  
+  --md-sys-color-secondary: #80CBC4;
+  --md-sys-color-on-secondary: #004D40;
+  --md-sys-color-secondary-container: #00695C;
+  --md-sys-color-on-secondary-container: #E0F2F1;
+  
+  --md-sys-color-tertiary: #A5D6A7;
+  --md-sys-color-on-tertiary: #1B5E20;
+  --md-sys-color-tertiary-container: #2E7D32;
+  --md-sys-color-on-tertiary-container: #E8F5E8;
+  
+  --md-sys-color-surface: #121212;
+  --md-sys-color-on-surface: #E0E0E0;
+  --md-sys-color-surface-variant: #1E1E1E;
+  --md-sys-color-on-surface-variant: #CAC4D0;
+  --md-sys-color-surface-container-low: #1A1A1A;
+  --md-sys-color-surface-container: #1E1E1E;
+  --md-sys-color-surface-container-high: #242424;
+  --md-sys-color-surface-container-highest: #2A2A2A;
+  
+  --md-sys-color-background: #0F0F0F;
+  --md-sys-color-on-background: #E0E0E0;
+  
+  --md-sys-color-outline: #938F99;
+  --md-sys-color-outline-variant: #49454F;
+  
+  --md-sys-color-error: #FF5252;
+  --md-sys-color-on-error: #FFFFFF;
+  --md-sys-color-error-container: #B71C1C;
+  --md-sys-color-on-error-container: #FFCDD2;
+}
+
+/* Dark mode specific adjustments */
+.dark-mode .hero-section {
+  background: linear-gradient(135deg, 
+    var(--md-sys-color-primary-container) 0%, 
+    var(--md-sys-color-secondary-container) 50%,
+    var(--md-sys-color-tertiary-container) 100%);
+}
+
+.dark-mode .hero-section::after {
+  opacity: 0.05;
+}
+
+.dark-mode .stat-card {
+  background: linear-gradient(135deg, 
+    var(--md-sys-color-surface-container) 0%, 
+    var(--md-sys-color-surface-container-high) 100%);
+  border-color: var(--md-sys-color-outline-variant);
+}
+
+.dark-mode .institution-card {
+  background-color: var(--md-sys-color-surface-container);
+  border-color: var(--md-sys-color-outline-variant);
+}
+
+.dark-mode .institution-card:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+  border-color: var(--md-sys-color-primary);
+}
+
+/* Base Reset & Typography */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--md-sys-color-on-background);
+  background-color: var(--md-sys-color-background);
+  transition: color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard), 
+              background-color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Scale - MD3 with Figtree */
+.display-large {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 400;
+  font-size: 57px;
+  line-height: 64px;
+  letter-spacing: -0.25px;
+}
+
+.display-medium {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 400;
+  font-size: 45px;
+  line-height: 52px;
+  letter-spacing: 0px;
+}
+
+.display-small {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 44px;
+  letter-spacing: 0px;
+}
+
+.headline-large {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0px;
+}
+
+.headline-medium {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: 0px;
+}
+
+.headline-small {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0px;
+}
+
+.title-large {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 28px;
+  letter-spacing: 0px;
+}
+
+.title-medium {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+}
+
+.title-small {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+.label-large {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+.label-medium {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+.label-small {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+.body-large {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+.body-medium {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+.body-small {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+}
+
+/* Layout Components */
+.main-content {
+  padding-top: 64px; /* Top app bar yüksekliği */
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Top App Bar */
+.top-app-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: var(--md-sys-color-surface-container);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  z-index: 1000;
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+.top-app-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.top-app-bar .leading-icon {
+  font-size: 28px;
+  color: var(--md-sys-color-primary);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.headline-small {
+  background: linear-gradient(135deg, var(--md-sys-color-primary), var(--md-sys-color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.5px;
+}
+
+.top-app-bar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Icon Button - MD3 Expressive */
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--md-sys-shape-corner-full);
+  border: none;
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  cursor: pointer;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
+  position: relative;
+  overflow: hidden;
+}
+
+.icon-button:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+  transform: scale(1.05);
+}
+
+.icon-button:active {
+  transform: scale(0.95);
+}
+
+.icon-button .material-symbols-outlined {
+  font-size: 24px;
+  font-variation-settings: 
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+  transition: font-variation-settings var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.icon-button:hover .material-symbols-outlined {
+  font-variation-settings: 
+    'FILL' 1,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* Hero Section - MD3 Expressive */
+.hero-section {
+  padding: 0 0 64px 0; /* Üstteki padding'i kaldır */
+  background: linear-gradient(135deg, 
+    var(--md-sys-color-primary-container) 0%, 
+    var(--md-sys-color-secondary-container) 50%,
+    var(--md-sys-color-tertiary-container) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.hero-section::after {
+  content: '🏥';
+  position: absolute;
+  top: 20px;
+  right: 10%;
+  font-size: 120px;
+  opacity: 0.1;
+  z-index: 0;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* Health Institution Type Colors - Güncellenmiş */
+:root {
+  --devlet-hastanesi-color: #1976D2;
+  --devlet-hastanesi-text: #FFFFFF;
+  --ozel-hastane-color: #7B1FA2;
+  --ozel-hastane-text: #FFFFFF;
+  --universite-hastanesi-color: #388E3C;
+  --universite-hastanesi-text: #FFFFFF;
+  --genel-color: #F57C00;
+  --genel-text: #FFFFFF;
+}
+
+/* Stats Cards Enhancement */
+.stat-card {
+  background: linear-gradient(135deg, 
+    var(--md-sys-color-surface) 0%, 
+    var(--md-sys-color-surface-container-low) 100%);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  backdrop-filter: blur(10px);
+  transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--md-sys-elevation-level4);
+  border-color: var(--md-sys-color-primary);
+}
+
+.stat-number {
+  background: linear-gradient(135deg, var(--md-sys-color-primary), var(--md-sys-color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 36px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Kurum tipi chip'leri için özel renkler - Güncellenmiş */
+.filter-chip[data-filter="type"][data-value*="DEVLET"] {
+  --chip-color: var(--devlet-hastanesi-color);
+  --chip-text-color: var(--devlet-hastanesi-text);
+}
+
+.filter-chip[data-filter="type"][data-value*="OZEL"] {
+  --chip-color: var(--ozel-hastane-color);
+  --chip-text-color: var(--ozel-hastane-text);
+}
+
+.filter-chip[data-filter="type"][data-value*="UNIVERSITE"] {
+  --chip-color: var(--universite-hastanesi-color);
+  --chip-text-color: var(--universite-hastanesi-text);
+}
+
+.filter-chip[data-filter="type"][data-value*="GENEL"] {
+  --chip-color: var(--genel-color);
+  --chip-text-color: var(--genel-text);
+}
+
+/* Institution Type Badge Colors */
+.institution-type {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 11px;
+  border-radius: var(--md-sys-shape-corner-small);
+  padding: 6px 10px;
+}
+
+.institution-type[data-type*="DEVLET"] {
+  background-color: var(--devlet-hastanesi-color);
+  color: var(--devlet-hastanesi-text);
+}
+
+.institution-type[data-type*="OZEL"] {
+  background-color: var(--ozel-hastane-color);
+  color: var(--ozel-hastane-text);
+}
+
+.institution-type[data-type*="UNIVERSITE"] {
+  background-color: var(--universite-hastanesi-color);
+  color: var(--universite-hastanesi-text);
+}
+
+.institution-type[data-type*="GENEL"] {
+  background-color: var(--genel-color);
+  color: var(--genel-text);
+}
+
+/* Enhanced Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings: 
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.icon-button:hover .material-symbols-outlined,
+.action-button:hover .material-symbols-outlined {
+  font-variation-settings: 
+    'FILL' 1,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 24;
+  transform: scale(1.1);
+}
+
+/* Search Section */
+.search-section {
+  padding: 32px 0;
+  background-color: var(--md-sys-color-surface-container-low);
+}
+
+.search-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--md-sys-color-surface);
+  border-radius: var(--md-sys-shape-corner-extra-large);
+  padding: 12px 16px;
+  margin-bottom: 24px;
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.search-bar .leading-icon {
+  margin-right: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  color: var(--md-sys-color-on-surface);
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: var(--md-sys-color-on-surface-variant);
+  opacity: 0.7;
+}
+
+/* Filter Section */
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface);
+  margin-right: 8px;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-chip {
+  padding: 8px 16px;
+  border-radius: var(--md-sys-shape-corner-small);
+  border: 1px solid var(--md-sys-color-outline);
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Kurum tipi chip'leri için özel renkler */
+.filter-chip[data-filter="type"] {
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, var(--chip-color, var(--md-sys-color-surface)), 
+              color-mix(in srgb, var(--chip-color, var(--md-sys-color-surface)) 80%, white 20%));
+  color: var(--chip-text-color, var(--md-sys-color-on-surface));
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.filter-chip[data-filter="type"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, 
+              color-mix(in srgb, var(--chip-color, var(--md-sys-color-surface)) 90%, white 10%), 
+              color-mix(in srgb, var(--chip-color, var(--md-sys-color-surface)) 70%, white 30%));
+}
+
+.filter-chip[data-filter="type"].active {
+  background: var(--chip-color, var(--md-sys-color-primary));
+  color: var(--chip-text-color, var(--md-sys-color-on-primary));
+  border-color: var(--chip-color, var(--md-sys-color-primary));
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Genel filter chip hover ve active durumları */
+.filter-chip:not([data-filter="type"]):hover {
+  background-color: var(--md-sys-color-surface-variant);
+}
+
+.filter-chip:not([data-filter="type"]).active {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border-color: var(--md-sys-color-primary);
+}
+
+/* Chip sayı göstergesi */
+.chip-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  color: inherit;
+  border-radius: 12px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: 6px;
+  min-width: 20px;
+  height: 20px;
+}
+
+.filter-chip[data-filter="type"] .chip-count {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.filter-chip.active .chip-count {
+  background: rgba(255, 255, 255, 0.25);
+  color: inherit;
+}
+
+.filter-clear-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: none;
+  background-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+  border-radius: var(--md-sys-shape-corner-small);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filter-clear-btn:hover {
+  background-color: var(--md-sys-color-error);
+  opacity: 0.8;
+}
+
+/* Results Section */
+.results-section {
+  padding: 32px 0;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.results-count {
+  font-size: 16px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.sort-select {
+  padding: 8px 12px;
+  border-radius: var(--md-sys-shape-corner-small);
+  border: 1px solid var(--md-sys-color-outline);
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  font-size: 14px;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 4px;
+  background-color: var(--md-sys-color-surface-variant);
+  border-radius: var(--md-sys-shape-corner-small);
+  padding: 4px;
+}
+
+.view-btn {
+  padding: 8px;
+  border: none;
+  background: transparent;
+  border-radius: var(--md-sys-shape-corner-small);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.view-btn.active {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 0;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--md-sys-color-outline-variant);
+  border-top: 4px solid var(--md-sys-color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Results Grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+/* Institution Card */
+.institution-card {
+  background-color: var(--md-sys-color-surface);
+  border-radius: var(--md-sys-shape-corner-large);
+  padding: 16px;
+  box-shadow: var(--md-sys-elevation-level1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.institution-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--md-sys-elevation-level3);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.institution-type {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  padding: 4px 8px;
+  border-radius: var(--md-sys-shape-corner-small);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.institution-name {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.institution-location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.institution-address {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  border: 1px solid var(--md-sys-color-outline);
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  border-radius: var(--md-sys-shape-corner-small);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-button:hover {
+  background-color: var(--md-sys-color-surface-variant);
+}
+
+.action-button.primary {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border-color: var(--md-sys-color-primary);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 16px;
+}
+
+.modal-content {
+  background-color: var(--md-sys-color-surface);
+  border-radius: var(--md-sys-shape-corner-large);
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: var(--md-sys-elevation-level5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface);
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  padding: 64px 16px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.no-results .material-symbols-outlined {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+/* Error Message Styles */
+.error-message {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: var(--md-sys-elevation-level3);
+  max-width: 90%;
+  min-width: 300px;
+}
+
+.error-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.error-content .material-symbols-outlined:first-child {
+  color: var(--md-sys-color-error);
+}
+
+/* Material Design 3 Components - Expressive */
+
+/* Buttons */
+.filled-button {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border: none;
+  border-radius: var(--md-sys-shape-corner-large);
+  padding: 12px 24px;
+  font-family: 'Figtree', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.filled-button:hover {
+  box-shadow: var(--md-sys-elevation-level2);
+  transform: translateY(-1px);
+}
+
+.filled-button:active {
+  transform: translateY(0);
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.outlined-button {
+  background-color: transparent;
+  color: var(--md-sys-color-primary);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-corner-large);
+  padding: 12px 24px;
+  font-family: 'Figtree', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.outlined-button:hover {
+  background-color: rgba(var(--md-sys-color-primary), 0.08);
+}
+
+.text-button {
+  background-color: transparent;
+  color: var(--md-sys-color-primary);
+  border: none;
+  border-radius: var(--md-sys-shape-corner-large);
+  padding: 12px 16px;
+  font-family: 'Figtree', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.text-button:hover {
+  background-color: rgba(var(--md-sys-color-primary), 0.08);
+}
+
+/* FAB - Floating Action Button */
+.fab {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border: none;
+  border-radius: var(--md-sys-shape-corner-large);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
+  box-shadow: var(--md-sys-elevation-level3);
+}
+
+.fab:hover {
+  box-shadow: var(--md-sys-elevation-level4);
+  transform: scale(1.05);
+}
+
+/* Cards */
+.card {
+  background-color: var(--md-sys-color-surface-container-low);
+  border-radius: var(--md-sys-shape-corner-extra-large);
+  box-shadow: var(--md-sys-elevation-level1);
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--md-sys-elevation-level2);
+  transform: translateY(-2px);
+}
+
+.card-elevated {
+  background-color: var(--md-sys-color-surface-container-low);
+  border-radius: var(--md-sys-shape-corner-extra-large);
+  box-shadow: var(--md-sys-elevation-level2);
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
+}
+
+.card-elevated:hover {
+  box-shadow: var(--md-sys-elevation-level3);
+  transform: translateY(-4px);
+}
+
+/* Chips */
+.chip {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-corner-small);
+  padding: 8px 16px;
+  font-family: 'Figtree', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chip:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.chip.selected {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  border-color: var(--md-sys-color-secondary);
+}
+
+/* Text Fields */
+.text-field {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.text-field input {
+  width: 100%;
+  padding: 16px 16px 8px 16px;
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-corner-small);
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+  font-family: 'Figtree', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.text-field input:focus {
+  outline: none;
+  border-color: var(--md-sys-color-primary);
+  border-width: 2px;
+}
+
+.text-field label {
+  position: absolute;
+  left: 16px;
+  top: 8px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface-variant);
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
+}
+
+/* Navigation */
+.navigation-rail {
+  background-color: var(--md-sys-color-surface-container);
+  border-radius: var(--md-sys-shape-corner-large);
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+.navigation-drawer {
+  background-color: var(--md-sys-color-surface-container-low);
+  border-radius: 0 var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) 0;
+}
+
+/* Progress Indicators */
+.linear-progress {
+  background-color: var(--md-sys-color-surface-container-highest);
+  border-radius: var(--md-sys-shape-corner-full);
+  height: 4px;
+  overflow: hidden;
+}
+
+.linear-progress-bar {
+  background-color: var(--md-sys-color-primary);
+  height: 100%;
+  border-radius: var(--md-sys-shape-corner-full);
+  transition: width var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+}
+
+/* Snackbars */
+.snackbar {
+  background-color: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+  border-radius: var(--md-sys-shape-corner-small);
+  padding: 16px;
+  box-shadow: var(--md-sys-elevation-level3);
+  font-family: 'Figtree', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 12px;
+  }
+  
+  .hero-section {
+    padding: 32px 0;
+  }
+  
+  .display-small {
+    font-size: 28px;
+  }
+  
+  .stats-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .results-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Logo Styling */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-logo {
+  height: 32px;
+  width: auto;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.app-logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+/* Logo responsiveness */
+@media (max-width: 768px) {
+  .app-logo {
+    height: 28px;
+  }
+  
+  .headline-small {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-section {
+    gap: 8px;
+  }
+  
+  .app-logo {
+    height: 24px;
+  }
+  
+  .headline-small {
+    font-size: 16px;
+  }
+}
+
+/* Dark Mode Specific Styles */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-sys-color-primary: #90CAF9;
+    --md-sys-color-on-primary: #0D47A1;
+    --md-sys-color-primary-container: #1565C0;
+    --md-sys-color-on-primary-container: #E3F2FD;
+    
+    --md-sys-color-secondary: #80CBC4;
+    --md-sys-color-on-secondary: #004D40;
+    --md-sys-color-secondary-container: #00695C;
+    --md-sys-color-on-secondary-container: #E0F2F1;
+    
+    --md-sys-color-tertiary: #A5D6A7;
+    --md-sys-color-on-tertiary: #1B5E20;
+    --md-sys-color-tertiary-container: #2E7D32;
+    --md-sys-color-on-tertiary-container: #E8F5E8;
+    
+    --md-sys-color-surface: #121212;
+    --md-sys-color-on-surface: #E0E0E0;
+    --md-sys-color-surface-variant: #1E1E1E;
+    --md-sys-color-on-surface-variant: #CAC4D0;
+    --md-sys-color-surface-container-low: #1A1A1A;
+    --md-sys-color-surface-container: #1E1E1E;
+    --md-sys-color-surface-container-high: #242424;
+    --md-sys-color-surface-container-highest: #2A2A2A;
+    
+    --md-sys-color-background: #0F0F0F;
+    --md-sys-color-on-background: #E0E0E0;
+    
+    --md-sys-color-outline: #938F99;
+    --md-sys-color-outline-variant: #49454F;
+    
+    --md-sys-color-error: #FF5252;
+    --md-sys-color-on-error: #FFFFFF;
+    --md-sys-color-error-container: #B71C1C;
+    --md-sys-color-on-error-container: #FFCDD2;
+  }
+  
+  /* Dark mode specific adjustments */
+  .dark-mode .hero-section {
+    background: linear-gradient(135deg, 
+      var(--md-sys-color-primary-container) 0%, 
+      var(--md-sys-color-secondary-container) 50%,
+      var(--md-sys-color-tertiary-container) 100%);
+  }
+
+  .dark-mode .hero-section::after {
+    opacity: 0.05;
+  }
+
+  .dark-mode .stat-card {
+    background: linear-gradient(135deg, 
+      var(--md-sys-color-surface-container) 0%, 
+      var(--md-sys-color-surface-container-high) 100%);
+    border-color: var(--md-sys-color-outline-variant);
+  }
+
+  .dark-mode .institution-card {
+    background-color: var(--md-sys-color-surface-container);
+    border-color: var(--md-sys-color-outline-variant);
+  }
+
+  .dark-mode .institution-card:hover {
+    background-color: var(--md-sys-color-surface-container-high);
+    border-color: var(--md-sys-color-primary);
+  }
+
+  /* Dark mode logo filter for better visibility */
+  .dark-mode .app-logo {
+    filter: brightness(1.1) contrast(1.1) drop-shadow(0 2px 4px rgba(255,255,255,0.1));
+  }
+}
+
+/* Dark Theme */
+.dark-mode, .dark {
+  /* Primary Colors - Health Care Red (Dark) */
+  --md-sys-color-primary: rgb(255 180 171);
+  --md-sys-color-surface-tint: rgb(255 180 171);
+  --md-sys-color-on-primary: rgb(105 0 5);
+  --md-sys-color-primary-container: rgb(147 0 11);
+  --md-sys-color-on-primary-container: rgb(255 218 214);
+  --md-sys-color-primary-fixed: rgb(255 218 214);
+  --md-sys-color-on-primary-fixed: rgb(65 0 2);
+  --md-sys-color-primary-fixed-dim: rgb(255 180 171);
+  --md-sys-color-on-primary-fixed-variant: rgb(147 0 11);
+  
+  /* Secondary Colors - Medical Teal (Dark) */
+  --md-sys-color-secondary: rgb(68 221 227);
+  --md-sys-color-on-secondary: rgb(0 55 57);
+  --md-sys-color-secondary-container: rgb(0 79 82);
+  --md-sys-color-on-secondary-container: rgb(101 247 253);
+  --md-sys-color-secondary-fixed: rgb(101 247 253);
+  --md-sys-color-on-secondary-fixed: rgb(0 32 33);
+  --md-sys-color-secondary-fixed-dim: rgb(64 218 224);
+  --md-sys-color-on-secondary-fixed-variant: rgb(0 79 82);
+  
+  /* Tertiary Colors - Health Gold (Dark) */
+  --md-sys-color-tertiary: rgb(242 191 79);
+  --md-sys-color-on-tertiary: rgb(64 45 0);
+  --md-sys-color-tertiary-container: rgb(92 67 0);
+  --md-sys-color-on-tertiary-container: rgb(255 222 160);
+  --md-sys-color-tertiary-fixed: rgb(255 222 160);
+  --md-sys-color-on-tertiary-fixed: rgb(38 26 0);
+  --md-sys-color-tertiary-fixed-dim: rgb(242 191 79);
+  --md-sys-color-on-tertiary-fixed-variant: rgb(92 67 0);
+  
+  /* Error Colors (Dark) */
+  --md-sys-color-error: rgb(255 180 171);
+  --md-sys-color-on-error: rgb(105 0 5);
+  --md-sys-color-error-container: rgb(147 0 10);
+  --md-sys-color-on-error-container: rgb(255 218 214);
+  
+  /* Surface Colors (Dark) */
+  --md-sys-color-background: rgb(32 14 12);
+  --md-sys-color-on-background: rgb(255 218 214);
+  --md-sys-color-surface: rgb(32 14 12);
+  --md-sys-color-on-surface: rgb(255 218 214);
+  --md-sys-color-surface-variant: rgb(95 63 59);
+  --md-sys-color-on-surface-variant: rgb(233 188 183);
+  --md-sys-color-surface-dim: rgb(32 14 12);
+  --md-sys-color-surface-bright: rgb(75 51 49);
+  --md-sys-color-surface-container-lowest: rgb(26 9 8);
+  --md-sys-color-surface-container-low: rgb(42 22 20);
+  --md-sys-color-surface-container: rgb(46 26 24);
+  --md-sys-color-surface-container-high: rgb(58 36 34);
+  --md-sys-color-surface-container-highest: rgb(70 47 44);
+  
+  /* Outline Colors (Dark) */
+  --md-sys-color-outline: rgb(175 135 130);
+  --md-sys-color-outline-variant: rgb(95 63 59);
+  
+  /* Utility Colors (Dark) */
+  --md-sys-color-shadow: rgb(0 0 0);
+  --md-sys-color-scrim: rgb(0 0 0);
+  --md-sys-color-inverse-surface: rgb(255 218 214);
+  --md-sys-color-inverse-on-surface: rgb(65 43 40);
+  --md-sys-color-inverse-primary: rgb(192 0 19);
+}
+
+/* System Theme Detection */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    /* Dark theme values automatically applied */
+    --md-sys-color-primary: rgb(255 180 171);
+    --md-sys-color-surface-tint: rgb(255 180 171);
+    --md-sys-color-on-primary: rgb(105 0 5);
+    --md-sys-color-primary-container: rgb(147 0 11);
+    --md-sys-color-on-primary-container: rgb(255 218 214);
+    --md-sys-color-secondary: rgb(68 221 227);
+    --md-sys-color-on-secondary: rgb(0 55 57);
+    --md-sys-color-secondary-container: rgb(0 79 82);
+    --md-sys-color-on-secondary-container: rgb(101 247 253);
+    --md-sys-color-tertiary: rgb(242 191 79);
+    --md-sys-color-on-tertiary: rgb(64 45 0);
+    --md-sys-color-tertiary-container: rgb(92 67 0);
+    --md-sys-color-on-tertiary-container: rgb(255 222 160);
+    --md-sys-color-error: rgb(255 180 171);
+    --md-sys-color-on-error: rgb(105 0 5);
+    --md-sys-color-error-container: rgb(147 0 10);
+    --md-sys-color-on-error-container: rgb(255 218 214);
+    --md-sys-color-background: rgb(32 14 12);
+    --md-sys-color-on-background: rgb(255 218 214);
+    --md-sys-color-surface: rgb(32 14 12);
+    --md-sys-color-on-surface: rgb(255 218 214);
+    --md-sys-color-surface-variant: rgb(95 63 59);
+    --md-sys-color-on-surface-variant: rgb(233 188 183);
+    --md-sys-color-surface-container-lowest: rgb(26 9 8);
+    --md-sys-color-surface-container-low: rgb(42 22 20);
+    --md-sys-color-surface-container: rgb(46 26 24);
+    --md-sys-color-surface-container-high: rgb(58 36 34);
+    --md-sys-color-surface-container-highest: rgb(70 47 44);
+    --md-sys-color-outline: rgb(175 135 130);
+    --md-sys-color-outline-variant: rgb(95 63 59);
+    --md-sys-color-inverse-surface: rgb(255 218 214);
+    --md-sys-color-inverse-on-surface: rgb(65 43 40);
+    --md-sys-color-inverse-primary: rgb(192 0 19);
+  }
+}

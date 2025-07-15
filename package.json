@@ -4,10 +4,12 @@
   "description": "Türkiye Sağlık Kuruluşları Kapsamlı Veritabanı - Üniversite-Hastane İlişkileri ile Material Design 3 Modern Web Uygulaması",
   "main": "index.html",
   "scripts": {
-    "build": "python scripts/process_data.py",
+    "build": "python scripts/process_data.py && python build.py",
+    "build:prod": "python build.py",
     "validate": "python scripts/validate_data.py",
     "dev": "python -m http.server 8000",
     "deploy": "firebase deploy",
+    "deploy:gh-pages": "npm run build && gh-pages -d _build",
     "scrape:health-departments": "python scripts/fetch_il_saglik_mudurlukeri.py",
     "scrape:all": "python scripts/fetch_all_sources.py",
     "scrape:universities": "python scripts/fetch_trhastane_universite.py",

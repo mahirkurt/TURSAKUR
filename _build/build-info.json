@@ -1,0 +1,12 @@
+{
+  "version": "2.0.3",
+  "build_time": "2025-07-15T03:02:58.021597Z",
+  "build_type": "production",
+  "features": [
+    "interactive_map",
+    "advanced_search",
+    "ux_enhancement",
+    "material_design_3",
+    "pwa_ready"
+  ]
+}

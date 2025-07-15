@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mahirkurt.github.io/TURSAKUR/sitemap.xml
