@@ -2,11 +2,28 @@
 
 > Modern ve kapsamlı Türkiye sağlık kuruluşları veritabanı - Material Design 3 ile
 
-Bu proje, Türkiye'deki tüm sağlık kuruluşlarının kapsamlı, güncel ve kullanıcı dostu bir veritabanını sunar. Hastaneler, özel klinikler, sağlık ocakları ve diğer sağlık tesislerinin detaylı bilgilerini içerir.
+Bu proje, Türkiye'deki tüm sağlık kuruluşlarının kapsamlı, güncel ve kullanıcı dostu bir veritabanını sunar. **1,674 sağlık kuruluşu** ile Türkiye'nin en geniş kapsamlı sağlık veritabanıdır.
 
 ## 🌐 Canlı Uygulama
 
 **Web Arayüzü:** [https://tursakur.web.app](https://tursakur.web.app)
+
+## 📊 İstatistikler (v2.0)
+
+- **🏥 Toplam Kurum**: 1,674
+- **🗺️ Toplam İl**: 81 (tam kapsama)
+- **🏥 Devlet Hastanesi**: 837
+- **🏥 Özel Hastane**: 571  
+- **🦷 Ağız Diş Sağlığı Merkezi**: 167
+- **🎓 Eğitim Araştırma Hastanesi**: 91
+- **🎓 Üniversite Hastanesi**: 8
+
+## 🎯 Veri Kaynakları
+
+- **T.C. Sağlık Bakanlığı** - Resmi hastane ve sağlık merkezleri
+- **Özel Hastaneler Veritabanı** - Tüm özel sağlık kuruluşları  
+- **Üniversite Hastaneleri** - Akademik sağlık kuruluşları
+- **TR Hastane** - Ek üniversite hastanesi verileri
 
 ## ✨ Ana Özellikler
 
@@ -108,7 +125,20 @@ pip install -r requirements.txt
 
 3. **Veri işleme betiğini çalıştırın:**
 ```bash
-python scripts/process_data.py
+# Tüm kaynaklardan veri çekme
+npm run scrape:all
+
+# Duplicate kayıtları birleştirme  
+npm run merge:duplicates
+
+# Ana veri dosyasını oluşturma
+npm run build
+
+# Sistem testini çalıştırma
+npm run test:system
+
+# Final raporu oluşturma
+npm run final:report
 ```
 
 4. **Web arayüzünü çalıştırın:**

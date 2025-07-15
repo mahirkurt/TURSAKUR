@@ -1,0 +1,28 @@
+
+=== TURSAKUR VERİ TOPLAMA VE BİRLEŞTİRME RAPORU ===
+Tarih: 2025-07-15 03:18:18
+
+📊 KAYNAK BAZLI VERİ TOPLAMA SONUÇLARI:
+❌ Saglik Bakanligi: 0 kayıt
+❌ Ozel Hastaneler: 0 kayıt
+✅ Universite Hastaneleri: 8 kayıt
+✅ Trhastane Universite: 5 kayıt
+✅ Il Saglik Mudurlukeri: 0 kayıt
+
+Toplam ham kayıt: 13
+Başarılı kaynak sayısı: 3/5
+
+🔄 MÜKERRER KAYIT BİRLEŞTİRME:
+✅ Birleştirme başarılı: 348 benzersiz kayıt
+📉 Mükerrer kayıt oranı: -2576.9%
+
+🎯 FİNAL VERİTABANI:
+✅ Nihai veritabanı oluşturuldu: 2 kayıt
+📁 Dosya: data/turkiye_saglik_kuruluslari.json
+
+📈 PERFORMANS ÖZETİ:
+Ham veri → Benzersiz: 13 → 348
+Benzersiz → Final: 348 → 2
+Veri kalitesi: 15.4% tutarlılık
+
+⏱️  İşlem tamamlandı: 2025-07-15 03:18:18

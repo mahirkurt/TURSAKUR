@@ -1,0 +1,13 @@
+
+=== MÜKERRER KAYIT BİRLEŞTİRME RAPORU ===
+
+Başlangıç kurum sayısı: 1694
+Final kurum sayısı: 348
+Tespit edilen mükerrer kayıt: 0
+Yapılan birleştirme: 0
+Azalma oranı: 79.5%
+
+Benzerlik eşiği: 0.85
+Koordinat mesafe eşiği: 1.0 km
+
+Tarih: 2025-07-15 03:18:21
