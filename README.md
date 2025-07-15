@@ -6,7 +6,39 @@ Bu proje, Türkiye'deki tüm sağlık kuruluşlarının kapsamlı, güncel ve ku
 
 ## 🌐 Canlı Uygulama
 
-**Web Arayüzü:** [https://tursakur.web.app](https://tursakur.web.app)
+**🚀 GitHub Pages:** [https://mahirkurt.github.io/TURSAKUR/](https://mahirkurt.github.io/TURSAKUR/)  
+**🔗 Firebase Hosting:** [https://tursakur.web.app](https://tursakur.web.app)
+
+[![Deployment Status](https://github.com/mahirkurt/TURSAKUR/actions/workflows/github-pages.yml/badge.svg)](https://github.com/mahirkurt/TURSAKUR/actions/workflows/github-pages.yml)
+
+## 🆕 Yeni Özellikler (v2.0.3)
+
+### 🗺️ İnteraktif Harita
+- Leaflet.js ile profesyonel harita görünümü
+- Hastane türlerine göre renkli marker'lar  
+- GPS konum bulma ve en yakın hastaneler
+- Pop-up ile detaylı hastane bilgileri
+- Yol tarifi entegrasyonu
+
+### 🔍 Gelişmiş Arama
+- Akıllı otomatik tamamlama (autocomplete)
+- Son aramalar hafızası
+- Hızlı filtre butonları  
+- Arama ipuçları ve öneriler
+- Klavye navigasyonu desteği
+
+### ✨ Kullanıcı Deneyimi
+- Modern yükleme animasyonları
+- Skeleton loader'lar
+- Kart giriş animasyonları
+- Bildirim sistemi
+- Performans takibi ve analytics
+
+### 📱 Mobil Optimizasyon
+- Touch-friendly arayüz
+- Responsive tasarım
+- PWA (Progressive Web App) desteği
+- Erişilebilirlik (a11y) iyileştirmeleri
 
 ## 📊 İstatistikler (v2.0)
 
