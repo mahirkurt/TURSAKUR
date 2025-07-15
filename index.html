@@ -7,6 +7,7 @@
                     <div class="results-count" id="results-count">Arama yapmak için filtreleri kullanın</div>
                 </div>ık Kuruluşları</title>
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -78,32 +79,26 @@
                             <!-- Institution Type Filters with Color-Coded Design -->
                             <div class="institution-filters-compact">
                                 <div class="filter-chip-compact active" data-type="ALL">
-                                    <span class="filter-icon">⚡</span>
                                     <span class="filter-text">Tümü</span>
                                     <span class="filter-count" id="count-all">1704</span>
                                 </div>
                                 <div class="filter-chip-compact devlet-hastanesi" data-type="DEVLET_HASTANESI">
-                                    <span class="filter-icon">🏥</span>
                                     <span class="filter-text">Devlet</span>
                                     <span class="filter-count" id="count-devlet">0</span>
                                 </div>
                                 <div class="filter-chip-compact ozel-hastane" data-type="OZEL_HASTANE">
-                                    <span class="filter-icon">🏢</span>
                                     <span class="filter-text">Özel</span>
                                     <span class="filter-count" id="count-ozel">0</span>
                                 </div>
                                 <div class="filter-chip-compact universite" data-type="UNIVERSITE_HASTANESI">
-                                    <span class="filter-icon">🎓</span>
                                     <span class="filter-text">Üniversite</span>
                                     <span class="filter-count" id="count-universite">0</span>
                                 </div>
                                 <div class="filter-chip-compact egitim-arastirma" data-type="EGITIM_ARASTIRMA_HASTANESI">
-                                    <span class="filter-icon">🔬</span>
                                     <span class="filter-text">Eğt-Arş</span>
                                     <span class="filter-count" id="count-egitim">0</span>
                                 </div>
                                 <div class="filter-chip-compact dis-sagligi" data-type="AGIZ_DIS_SAGLIGI_MERKEZI">
-                                    <span class="filter-icon">🦷</span>
                                     <span class="filter-text">Diş</span>
                                     <span class="filter-count" id="count-dis">0</span>
                                 </div>
@@ -112,14 +107,14 @@
                             <!-- Enhanced Location Filters -->
                             <div class="location-filters-compact">
                                 <div class="location-input-group">
-                                    <span class="location-icon">📍</span>
+                                    <span class="material-symbols-outlined location-icon">location_on</span>
                                     <select id="provinceFilter" class="location-select">
                                         <option value="">Tüm İller</option>
                                     </select>
                                 </div>
                                 
                                 <div class="location-input-group">
-                                    <span class="location-icon">📌</span>
+                                    <span class="material-symbols-outlined location-icon">place</span>
                                     <select id="districtFilter" class="location-select" disabled>
                                         <option value="">İlçe Seçin</option>
                                     </select>
@@ -134,7 +129,7 @@
                                     </select>
                                     
                                     <a href="map.html" class="map-btn-compact" title="Harita Görünümü">
-                                        <span class="map-icon">🗺️</span>
+                                        <span class="material-symbols-outlined">map</span>
                                         <span class="map-text">Harita</span>
                                     </a>
                                 </div>
@@ -275,6 +270,7 @@
 
     <script src="js/ux-enhancer.js"></script>
     <script src="js/advanced-search.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

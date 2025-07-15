@@ -375,10 +375,6 @@ class HealthInstitutionsApp {
                         <span class="material-symbols-outlined">language</span>
                         Web
                     </button>` : ''}
-                    ${item.koordinat_lat && item.koordinat_lon ? `<button class="action-button" onclick="window.open('map.html?hospital=${item.kurum_id}', '_blank')">
-                        <span class="material-symbols-outlined">map</span>
-                        Harita
-                    </button>` : ''}
                 </div>
             </div>
         `;
@@ -743,107 +739,162 @@ class HealthInstitutionsApp {
         modalTitle.textContent = institution.kurum_adi;
         
         modalContent.innerHTML = `
-            <div class="detail-section">
-                <div class="detail-title">
-                    <span class="material-symbols-outlined">business</span>
-                    Genel Bilgiler
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">Kurum Adı</div>
-                    <div class="detail-value large">${institution.kurum_adi}</div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">Kurum Türü</div>
-                    <div class="detail-value">
-                        <span class="institution-type-badge ${this.getTypeClass(institution.kurum_tipi)}">
-                            ${this.formatType(institution.kurum_tipi)}
-                        </span>
+            <div class="modal-content-grid">
+                <div class="modal-left-content">
+                    <div class="detail-section">
+                        <div class="detail-title">
+                            <span class="material-symbols-outlined">business</span>
+                            Genel Bilgiler
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Kurum Adı</div>
+                            <div class="detail-value large">${institution.kurum_adi}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Kurum Türü</div>
+                            <div class="detail-value">
+                                <span class="institution-type-badge ${this.getTypeClass(institution.kurum_tipi)}">
+                                    ${this.formatType(institution.kurum_tipi)}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Kurum ID</div>
+                            <div class="detail-value">${institution.kurum_id}</div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <div class="detail-title">
+                            <span class="material-symbols-outlined">location_on</span>
+                            Konum Bilgileri
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">İl</div>
+                            <div class="detail-value">${institution.il_adi} (${institution.il_kodu})</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">İlçe</div>
+                            <div class="detail-value">${institution.ilce_adi}</div>
+                        </div>
+                        ${institution.adres ? `
+                        <div class="detail-row">
+                            <div class="detail-label">Adres</div>
+                            <div class="detail-value">${institution.adres}</div>
+                        </div>
+                        ` : ''}
+                        ${institution.koordinat_lat && institution.koordinat_lon ? `
+                        <div class="detail-row">
+                            <div class="detail-label">Koordinatlar</div>
+                            <div class="detail-value">${institution.koordinat_lat}, ${institution.koordinat_lon}</div>
+                        </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="detail-section">
+                        <div class="detail-title">
+                            <span class="material-symbols-outlined">contact_phone</span>
+                            İletişim Bilgileri
+                        </div>
+                        ${institution.telefon ? `
+                        <div class="detail-row">
+                            <div class="detail-label">Telefon</div>
+                            <div class="detail-value">
+                                <a href="tel:${institution.telefon}" style="color: var(--md-sys-color-primary); text-decoration: none;">
+                                    ${institution.telefon}
+                                </a>
+                            </div>
+                        </div>
+                        ` : ''}
+                        ${institution.web_sitesi ? `
+                        <div class="detail-row">
+                            <div class="detail-label">Web Sitesi</div>
+                            <div class="detail-value">
+                                <a href="${institution.web_sitesi}" target="_blank" style="color: var(--md-sys-color-primary); text-decoration: none;">
+                                    ${institution.web_sitesi}
+                                </a>
+                            </div>
+                        </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="detail-section">
+                        <div class="detail-title">
+                            <span class="material-symbols-outlined">database</span>
+                            Veri Kaynağı
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Kaynak</div>
+                            <div class="detail-value">${institution.veri_kaynagi}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Son Güncelleme</div>
+                            <div class="detail-value">${institution.son_guncelleme}</div>
+                        </div>
                     </div>
                 </div>
-                <div class="detail-row">
-                    <div class="detail-label">Kurum ID</div>
-                    <div class="detail-value">${institution.kurum_id}</div>
-                </div>
-            </div>
-
-            <div class="detail-section">
-                <div class="detail-title">
-                    <span class="material-symbols-outlined">location_on</span>
-                    Konum Bilgileri
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">İl</div>
-                    <div class="detail-value">${institution.il_adi} (${institution.il_kodu})</div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">İlçe</div>
-                    <div class="detail-value">${institution.ilce_adi}</div>
-                </div>
-                ${institution.adres ? `
-                <div class="detail-row">
-                    <div class="detail-label">Adres</div>
-                    <div class="detail-value">${institution.adres}</div>
-                </div>
-                ` : ''}
-                ${institution.koordinat_lat && institution.koordinat_lon ? `
-                <div class="detail-row">
-                    <div class="detail-label">Koordinatlar</div>
-                    <div class="detail-value">${institution.koordinat_lat}, ${institution.koordinat_lon}</div>
-                </div>
-                ` : ''}
-            </div>
-
-            <div class="detail-section">
-                <div class="detail-title">
-                    <span class="material-symbols-outlined">contact_phone</span>
-                    İletişim Bilgileri
-                </div>
-                ${institution.telefon ? `
-                <div class="detail-row">
-                    <div class="detail-label">Telefon</div>
-                    <div class="detail-value">
-                        <a href="tel:${institution.telefon}" style="color: var(--md-sys-color-primary); text-decoration: none;">
-                            ${institution.telefon}
-                        </a>
+                
+                <div class="modal-right-content">
+                    ${institution.koordinat_lat && institution.koordinat_lon ? `
+                    <div class="detail-section">
+                        <div class="detail-title">
+                            <span class="material-symbols-outlined">map</span>
+                            Konum Haritası
+                        </div>
+                        <div class="modal-map-container">
+                            <div id="modal-map" style="height: 400px; width: 100%; border-radius: 8px;"></div>
+                        </div>
                     </div>
-                </div>
-                ` : ''}
-                ${institution.web_sitesi ? `
-                <div class="detail-row">
-                    <div class="detail-label">Web Sitesi</div>
-                    <div class="detail-value">
-                        <a href="${institution.web_sitesi}" target="_blank" style="color: var(--md-sys-color-primary); text-decoration: none;">
-                            ${institution.web_sitesi}
-                        </a>
-                    </div>
-                </div>
-                ` : ''}
-            </div>
-
-            <div class="detail-section">
-                <div class="detail-title">
-                    <span class="material-symbols-outlined">database</span>
-                    Veri Kaynağı
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">Kaynak</div>
-                    <div class="detail-value">${institution.veri_kaynagi}</div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">Son Güncelleme</div>
-                    <div class="detail-value">${institution.son_guncelleme}</div>
+                    ` : ''}
                 </div>
             </div>
         `;
 
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
+        
+        // Initialize map if coordinates exist
+        if (institution.koordinat_lat && institution.koordinat_lon) {
+            setTimeout(() => {
+                this.initModalMap(institution);
+            }, 100);
+        }
+    }
+    
+    initModalMap(institution) {
+        const mapElement = document.getElementById('modal-map');
+        if (!mapElement) return;
+        
+        // Clear existing map
+        if (this.modalMap) {
+            this.modalMap.remove();
+        }
+        
+        // Create new map
+        this.modalMap = L.map('modal-map').setView([institution.koordinat_lat, institution.koordinat_lon], 15);
+        
+        // Add tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(this.modalMap);
+        
+        // Add marker for the institution
+        const marker = L.marker([institution.koordinat_lat, institution.koordinat_lon])
+            .addTo(this.modalMap)
+            .bindPopup(`<strong>${institution.kurum_adi}</strong><br>${institution.il_adi}, ${institution.ilce_adi}`)
+            .openPopup();
     }
 
     closeModal() {
         const modal = document.getElementById('institution-modal-overlay');
         modal.style.display = 'none';
         document.body.style.overflow = '';
+        
+        // Clean up modal map
+        if (this.modalMap) {
+            this.modalMap.remove();
+            this.modalMap = null;
+        }
     }
 }
 

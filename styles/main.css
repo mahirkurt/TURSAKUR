@@ -394,7 +394,7 @@ body {
 .app-logo {
   height: 48px;
   width: auto;
-  max-width: 280px;
+  max-width: 700px;
   object-fit: contain;
   transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
@@ -1049,118 +1049,41 @@ body {
   background: var(--md-sys-color-surface-container-high);
 }
 
-.detail-section {
-  margin-bottom: 32px;
-  padding: 20px;
-  background: var(--md-sys-color-surface);
-  border-radius: var(--md-sys-shape-corner-large);
-  border: 1px solid var(--md-sys-color-outline-variant);
-  box-shadow: var(--md-sys-elevation-1);
-}
-
-.detail-section:last-child {
-  margin-bottom: 0;
-}
-
-.detail-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--md-sys-color-primary);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--md-sys-color-primary-container);
-}
-
-.detail-title .material-symbols-outlined {
-  font-size: 24px;
-  background: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
-  padding: 6px;
-  border-radius: var(--md-sys-shape-corner-small);
-}
-
-.detail-row {
+/* Modal Grid Layout */
+.modal-content-grid {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 16px;
-  margin-bottom: 16px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
-}
-
-.detail-row:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-.detail-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--md-sys-color-on-surface-variant);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  display: flex;
-  align-items: center;
-}
-
-.detail-value {
-  font-size: 15px;
-  color: var(--md-sys-color-on-surface);
-  line-height: 1.5;
-  font-weight: 400;
-}
-
-.detail-value.large {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--md-sys-color-primary);
-}
-
-@keyframes modalFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes modalSlideIn {
-  from { 
-    transform: translateY(-20px) scale(0.95);
-    opacity: 0;
-  }
-  to { 
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-}
-
-.modal-content {
-  background-color: var(--md-sys-color-surface);
-  border-radius: var(--md-sys-shape-corner-large);
-  max-width: 600px;
-  width: 100%;
-  max-height: 80vh;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 32px;
   overflow-y: auto;
-  box-shadow: var(--md-sys-elevation-level5);
+  max-height: calc(85vh - 140px);
+  background: var(--md-sys-color-surface-container-high);
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 24px 16px;
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+.modal-left-content {
+  min-width: 0; /* Allow shrinking */
 }
 
-.modal-title {
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--md-sys-color-on-surface);
+.modal-right-content {
+  min-width: 0; /* Allow shrinking */
 }
 
-.modal-body {
-  padding: 24px;
+.modal-map-container {
+  margin-top: 16px;
+}
+
+/* Responsive modal layout */
+@media (max-width: 1024px) {
+  .modal-content-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Leaflet map styles for modal */
+.modal-map-container .leaflet-container {
+  border-radius: var(--md-sys-shape-corner-medium);
+  box-shadow: var(--md-sys-elevation-level2);
 }
 
 /* No Results */
@@ -1876,7 +1799,7 @@ img.loaded-high {
 
 /* Institution Type Color Coding */
 .filter-chip-compact.active {
-  background: linear-gradient(135deg, var(--md-sys-color-primary), var(--md-sys-color-secondary));
+  background: var(--md-sys-color-primary);
   color: var(--md-sys-color-on-primary);
   border-color: var(--md-sys-color-primary);
   box-shadow: var(--md-sys-elevation-level3);
@@ -1884,52 +1807,52 @@ img.loaded-high {
 }
 
 .filter-chip-compact.devlet-hastanesi {
-  background: linear-gradient(135deg, #1976d2, #1565c0);
+  background: #1976d2;
   color: white;
 }
 
 .filter-chip-compact.devlet-hastanesi.active {
-  background: linear-gradient(135deg, #0d47a1, #1565c0);
+  background: #0d47a1;
   box-shadow: 0 4px 12px rgba(25, 118, 210, 0.4);
 }
 
 .filter-chip-compact.ozel-hastane {
-  background: linear-gradient(135deg, #388e3c, #2e7d32);
+  background: #388e3c;
   color: white;
 }
 
 .filter-chip-compact.ozel-hastane.active {
-  background: linear-gradient(135deg, #1b5e20, #2e7d32);
+  background: #1b5e20;
   box-shadow: 0 4px 12px rgba(56, 142, 60, 0.4);
 }
 
 .filter-chip-compact.universite {
-  background: linear-gradient(135deg, #7b1fa2, #6a1b9a);
+  background: #7b1fa2;
   color: white;
 }
 
 .filter-chip-compact.universite.active {
-  background: linear-gradient(135deg, #4a148c, #6a1b9a);
+  background: #4a148c;
   box-shadow: 0 4px 12px rgba(123, 31, 162, 0.4);
 }
 
 .filter-chip-compact.egitim-arastirma {
-  background: linear-gradient(135deg, #f57c00, #ef6c00);
+  background: #f57c00;
   color: white;
 }
 
 .filter-chip-compact.egitim-arastirma.active {
-  background: linear-gradient(135deg, #e65100, #ef6c00);
+  background: #e65100;
   box-shadow: 0 4px 12px rgba(245, 124, 0, 0.4);
 }
 
 .filter-chip-compact.dis-sagligi {
-  background: linear-gradient(135deg, #00acc1, #0097a7);
+  background: #00acc1;
   color: white;
 }
 
 .filter-chip-compact.dis-sagligi.active {
-  background: linear-gradient(135deg, #006064, #0097a7);
+  background: #006064;
   box-shadow: 0 4px 12px rgba(0, 172, 193, 0.4);
 }
 

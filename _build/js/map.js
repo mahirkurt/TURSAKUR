@@ -64,10 +64,13 @@ class TURSAKURMap {
     async loadData() {
         try {
             const response = await fetch('data/turkiye_saglik_kuruluslari.json');
-            this.hospitalData = await response.json();
+            const result = await response.json();
+            this.hospitalData = result.kurumlar || result || [];
             console.log('Loaded hospitals:', this.hospitalData.length);
+            console.log('Sample hospital:', this.hospitalData[0]);
         } catch (error) {
             console.error('Error loading hospital data:', error);
+            this.hospitalData = [];
         }
     }
     
