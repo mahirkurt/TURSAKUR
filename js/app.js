@@ -32,7 +32,14 @@ class HealthInstitutionsApp {
         
         // Başlangıçta sonuçları gösterme - sadece filtreleme sonrası göster
         this.hideLoading();
-        this.showInitialMessage();
+        // Başlangıçta "Tümü" filtresi aktif olsun
+        const allFilter = document.querySelector('.filter-chip-compact[data-type="ALL"]');
+        if (allFilter) {
+            allFilter.classList.add('active');
+            this.applyFilters(); // Tüm sonuçları göster
+        } else {
+            this.showInitialMessage();
+        }
         this.updateLoadingProgress(100);
         
         // Hide loading overlay
@@ -311,10 +318,11 @@ class HealthInstitutionsApp {
         const container = document.getElementById('results-grid');
         const noResults = document.getElementById('no-results');
         
-        // Eğer hiçbir filtre yoksa başlangıç mesajını göster
-        const hasAnyFilter = this.filters.search || this.filters.type || this.filters.province || this.filters.district;
+        // Eğer hiçbir filtre yoksa ve "Tümü" seçilmemişse başlangıç mesajını göster
+        const hasAnyFilter = this.filters.search || this.filters.type !== '' || this.filters.province || this.filters.district;
+        const isTotalSelected = document.querySelector('.filter-chip-compact[data-type="ALL"]')?.classList.contains('active');
         
-        if (!hasAnyFilter) {
+        if (!hasAnyFilter && !isTotalSelected) {
             this.showInitialMessage();
             return;
         }
