@@ -785,7 +785,7 @@ body {
 
 .filter-chips-row {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 12px;
   margin-bottom: 24px;
 }
@@ -872,7 +872,7 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
   .filter-chips-row {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
   }
   
