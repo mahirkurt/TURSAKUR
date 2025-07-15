@@ -48,15 +48,45 @@ class HealthInstitutionsApp {
             this.updateActiveFilters();
         });
 
-        // Sıralama
-        document.getElementById('sort-select').addEventListener('change', (e) => {
-            this.sortResults(e.target.value);
+        // Kurum tipi chip filtreleri
+        document.querySelectorAll('.filter-chip[data-type]').forEach(chip => {
+            chip.addEventListener('click', (e) => {
+                // Önceki aktif chip'i kaldır
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                
+                // Yeni chip'i aktif yap
+                chip.classList.add('active');
+                
+                const type = chip.dataset.type;
+                this.filters.type = type === 'ALL' ? '' : type;
+                this.applyFilters();
+                this.updateActiveFilters();
+            });
         });
 
-        // Filtreleri temizle
-        document.getElementById('clear-filters').addEventListener('click', () => {
-            this.clearFilters();
+        // İl seçimi
+        document.getElementById('provinceFilter').addEventListener('change', (e) => {
+            this.filters.province = e.target.value;
+            this.filters.district = ''; // İl değiştiğinde ilçeyi sıfırla
+            this.updateDistrictFilter();
+            this.applyFilters();
+            this.updateActiveFilters();
         });
+
+        // İlçe seçimi
+        document.getElementById('districtFilter').addEventListener('change', (e) => {
+            this.filters.district = e.target.value;
+            this.applyFilters();
+            this.updateActiveFilters();
+        });
+
+        // Filtreleri temizleme
+        const clearFiltersBtn = document.getElementById('clear-filters');
+        if (clearFiltersBtn) {
+            clearFiltersBtn.addEventListener('click', () => {
+                this.clearAllFilters();
+            });
+        }
 
         // Tema değiştirici
         document.getElementById('theme-toggle').addEventListener('click', () => {
@@ -76,25 +106,13 @@ class HealthInstitutionsApp {
     }
 
     createFilters() {
-        this.createTypeFilters();
         this.createLocationSelectors();
-    }
-
-    createTypeFilters() {
-        const types = this.getUniqueTypes();
-        const container = document.getElementById('type-filters');
-        
-        types.forEach(type => {
-            const count = this.data.filter(item => item.kurum_tipi === type).length;
-            const chip = this.createFilterChip(this.formatTypeName(type), count, 'type', type);
-            container.appendChild(chip);
-        });
     }
 
     createLocationSelectors() {
         // İl seçici doldur
         const provinces = this.getUniqueProvinces();
-        const provinceSelect = document.getElementById('province-select');
+        const provinceSelect = document.getElementById('provinceFilter');
         
         provinces.forEach(province => {
             const option = document.createElement('option');
@@ -102,16 +120,31 @@ class HealthInstitutionsApp {
             option.textContent = province;
             provinceSelect.appendChild(option);
         });
+    }
+
+    updateDistrictFilter() {
+        const districtSelect = document.getElementById('districtFilter');
         
-        // İl seçici event listener
-        provinceSelect.addEventListener('change', (e) => {
-            this.onProvinceChange(e.target.value);
-        });
+        // İlçe seçiciyi temizle
+        districtSelect.innerHTML = '<option value="">İlçe Seçin</option>';
         
-        // İlçe seçici event listener
-        document.getElementById('district-select').addEventListener('change', (e) => {
-            this.onDistrictChange(e.target.value);
-        });
+        if (this.filters.province) {
+            // İlçe seçiciyi etkinleştir
+            districtSelect.disabled = false;
+            
+            // Seçili ile ait ilçeleri getir
+            const districts = this.getDistrictsByProvince(this.filters.province);
+            
+            districts.forEach(district => {
+                const option = document.createElement('option');
+                option.value = district;
+                option.textContent = district;
+                districtSelect.appendChild(option);
+            });
+        } else {
+            // İl seçilmemişse ilçe seçiciyi devre dışı bırak
+            districtSelect.disabled = true;
+        }
     }
     
     onProvinceChange(selectedProvince) {
@@ -364,6 +397,32 @@ class HealthInstitutionsApp {
             chip.classList.remove('active');
         });
         
+        this.applyFilters();
+        this.updateActiveFilters();
+    }
+
+    clearAllFilters() {
+        // Filtreleri sıfırla
+        this.filters = {
+            search: '',
+            type: '',
+            province: '',
+            district: ''
+        };
+
+        // UI elementlerini sıfırla
+        document.getElementById('search-input').value = '';
+        document.getElementById('provinceFilter').value = '';
+        document.getElementById('districtFilter').value = '';
+        document.getElementById('districtFilter').disabled = true;
+
+        // Chip seçimlerini sıfırla
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.classList.remove('active');
+        });
+        document.querySelector('.filter-chip[data-type="ALL"]').classList.add('active');
+
+        // Filtreleri uygula
         this.applyFilters();
         this.updateActiveFilters();
     }

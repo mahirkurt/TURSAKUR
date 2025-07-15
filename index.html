@@ -39,6 +39,25 @@
                     <h2 class="display-small">Türkiye Sağlık Kuruluşları</h2>
                     <p class="body-large">Türkiye'deki tüm sağlık kuruluşlarına kolayca ulaşın</p>
                 </div>
+                
+                <!-- İstatistik Kutuları -->
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <span class="material-symbols-outlined stat-icon">local_hospital</span>
+                        <span class="stat-number" id="total-institutions">0</span>
+                        <span class="stat-label">Toplam Kurum</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="material-symbols-outlined stat-icon">category</span>
+                        <span class="stat-number" id="total-types">0</span>
+                        <span class="stat-label">Kurum Tipi</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="material-symbols-outlined stat-icon">location_city</span>
+                        <span class="stat-number" id="total-provinces">81</span>
+                        <span class="stat-label">İl</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -52,43 +71,46 @@
                     </div>
                     
                     <div class="filter-section">
-                        <!-- Single Row Advanced Filters -->
-                        <div class="filters-row">
-                            <!-- Institution Type Filters -->
-                            <div class="filter-group filter-group-types">
-                                <span class="filter-label">
+                        <!-- Institution Type Filters - 5'li Yan Yana -->
+                        <div class="institution-type-filters">
+                            <div class="filter-chips-row">
+                                <div class="filter-chip active" data-type="ALL">
+                                    <span class="material-symbols-outlined">filter_list</span>
+                                    <span>Tümü</span>
+                                </div>
+                                <div class="filter-chip" data-type="HASTANE">
                                     <span class="material-symbols-outlined">local_hospital</span>
-                                    Kurum Tipi
-                                </span>
-                                <div class="chip-group type-chips" id="type-filters"></div>
+                                    <span>Hastaneler</span>
+                                </div>
+                                <div class="filter-chip" data-type="AĞIZ_DİŞ_SAĞLIĞI_MERKEZİ">
+                                    <span class="material-symbols-outlined">medical_services</span>
+                                    <span>Diş Sağlığı</span>
+                                </div>
+                                <div class="filter-chip" data-type="ASM">
+                                    <span class="material-symbols-outlined">health_and_safety</span>
+                                    <span>ASM</span>
+                                </div>
+                                <div class="filter-chip" data-type="TOPLUM_SAĞLIĞI_MERKEZİ">
+                                    <span class="material-symbols-outlined">group</span>
+                                    <span>Toplum Sağlığı</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location Filters - Alt Satırda -->
+                        <div class="location-filters">
+                            <div class="dropdown-container">
+                                <span class="material-symbols-outlined dropdown-icon">location_on</span>
+                                <select id="provinceFilter" class="filter-dropdown">
+                                    <option value="">Tüm İller</option>
+                                </select>
                             </div>
                             
-                            <!-- Location Filters -->
-                            <div class="filter-group filter-group-location">
-                                <div class="location-filter-row">
-                                    <div class="province-filter">
-                                        <span class="filter-label">
-                                            <span class="material-symbols-outlined">location_on</span>
-                                            İl Seçin
-                                        </span>
-                                        <select class="province-select" id="province-select">
-                                            <option value="">Tüm İller</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="district-filter" id="district-filter-container">
-                                        <span class="filter-label">
-                                            <span class="material-symbols-outlined">place</span>
-                                            İlçe Seçin
-                                        </span>
-                                        <select class="district-select" id="district-select" disabled>
-                                            <option value="">İlçe seçmek için önce il seçin</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <!-- Selected Location Chips -->
-                                <div class="selected-filters" id="selected-location-filters"></div>
+                            <div class="dropdown-container">
+                                <span class="material-symbols-outlined dropdown-icon">place</span>
+                                <select id="districtFilter" class="filter-dropdown" disabled>
+                                    <option value="">İlçe Seçin</option>
+                                </select>
                             </div>
                         </div>
                         
@@ -99,6 +121,8 @@
                             <button class="filter-clear-btn" id="clear-filters">
                                 <span class="material-symbols-outlined">clear_all</span>
                                 Tümünü Temizle
+                            </button>
+                        </div>
                             </button>
                         </div>
                     </div>

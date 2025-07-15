@@ -763,265 +763,141 @@ body {
 }
 
 .filter-chip {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: var(--md-sys-shape-corner-small);
-  border: 1px solid var(--md-sys-color-outline);
+  gap: 8px;
+  padding: 16px 12px;
+  border-radius: var(--md-sys-shape-corner-medium);
+  border: 2px solid var(--md-sys-color-outline);
   background-color: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
-  font-size: 12px;
-  font-weight: 500;
   cursor: pointer;
   transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
-  min-height: 32px;
-  box-sizing: border-box;
+  text-align: center;
+  min-height: 80px;
 }
 
-/* Institution Type Specific Colors */
-.filter-chip[data-filter="type"][data-value*="DEVLET"] {
-  --chip-color: var(--md-sys-color-primary);
-  --chip-text-color: var(--md-sys-color-on-primary);
-  --chip-container: var(--md-sys-color-primary-container);
-  --chip-on-container: var(--md-sys-color-on-primary-container);
+/* Institution Type Filters - 5'li Yan Yana */
+.institution-type-filters {
+  margin: 24px 0;
 }
 
-.filter-chip[data-filter="type"][data-value*="OZEL"] {
-  --chip-color: var(--md-sys-color-secondary);
-  --chip-text-color: var(--md-sys-color-on-secondary);
-  --chip-container: var(--md-sys-color-secondary-container);
-  --chip-on-container: var(--md-sys-color-on-secondary-container);
+.filter-chips-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
-.filter-chip[data-filter="type"][data-value*="UNIVERSITE"] {
-  --chip-color: var(--md-sys-color-tertiary);
-  --chip-text-color: var(--md-sys-color-on-tertiary);
-  --chip-container: var(--md-sys-color-tertiary-container);
-  --chip-on-container: var(--md-sys-color-on-tertiary-container);
-}
-
-.filter-chip[data-filter="type"][data-value*="AGIZ"],
-.filter-chip[data-filter="type"][data-value*="DIS"] {
-  --chip-color: rgb(102, 187, 106);
-  --chip-text-color: rgb(255, 255, 255);
-  --chip-container: rgb(200, 230, 201);
-  --chip-on-container: rgb(27, 94, 32);
-}
-
-.filter-chip[data-filter="type"][data-value*="EGITIM"],
-.filter-chip[data-filter="type"][data-value*="ARASTIRMA"] {
-  --chip-color: rgb(156, 39, 176);
-  --chip-text-color: rgb(255, 255, 255);
-  --chip-container: rgb(225, 190, 231);
-  --chip-on-container: rgb(74, 20, 140);
-}
-
-.filter-chip[data-filter="type"][data-value*="GENEL"] {
-  --chip-color: var(--md-sys-color-error);
-  --chip-text-color: var(--md-sys-color-on-error);
-  --chip-container: var(--md-sys-color-error-container);
-  --chip-on-container: var(--md-sys-color-on-error-container);
-}
-
-.filter-chip[data-filter="type"] {
-  background: var(--chip-container, var(--md-sys-color-surface-variant));
-  color: var(--chip-on-container, var(--md-sys-color-on-surface-variant));
-  border-color: var(--chip-color, var(--md-sys-color-outline));
+.filter-chip:hover {
+  background-color: var(--md-sys-color-surface-variant);
+  border-color: var(--md-sys-color-primary);
+  transform: translateY(-2px);
   box-shadow: var(--md-sys-elevation-level1);
 }
 
-.filter-chip[data-filter="type"]:hover {
-  background: var(--chip-color, var(--md-sys-color-surface));
-  color: var(--chip-text-color, var(--md-sys-color-on-surface));
-  transform: translateY(-1px);
-  box-shadow: var(--md-sys-elevation-level2);
+.filter-chip.active {
+  background-color: var(--md-sys-color-primary-container);
+  border-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary-container);
 }
 
-.filter-chip[data-filter="type"].active {
-  background: var(--chip-color, var(--md-sys-color-primary));
-  color: var(--chip-text-color, var(--md-sys-color-on-primary));
-  border-color: var(--chip-color, var(--md-sys-color-primary));
-  transform: scale(1.02);
-  box-shadow: var(--md-sys-elevation-level3);
-}
-
-/* Chip Icons */
 .filter-chip .material-symbols-outlined {
-  font-size: 16px;
-  font-variation-settings: 'FILL' 0, 'wght' 500;
+  font-size: 24px;
+  color: var(--md-sys-color-primary);
 }
 
 .filter-chip.active .material-symbols-outlined {
-  font-variation-settings: 'FILL' 1, 'wght' 600;
+  color: var(--md-sys-color-on-primary-container);
 }
 
-/* Chip Count Badge */
-.chip-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.2);
-  color: inherit;
-  border-radius: var(--md-sys-shape-corner-full);
-  padding: 2px 6px;
-  font-size: 10px;
-  font-weight: 700;
-  margin-left: 4px;
-  min-width: 18px;
-  height: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Active Filters Section */
-.active-filters {
-  background: var(--md-sys-color-primary-container);
-  border-radius: var(--md-sys-shape-corner-medium);
-  padding: 16px;
-  margin-top: 16px;
-  border: 1px solid var(--md-sys-color-primary);
-}
-
-.active-filters-label {
-  display: block;
+.filter-chip span:not(.material-symbols-outlined) {
   font-size: 12px;
   font-weight: 600;
-  color: var(--md-sys-color-on-primary-container);
-  margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.active-filter-chips {
+/* Location Filters - Alt Satırda */
+.location-filters {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 12px;
+  gap: 16px;
+  max-width: 600px;
 }
 
-.active-filter-chip {
-  display: inline-flex;
+.dropdown-container {
+  flex: 1;
+  position: relative;
+  display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 8px;
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-  border-radius: var(--md-sys-shape-corner-small);
-  font-size: 11px;
-  font-weight: 500;
-}
-
-/* Kurum tipi aktif filtreleri - orijinal renklerini korur */
-.active-filter-chip[data-filter="type"][data-value*="DEVLET"] {
-  background: var(--devlet-hastanesi-color);
-  color: var(--devlet-hastanesi-text);
-}
-
-.active-filter-chip[data-filter="type"][data-value*="OZEL"] {
-  background: var(--ozel-hastane-color);
-  color: var(--ozel-hastane-text);
-}
-
-.active-filter-chip[data-filter="type"][data-value*="UNIVERSITE"] {
-  background: var(--universite-hastanesi-color);
-  color: var(--universite-hastanesi-text);
-}
-
-.active-filter-chip[data-filter="type"][data-value*="AGIZ"] {
-  background: var(--agiz-dis-sagligi-merkezi-color);
-  color: var(--agiz-dis-sagligi-merkezi-text);
-}
-
-.active-filter-chip[data-filter="type"][data-value*="EGITIM"] {
-  background: var(--egitim-arastirma-hastanesi-color);
-  color: var(--egitim-arastirma-hastanesi-text);
-}
-
-/* İl aktif filtreleri - koyu gri */
-.active-filter-chip[data-filter="province"] {
-  background: var(--md-sys-color-outline);
-  color: var(--md-sys-color-surface);
-}
-
-/* İlçe aktif filtreleri - açık gri */
-.active-filter-chip[data-filter="district"] {
-  background: var(--md-sys-color-surface-variant);
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-.active-filter-chip .remove-filter {
-  cursor: pointer;
-  font-size: 14px;
-  margin-left: 2px;
-  opacity: 0.7;
-  transition: opacity var(--md-sys-motion-duration-short2);
-}
-
-.active-filter-chip .remove-filter:hover {
-  opacity: 1;
-}
-
-/* Clear Filters Button */
-.filter-clear-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border: none;
-  background: var(--md-sys-color-error);
-  color: var(--md-sys-color-on-error);
+  background-color: var(--md-sys-color-surface);
+  border: 2px solid var(--md-sys-color-outline);
   border-radius: var(--md-sys-shape-corner-medium);
-  font-size: 13px;
-  font-weight: 500;
+  padding: 12px 16px;
+  transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+}
+
+.dropdown-container:hover {
+  border-color: var(--md-sys-color-primary);
+}
+
+.dropdown-container:focus-within {
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 2px rgba(187, 0, 18, 0.1);
+}
+
+.dropdown-icon {
+  color: var(--md-sys-color-primary);
+  margin-right: 12px;
+  font-size: 20px;
+}
+
+.filter-dropdown {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--md-sys-color-on-surface);
+  font-size: 14px;
+  font-family: 'Figtree', sans-serif;
+  outline: none;
   cursor: pointer;
-  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
-  box-shadow: var(--md-sys-elevation-level1);
 }
 
-.filter-clear-btn:hover {
-  background: var(--md-sys-color-error);
-  transform: translateY(-1px);
-  box-shadow: var(--md-sys-elevation-level2);
-  opacity: 0.9;
+.filter-dropdown:disabled {
+  color: var(--md-sys-color-on-surface-variant);
+  cursor: not-allowed;
 }
 
-.filter-clear-btn:active {
-  transform: translateY(0);
-}
-
-/* Selected Location Filters */
-.selected-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  min-height: 24px;
-}
-
-.location-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 8px;
-  background: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
-  border-radius: var(--md-sys-shape-corner-small);
-  font-size: 11px;
-  font-weight: 500;
-}
-
-/* Responsive Filters */
+/* Responsive Design */
 @media (max-width: 768px) {
-  .location-filter-row {
-    grid-template-columns: 1fr;
+  .filter-chips-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  
+  .filter-chip {
+    padding: 12px 8px;
+    min-height: 60px;
+  }
+  
+  .filter-chip .material-symbols-outlined {
+    font-size: 20px;
+  }
+  
+  .filter-chip span:not(.material-symbols-outlined) {
+    font-size: 11px;
+  }
+  
+  .location-filters {
+    flex-direction: column;
     gap: 12px;
   }
-  
-  .filter-section {
-    padding: 16px;
-  }
-  
-  .type-chips {
-    justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .filter-chips-row {
+    grid-template-columns: 1fr;
   }
 }
 
