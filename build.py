@@ -150,19 +150,32 @@ Sitemap: https://mahirkurt.github.io/TURSAKUR/sitemap.xml
             "version": self.version,
             "build_time": self.build_time,
             "build_type": "production",
+            "deployment": {
+                "firebase": "https://tursakur.web.app",
+                "github_pages": "https://mahirkurt.github.io/TURSAKUR/",
+                "primary": "firebase",
+                "backup": "github_pages"
+            },
             "features": [
                 "interactive_map",
                 "advanced_search", 
                 "ux_enhancement",
                 "material_design_3",
-                "pwa_ready"
-            ]
+                "pwa_ready",
+                "dual_deployment"
+            ],
+            "performance": {
+                "cache_busting": True,
+                "json_minification": True,
+                "seo_optimized": True,
+                "pwa_ready": True
+            }
         }
         
         with open(self.build_dir / 'build-info.json', 'w', encoding='utf-8') as f:
             json.dump(build_info, f, indent=2)
         
-        print("ℹ️  Created build info")
+        print("ℹ️  Created build info with dual deployment config")
         
     def optimize_html(self):
         """Add meta tags and optimize HTML"""

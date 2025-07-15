@@ -1,12 +1,25 @@
 {
   "version": "2.0.3",
-  "build_time": "2025-07-15T03:02:58.021597Z",
+  "build_time": "2025-07-15T11:38:23.784772Z",
   "build_type": "production",
+  "deployment": {
+    "firebase": "https://tursakur.web.app",
+    "github_pages": "https://mahirkurt.github.io/TURSAKUR/",
+    "primary": "firebase",
+    "backup": "github_pages"
+  },
   "features": [
     "interactive_map",
     "advanced_search",
     "ux_enhancement",
     "material_design_3",
-    "pwa_ready"
-  ]
+    "pwa_ready",
+    "dual_deployment"
+  ],
+  "performance": {
+    "cache_busting": true,
+    "json_minification": true,
+    "seo_optimized": true,
+    "pwa_ready": true
+  }
 }

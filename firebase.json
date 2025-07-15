@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": ".",
+    "public": "_build",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -12,6 +12,7 @@
       "*.log",
       "*.md",
       "*.yml",
+      ".github/**",
       "data/raw/**",
       "logo/**"
     ],
@@ -23,13 +24,47 @@
     ],
     "headers": [
       {
-        "source": "**/*.@(js|css|json)",
+        "source": "**/*.@(js|css)",
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "max-age=86400"
+            "value": "public, max-age=604800"
           }
         ]
+      },
+      {
+        "source": "**/*.@(json)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=300"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=2592000"
+          }
+        ]
+      },
+      {
+        "source": "/sw.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/github",
+        "destination": "https://github.com/mahirkurt/TURSAKUR",
+        "type": 301
       }
     ]
   }

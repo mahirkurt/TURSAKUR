@@ -45,15 +45,10 @@ jobs:
 
       - name: Build site
         run: |
-          # Copy all necessary files to build directory
-          mkdir -p _site
-          cp -r . _site/
-          # Remove unnecessary files
-          rm -rf _site/.git _site/.github _site/scripts _site/requirements.txt
-          rm -rf _site/**/*.py _site/**/*.log _site/**/*.md
-          rm -rf _site/data/raw
-          # Create build info
-          echo '{"build_time": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'", "version": "2.0.3", "commit": "'${GITHUB_SHA}'"}' > _site/build-info.json
+          # Run our production build script
+          python build.py
+          # Use the optimized build output for GitHub Pages
+          cp -r _build _site
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
