@@ -30,12 +30,12 @@ class HealthInstitutionsApp {
         this.createFilters();
         this.updateLoadingProgress(90);
         
-        // Başlangıçta sonuçları gösterme - sadece filtreleme sonrası göster
+        // Başlangıçta "Tümü" filtresi aktif olsun ve sonuçları göster
         this.hideLoading();
-        // Başlangıçta "Tümü" filtresi aktif olsun
         const allFilter = document.querySelector('.filter-chip-compact[data-type="ALL"]');
         if (allFilter) {
             allFilter.classList.add('active');
+            this.filters.type = 'ALL'; // Tüm filtre tipini ayarla
             this.applyFilters(); // Tüm sonuçları göster
         } else {
             this.showInitialMessage();
@@ -84,6 +84,27 @@ class HealthInstitutionsApp {
     updateStats(metadata) {
         document.getElementById('total-institutions').textContent = metadata.total_kurumlar || this.data.length;
         document.getElementById('total-types').textContent = this.getUniqueTypes().length;
+        this.updateFilterCounts();
+    }
+    
+    updateFilterCounts() {
+        // Tüm kurumları say
+        const totalCount = this.data.length;
+        document.getElementById('count-all').textContent = totalCount;
+        
+        // Her kurum tipi için sayı hesapla
+        const devletCount = this.data.filter(item => item.kurum_tipi === 'DEVLET_HASTANESI').length;
+        const ozelCount = this.data.filter(item => item.kurum_tipi === 'OZEL_HASTANE').length;
+        const universite = this.data.filter(item => item.kurum_tipi === 'UNIVERSITE_HASTANESI').length;
+        const egitim = this.data.filter(item => item.kurum_tipi === 'EGITIM_ARASTIRMA_HASTANESI').length;
+        const dis = this.data.filter(item => item.kurum_tipi === 'AGIZ_DIS_SAGLIGI_MERKEZI').length;
+        
+        // Sayıları güncelle
+        document.getElementById('count-devlet').textContent = devletCount;
+        document.getElementById('count-ozel').textContent = ozelCount;
+        document.getElementById('count-universite').textContent = universite;
+        document.getElementById('count-egitim').textContent = egitim;
+        document.getElementById('count-dis').textContent = dis;
     }
 
     setupEventListeners() {
@@ -303,7 +324,8 @@ class HealthInstitutionsApp {
                 item.il_adi.toLowerCase().includes(this.filters.search.toLowerCase()) ||
                 item.ilce_adi.toLowerCase().includes(this.filters.search.toLowerCase());
             
-            const typeMatch = !this.filters.type || item.kurum_tipi === this.filters.type;
+            // "ALL" tipinde tüm kurum tiplerini göster
+            const typeMatch = !this.filters.type || this.filters.type === 'ALL' || item.kurum_tipi === this.filters.type;
             const provinceMatch = !this.filters.province || item.il_adi === this.filters.province;
             const districtMatch = !this.filters.district || item.ilce_adi === this.filters.district;
             
@@ -319,8 +341,8 @@ class HealthInstitutionsApp {
         const noResults = document.getElementById('no-results');
         
         // Eğer hiçbir filtre yoksa ve "Tümü" seçilmemişse başlangıç mesajını göster
-        const hasAnyFilter = this.filters.search || this.filters.type !== '' || this.filters.province || this.filters.district;
-        const isTotalSelected = document.querySelector('.filter-chip-compact[data-type="ALL"]')?.classList.contains('active');
+        const hasAnyFilter = this.filters.search || (this.filters.type && this.filters.type !== 'ALL') || this.filters.province || this.filters.district;
+        const isTotalSelected = this.filters.type === 'ALL' || document.querySelector('.filter-chip-compact[data-type="ALL"]')?.classList.contains('active');
         
         if (!hasAnyFilter && !isTotalSelected) {
             this.showInitialMessage();
