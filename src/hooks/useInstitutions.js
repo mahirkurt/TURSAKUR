@@ -88,7 +88,7 @@ export function useInstitution(id) {
     queryKey: ['institution', id],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('turkiye_saglik_kuruluslari')
+        .from('kuruluslar')
         .select('*')
         .eq('id', id)
         .single()
@@ -112,7 +112,7 @@ export function useProvinces() {
     queryKey: ['provinces'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('turkiye_saglik_kuruluslari')
+        .from('kuruluslar')
         .select('il_adi')
         .not('il_adi', 'is', null)
 
@@ -145,7 +145,7 @@ export function useDistricts(selectedProvince) {
     queryKey: ['districts', selectedProvince],
     queryFn: async () => {
       let query = supabase
-        .from('turkiye_saglik_kuruluslari')
+        .from('kuruluslar')
         .select('ilce_adi')
         .not('ilce_adi', 'is', null)
 
@@ -185,7 +185,7 @@ export function useInstitutionTypes() {
     queryKey: ['institution-types'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('turkiye_saglik_kuruluslari')
+        .from('kuruluslar')
         .select('kurum_tipi')
         .not('kurum_tipi', 'is', null)
 
@@ -219,7 +219,7 @@ export function useStatistics() {
     queryFn: async () => {
       // Toplam kurum sayısı
       const { count: totalCount, error: totalError } = await supabase
-        .from('turkiye_saglik_kuruluslari')
+        .from('kuruluslar')
         .select('*', { count: 'exact', head: true })
 
       if (totalError) {
@@ -228,7 +228,7 @@ export function useStatistics() {
 
       // Tip bazında sayılar
       const { data: typeData, error: typeError } = await supabase
-        .from('turkiye_saglik_kuruluslari')
+        .from('kuruluslar')
         .select('kurum_tipi')
 
       if (typeError) {
@@ -244,7 +244,7 @@ export function useStatistics() {
 
       // İl bazında sayılar (top 10)
       const { data: provinceData, error: provinceError } = await supabase
-        .from('turkiye_saglik_kuruluslari')
+        .from('kuruluslar')
         .select('il_adi')
 
       if (provinceError) {
@@ -283,7 +283,7 @@ export function useUpdateInstitution() {
   return useMutation({
     mutationFn: async ({ id, updates }) => {
       const { data, error } = await supabase
-        .from('turkiye_saglik_kuruluslari')
+        .from('kuruluslar')
         .update(updates)
         .eq('id', id)
         .select()
