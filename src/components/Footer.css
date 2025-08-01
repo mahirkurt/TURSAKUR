@@ -7,16 +7,17 @@
 }
 
 .footer-content {
-  max-width: 1440px;
+  max-width: 1280px;
   margin: 0 auto;
+  padding: 0 var(--md-spacing-8);
 }
 
 /* Ana Footer İçeriği */
 .footer-main {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: var(--md-spacing-6);
-  padding: var(--md-spacing-6) var(--md-spacing-4);
+  gap: var(--md-spacing-8);
+  padding: var(--md-spacing-8) var(--md-spacing-6);
 }
 
 .footer-section {
@@ -91,7 +92,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--md-spacing-4);
+  padding: var(--md-spacing-6) var(--md-spacing-6);
   gap: var(--md-spacing-4);
 }
 
@@ -115,7 +116,12 @@
 @media (max-width: 1024px) {
   .footer-main {
     grid-template-columns: 1fr 1fr;
-    gap: var(--md-spacing-5);
+    gap: var(--md-spacing-6);
+    padding: var(--md-spacing-6) var(--md-spacing-4);
+  }
+  
+  .footer-content {
+    padding: 0 var(--md-spacing-6);
   }
 }
 
@@ -130,10 +136,15 @@
     height: 60px;
   }
 
+  .footer-content {
+    padding: 0 var(--md-spacing-4);
+  }
+
   .footer-bottom-content {
     flex-direction: column;
     text-align: center;
     gap: var(--md-spacing-2);
+    padding: var(--md-spacing-4);
   }
 }
 

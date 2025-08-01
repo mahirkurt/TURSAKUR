@@ -15,7 +15,7 @@
     var(--md-sys-color-tertiary-container) 50%,
     var(--md-sys-color-secondary-container) 100%
   );
-  padding: var(--md-spacing-12) var(--md-spacing-6) var(--md-spacing-16);
+  padding: var(--md-spacing-16) var(--md-spacing-12) var(--md-spacing-20);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -92,10 +92,10 @@
 /* Main Content Layout - Enhanced */
 .main-content {
   display: flex;
-  max-width: 1440px;
+  max-width: 1280px;
   margin: 0 auto;
-  gap: var(--md-spacing-8);
-  padding: var(--md-spacing-10) var(--md-spacing-8);
+  gap: var(--md-spacing-10);
+  padding: var(--md-spacing-12) var(--md-spacing-12);
   flex: 1;
 }
 
@@ -104,16 +104,17 @@
   flex: 0 0 320px;
   display: flex;
   flex-direction: column;
-  gap: var(--md-spacing-6);
-  padding: var(--md-spacing-2);
+  gap: var(--md-spacing-8);
+  padding: var(--md-spacing-6);
 }
 
 .stats-panel {
   background-color: var(--md-sys-color-surface-container);
   border-radius: var(--md-sys-shape-corner-extra-large);
-  padding: var(--md-spacing-8);
+  padding: var(--md-spacing-10);
   border: 2px solid var(--md-sys-color-outline-variant);
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  margin: var(--md-spacing-2);
 }
 
 .stats-panel:hover {
@@ -125,9 +126,10 @@
 .filters-panel {
   background-color: var(--md-sys-color-surface-container);
   border-radius: var(--md-sys-shape-corner-extra-large);
-  padding: var(--md-spacing-8);
+  padding: var(--md-spacing-10);
   border: 2px solid var(--md-sys-color-outline-variant);
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  margin: var(--md-spacing-2);
 }
 
 .filters-panel:hover {
@@ -142,9 +144,9 @@
   min-width: 0;
   background-color: var(--md-sys-color-surface);
   border-radius: var(--md-sys-shape-corner-extra-large);
-  padding: var(--md-spacing-8);
+  padding: var(--md-spacing-10);
   border: 2px solid var(--md-sys-color-outline-variant);
-  margin: var(--md-spacing-2);
+  margin: var(--md-spacing-4);
 }
 
 /* Results Header - Improved */
@@ -152,9 +154,9 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: var(--md-spacing-6);
-  gap: var(--md-spacing-4);
-  padding-bottom: var(--md-spacing-4);
+  margin-bottom: var(--md-spacing-8);
+  gap: var(--md-spacing-6);
+  padding: var(--md-spacing-6) var(--md-spacing-4);
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
@@ -206,9 +208,9 @@
 .institutions-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: var(--md-spacing-5);
-  margin-bottom: var(--md-spacing-8);
-  padding: var(--md-spacing-2);
+  gap: var(--md-spacing-8);
+  margin-bottom: var(--md-spacing-10);
+  padding: var(--md-spacing-6);
 }
 
 .institution-card-item {
@@ -244,10 +246,10 @@
 /* Empty State - Enhanced */
 .empty-state {
   text-align: center;
-  padding: var(--md-spacing-20);
+  padding: var(--md-spacing-24);
   background-color: var(--md-sys-color-surface-container-lowest);
   border-radius: var(--md-sys-shape-corner-large);
-  margin: var(--md-spacing-6) 0;
+  margin: var(--md-spacing-8) var(--md-spacing-6);
 }
 
 .empty-state-icon {
@@ -277,8 +279,9 @@
 @media (max-width: 1024px) {
   .main-content {
     flex-direction: column;
-    gap: var(--md-spacing-4);
-    padding: var(--md-spacing-4);
+    gap: var(--md-spacing-8);
+    padding: var(--md-spacing-8) var(--md-spacing-6);
+    max-width: 100%;
   }
   
   .sidebar {
@@ -286,24 +289,23 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--md-spacing-4);
+    gap: var(--md-spacing-6);
+    padding: var(--md-spacing-4);
+  }
+  
+  .main-results {
+    margin: var(--md-spacing-2);
+    padding: var(--md-spacing-6);
   }
   
   .results-header {
     flex-direction: column;
     align-items: stretch;
-    gap: var(--md-spacing-3);
-  }
-
-  .institutions-grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: var(--md-spacing-4);
-  }
-}
-
+    padding: var(--md-spacing-4) var(--md-spacing-2);
 @media (max-width: 768px) {
   .hero-section {
-    padding: var(--md-spacing-8) var(--md-spacing-4) var(--md-spacing-12);
+    padding: var(--md-spacing-12) var(--md-spacing-8) var(--md-spacing-16);
   }
 
   .hero-title {
@@ -320,21 +322,24 @@
   }
   
   .main-content {
-    padding: var(--md-spacing-3);
-    gap: var(--md-spacing-3);
+    padding: var(--md-spacing-6) var(--md-spacing-4);
+    gap: var(--md-spacing-6);
   }
 
   .sidebar {
     grid-template-columns: 1fr;
+    padding: var(--md-spacing-2);
   }
 
   .main-results {
-    padding: var(--md-spacing-4);
+    padding: var(--md-spacing-6);
+    margin: var(--md-spacing-1);
   }
 
   .institutions-grid {
     grid-template-columns: 1fr;
-    gap: var(--md-spacing-3);
+    gap: var(--md-spacing-4);
+    padding: var(--md-spacing-3);
   }
 
   .sort-controls {
@@ -346,12 +351,9 @@
   .pagination {
     flex-direction: column;
     gap: var(--md-spacing-3);
-  }
-}
-
 @media (max-width: 480px) {
   .hero-section {
-    padding: var(--md-spacing-6) var(--md-spacing-3) var(--md-spacing-8);
+    padding: var(--md-spacing-10) var(--md-spacing-6) var(--md-spacing-12);
   }
 
   .hero-title {
@@ -359,19 +361,44 @@
   }
 
   .main-content {
-    padding: var(--md-spacing-2);
+    padding: var(--md-spacing-4) var(--md-spacing-3);
   }
 
   .main-results {
-    padding: var(--md-spacing-3);
+    padding: var(--md-spacing-4);
+    margin: 0;
   }
 
   .stats-panel,
   .filters-panel {
-    padding: var(--md-spacing-4);
+    padding: var(--md-spacing-6);
+    margin: var(--md-spacing-1);
   }
 
   .empty-state {
+    padding: var(--md-spacing-12);
+    margin: var(--md-spacing-2) var(--md-spacing-1);
+  }
+
+  .empty-state-icon {
+    font-size: 48px;
+  }
+
+  .institutions-grid {
+    grid-template-columns: 1fr;
+    gap: var(--md-spacing-3);
+    padding: var(--md-spacing-2);
+  }
+  
+  .pagination {
+    flex-direction: column;
+    gap: var(--md-spacing-3);
+  }
+
+  .results-header {
+    padding: var(--md-spacing-3) var(--md-spacing-1);
+  }
+} .empty-state {
     padding: var(--md-spacing-12);
   }
 

@@ -3,13 +3,14 @@
 .institution-card {
   background-color: var(--md-sys-color-surface-container-low);
   border-radius: var(--md-sys-shape-corner-extra-large);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   cursor: pointer;
   border: 2px solid var(--md-sys-color-outline-variant);
   box-shadow: var(--md-sys-elevation-level1);
   position: relative;
   overflow: hidden;
+  margin: var(--spacing-md);
 }
 
 .institution-card::before {

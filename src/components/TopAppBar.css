@@ -13,8 +13,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--md-spacing-3) var(--md-spacing-4);
-  max-width: 1440px;
+  padding: var(--md-spacing-4) var(--md-spacing-8);
+  max-width: 1280px;
   margin: 0 auto;
   height: 64px;
 }
@@ -158,11 +158,15 @@
   .mobile-nav.open {
     display: block;
   }
+  
+  .top-app-bar-content {
+    padding: var(--md-spacing-3) var(--md-spacing-6);
+  }
 }
 
 @media (max-width: 600px) {
   .top-app-bar-content {
-    padding: var(--md-spacing-3);
+    padding: var(--md-spacing-3) var(--md-spacing-4);
   }
   
   .app-logo {
