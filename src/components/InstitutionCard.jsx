@@ -71,10 +71,10 @@ function InstitutionCard({
     }
   };
 
-  const handleDirectionsClick = (e) => {
+  const handleMapClick = (e) => {
     e.stopPropagation();
     if (koordinat_lat && koordinat_lon) {
-      const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${koordinat_lat},${koordinat_lon}`;
+      const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${koordinat_lat},${koordinat_lon}`;
       window.open(mapsUrl, '_blank');
     }
   };
@@ -171,10 +171,10 @@ function InstitutionCard({
             <Button
               variant="text"
               size="small"
-              icon="directions"
-              onClick={handleDirectionsClick}
+              icon="map"
+              onClick={handleMapClick}
             >
-              Yol Tarifi
+              Haritada Göster
             </Button>
           )}
         </div>

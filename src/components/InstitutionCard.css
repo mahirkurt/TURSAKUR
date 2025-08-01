@@ -2,17 +2,46 @@
 
 .institution-card {
   background-color: var(--md-sys-color-surface-container-low);
-  border-radius: var(--md-sys-shape-corner-large);
+  border-radius: var(--md-sys-shape-corner-extra-large);
   padding: var(--spacing-lg);
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   cursor: pointer;
-  border: 1px solid var(--md-sys-color-outline-variant);
+  border: 2px solid var(--md-sys-color-outline-variant);
   box-shadow: var(--md-sys-elevation-level1);
+  position: relative;
+  overflow: hidden;
+}
+
+.institution-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    var(--md-sys-color-primary) 0%, 
+    var(--md-sys-color-tertiary) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
 }
 
 .institution-card:hover {
-  box-shadow: var(--md-sys-elevation-level2);
-  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    0 6px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px) scale(1.02);
+  border-color: var(--md-sys-color-primary);
+}
+
+.institution-card:hover::before {
+  opacity: 0.02;
+}
+
+.institution-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Card Header */
@@ -136,22 +165,25 @@
 
 .action-button {
   background: none;
-  border: 1px solid var(--md-sys-color-outline);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--md-sys-shape-corner-small);
+  border: 2px solid var(--md-sys-color-outline);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--md-sys-shape-corner-full);
   font-family: var(--md-sys-typescale-label-medium-font);
   font-size: var(--md-sys-typescale-label-medium-size);
   color: var(--md-sys-color-primary);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
+  font-weight: 600;
 }
 
 .action-button:hover {
   background-color: var(--md-sys-color-primary-container);
   border-color: var(--md-sys-color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .action-button-icon {

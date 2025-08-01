@@ -33,10 +33,15 @@
 }
 
 .footer-logo {
-  height: 40px;
+  height: 70px;
   width: auto;
   object-fit: contain;
   align-self: flex-start;
+  transition: transform 0.2s ease;
+}
+
+.footer-logo:hover {
+  transform: scale(1.05);
 }
 
 .footer-description {
@@ -121,6 +126,10 @@
     padding: var(--md-spacing-5) var(--md-spacing-4);
   }
 
+  .footer-logo {
+    height: 60px;
+  }
+
   .footer-bottom-content {
     flex-direction: column;
     text-align: center;
@@ -131,6 +140,10 @@
 @media (max-width: 480px) {
   .footer-main {
     padding: var(--md-spacing-4) var(--md-spacing-3);
+  }
+
+  .footer-logo {
+    height: 50px;
   }
 
   .footer-bottom-content {

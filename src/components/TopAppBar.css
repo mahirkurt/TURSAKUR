@@ -27,9 +27,14 @@
 }
 
 .app-logo {
-  height: 32px;
+  height: 56px;
   width: auto;
   object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.app-logo:hover {
+  transform: scale(1.05);
 }
 
 .app-title {
@@ -44,7 +49,7 @@
 .top-app-bar-navigation {
   display: flex;
   align-items: center;
-  gap: var(--md-spacing-3);
+  gap: var(--md-spacing-6);
 }
 
 .nav-link {
@@ -53,19 +58,23 @@
   font-family: var(--md-sys-typescale-label-large-font);
   font-size: var(--md-sys-typescale-label-large-size);
   font-weight: var(--md-sys-typescale-label-large-weight);
-  padding: var(--md-spacing-2) var(--md-spacing-3);
-  border-radius: var(--md-sys-shape-corner-small);
-  transition: background-color 0.15s ease;
+  padding: var(--md-spacing-3) var(--md-spacing-5);
+  border-radius: var(--md-sys-shape-corner-full);
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   white-space: nowrap;
+  position: relative;
 }
 
 .nav-link:hover {
   background-color: var(--md-sys-color-surface-container-high);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .nav-link.active {
   background-color: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
 }
 
 /* Action Buttons */
@@ -157,6 +166,6 @@
   }
   
   .app-logo {
-    height: 28px;
+    height: 48px;
   }
 }
