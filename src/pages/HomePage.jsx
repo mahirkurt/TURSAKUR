@@ -215,7 +215,7 @@ function HomePage() {
                   <div className="institutions-grid">
                     {institutions.map((institution) => (
                       <InstitutionCard 
-                        key={institution.id}
+                        key={institution.kurum_id}
                         institution={institution}
                         searchQuery={debouncedSearch}
                         className="institution-card-item"
