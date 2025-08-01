@@ -1,0 +1,62 @@
+/* Eliptik Element Override Kuralları - Yüksek Specificity */
+
+/* Button elementleri için zorunlu override */
+html body .md-button[class*="md-button"] {
+  border-radius: 16px !important;
+}
+
+html body .md-button[class*="md-button"].md-button--small {
+  border-radius: 12px !important;
+}
+
+html body .md-button[class*="md-button"].md-button--large {
+  border-radius: 20px !important;
+}
+
+/* TextField container için zorunlu override */
+html body .md-textfield__container[class*="md-textfield"] {
+  border-radius: 24px !important;
+}
+
+html body .hero-search .md-textfield__container {
+  border-radius: 28px !important; /* Extra large için */
+}
+
+/* CSS-in-JS class'ları için genel override */
+html body [class*="go"] button {
+  border-radius: 16px !important;
+}
+
+html body [class*="go"] div:not(.status-indicator):not(.loading-spinner):not(.dot):not(.marker-cluster):not(.custom-marker) {
+  border-radius: 16px !important;
+}
+
+html body [class*="go"] span:not(.status-indicator):not(.loading-spinner):not(.dot) {
+  border-radius: 12px !important;
+}
+
+/* Badge ve pill elementler için */
+html body .badge,
+html body .pill,
+html body .chip {
+  border-radius: 12px !important;
+}
+
+/* Dairesel kalması gereken elementler - Koruma */
+html body .status-indicator,
+html body .loading-spinner,
+html body .search-spinner,
+html body .dot,
+html body .status-dot,
+html body .marker-cluster,
+html body .custom-marker {
+  border-radius: 50% !important;
+}
+
+/* Circular avatar ve profile image'lar */
+html body .avatar,
+html body .profile-image,
+html body [class*="avatar"],
+html body [class*="profile"] {
+  border-radius: 50% !important;
+}

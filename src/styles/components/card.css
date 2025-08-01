@@ -146,7 +146,7 @@
   background-color: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
   padding: var(--md-spacing-1) var(--md-spacing-3);
-  border-radius: var(--md-sys-shape-corner-full);
+  border-radius: 12px;
   font-family: var(--md-sys-typescale-label-small-font);
   font-size: var(--md-sys-typescale-label-small-size);
   font-weight: var(--md-sys-typescale-label-small-weight);

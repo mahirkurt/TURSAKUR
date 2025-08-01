@@ -97,7 +97,8 @@
   --md-sys-shape-corner-medium: 12px;
   --md-sys-shape-corner-large: 16px;
   --md-sys-shape-corner-extra-large: 28px;
-  --md-sys-shape-corner-full: 50%;
+  --md-sys-shape-corner-full: 50%; /* Only for truly circular elements like spinners, dots, markers */
+  --md-sys-shape-corner-pill: 16px; /* For button-like elements that were previously circular */
   
   /* Motion Tokens - Material Design 3 */
   --md-sys-motion-duration-short1: 50ms;

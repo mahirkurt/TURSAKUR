@@ -6,6 +6,8 @@ import App from './App.jsx'
 
 // Material Design 3 Tüm Stil Dosyaları
 import './styles/index.css'
+// Override CSS for elliptical elements fix
+import './styles/override.css'
 
 // TanStack Query client
 const queryClient = new QueryClient({

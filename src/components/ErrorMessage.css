@@ -44,7 +44,7 @@
   color: var(--md-sys-color-on-error);
   border: none;
   padding: var(--spacing-md) var(--spacing-lg);
-  border-radius: var(--md-sys-shape-corner-full);
+  border-radius: 16px;
   font-family: var(--md-sys-typescale-label-large-font);
   font-size: var(--md-sys-typescale-label-large-size);
   font-weight: var(--md-sys-typescale-label-large-weight);
@@ -70,7 +70,7 @@
   color: var(--md-sys-color-on-error-container);
   border: 1px solid var(--md-sys-color-outline);
   padding: var(--spacing-md) var(--spacing-lg);
-  border-radius: var(--md-sys-shape-corner-full);
+  border-radius: 16px;
   font-family: var(--md-sys-typescale-label-large-font);
   font-size: var(--md-sys-typescale-label-large-size);
   cursor: pointer;
