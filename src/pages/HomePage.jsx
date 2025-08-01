@@ -8,6 +8,7 @@ import StatsPanel from '../components/StatsPanel';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import TopAppBar from '../components/TopAppBar';
+import Footer from '../components/Footer';
 import Button from '../components/ui/Button';
 import './HomePage.css';
 
@@ -54,7 +55,6 @@ function HomePage() {
   // Derived data
   const institutions = institutionsData?.institutions || [];
   const totalCount = institutionsData?.totalCount || 0;
-  const isLoading = institutionsLoading;
 
   // Event handlers
   const handleSearchChange = (value) => {
@@ -178,8 +178,9 @@ function HomePage() {
                 {/* Sıralama Kontrolü */}
                 {institutionsData.totalCount > 0 && (
                   <div className="sort-controls">
-                    <label className="label-medium">Sırala:</label>
+                    <label htmlFor="sort-select" className="label-medium">Sırala:</label>
                     <select 
+                      id="sort-select"
                       value={`${sortBy}-${sortOrder}`}
                       onChange={(e) => {
                         const [newSortBy, newSortOrder] = e.target.value.split('-');
@@ -282,6 +283,8 @@ function HomePage() {
             </div>
           </main>
         </div>
+
+        <Footer />
       </div>
     </ThemeProvider>
   );

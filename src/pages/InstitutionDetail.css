@@ -1,0 +1,215 @@
+/* Institution Detail Page Styles - Material Design 3 */
+
+.institution-detail-page {
+  min-height: calc(100vh - 64px - 200px); /* Header yüksekliği - Footer yüksekliği */
+  background-color: var(--md-sys-color-surface);
+  padding: var(--md-spacing-4) 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--md-spacing-4);
+}
+
+/* Navigasyon */
+.detail-navigation {
+  margin-bottom: var(--md-spacing-4);
+}
+
+/* Başlık Kartı */
+.detail-header-card {
+  margin-bottom: var(--md-spacing-5);
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--md-spacing-4);
+  padding: var(--md-spacing-5);
+}
+
+.detail-title-section {
+  flex: 1;
+}
+
+.detail-type-badge {
+  margin-bottom: var(--md-spacing-2);
+}
+
+.detail-title {
+  margin: 0 0 var(--md-spacing-2) 0;
+  color: var(--md-sys-color-on-surface);
+  line-height: 1.2;
+}
+
+.detail-location {
+  display: flex;
+  align-items: center;
+  gap: var(--md-spacing-1);
+  margin: 0 0 var(--md-spacing-3) 0;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.detail-location .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.detail-status {
+  margin-top: var(--md-spacing-2);
+}
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--md-spacing-1);
+  padding: var(--md-spacing-1) var(--md-spacing-2);
+  border-radius: var(--md-sys-shape-corner-full);
+  font-family: var(--md-sys-typescale-label-medium-font);
+  font-size: var(--md-sys-typescale-label-medium-size);
+  font-weight: var(--md-sys-typescale-label-medium-weight);
+}
+
+.status-active {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.status-inactive {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.detail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-spacing-2);
+  min-width: 140px;
+}
+
+/* Detay İçeriği */
+.detail-content {
+  margin-bottom: var(--md-spacing-6);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--md-spacing-4);
+}
+
+.detail-card {
+  height: fit-content;
+}
+
+.detail-card-title {
+  display: flex;
+  align-items: center;
+  gap: var(--md-spacing-2);
+  margin: 0 0 var(--md-spacing-4) 0;
+  color: var(--md-sys-color-on-surface);
+}
+
+.detail-card-title .material-symbols-outlined {
+  font-size: 24px;
+  color: var(--md-sys-color-primary);
+}
+
+/* Bilgi Listesi */
+.detail-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-spacing-3);
+}
+
+.detail-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-spacing-1);
+}
+
+.detail-info-label {
+  font-family: var(--md-sys-typescale-label-small-font);
+  font-size: var(--md-sys-typescale-label-small-size);
+  font-weight: var(--md-sys-typescale-label-small-weight);
+  color: var(--md-sys-color-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-info-value {
+  font-family: var(--md-sys-typescale-body-large-font);
+  font-size: var(--md-sys-typescale-body-large-size);
+  color: var(--md-sys-color-on-surface);
+  line-height: 1.5;
+}
+
+.detail-link {
+  color: var(--md-sys-color-primary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.detail-link:hover {
+  color: var(--md-sys-color-primary-container);
+  text-decoration: underline;
+}
+
+/* Harita Bölümü */
+.detail-map-section {
+  margin-top: var(--md-spacing-4);
+  padding-top: var(--md-spacing-4);
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.map-button {
+  width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .detail-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--md-spacing-4);
+  }
+
+  .detail-actions {
+    flex-direction: row;
+    min-width: auto;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 0 var(--md-spacing-3);
+  }
+}
+
+@media (max-width: 480px) {
+  .institution-detail-page {
+    padding: var(--md-spacing-3) 0;
+  }
+
+  .detail-header {
+    padding: var(--md-spacing-4);
+  }
+
+  .detail-title {
+    font-size: var(--md-sys-typescale-headline-medium-size);
+  }
+
+  .detail-actions {
+    flex-direction: column;
+  }
+}

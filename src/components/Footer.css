@@ -1,0 +1,143 @@
+/* Footer Component Styles - Material Design 3 */
+
+.footer {
+  background-color: var(--md-sys-color-surface-container-low);
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Ana Footer İçeriği */
+.footer-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--md-spacing-6);
+  padding: var(--md-spacing-6) var(--md-spacing-4);
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-spacing-3);
+}
+
+/* Marka Bölümü */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-spacing-3);
+}
+
+.footer-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  align-self: flex-start;
+}
+
+.footer-description {
+  color: var(--md-sys-color-on-surface-variant);
+  line-height: 1.5;
+  max-width: 280px;
+}
+
+/* Footer Başlıkları */
+.footer-title {
+  color: var(--md-sys-color-on-surface);
+  margin: 0;
+  font-weight: var(--md-sys-typescale-title-small-weight);
+}
+
+/* Footer Linkleri */
+.footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-spacing-2);
+}
+
+.footer-link {
+  color: var(--md-sys-color-on-surface-variant);
+  text-decoration: none;
+  font-family: var(--md-sys-typescale-body-medium-font);
+  font-size: var(--md-sys-typescale-body-medium-size);
+  line-height: var(--md-sys-typescale-body-medium-line-height);
+  transition: color 0.15s ease;
+  padding: var(--md-spacing-1) 0;
+}
+
+.footer-link:hover {
+  color: var(--md-sys-color-primary);
+}
+
+/* Alt Bar */
+.footer-bottom {
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--md-spacing-4);
+  gap: var(--md-spacing-4);
+}
+
+.footer-copyright {
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: var(--md-spacing-3);
+}
+
+.footer-social p {
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--md-spacing-5);
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: var(--md-spacing-4);
+    padding: var(--md-spacing-5) var(--md-spacing-4);
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--md-spacing-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-main {
+    padding: var(--md-spacing-4) var(--md-spacing-3);
+  }
+
+  .footer-bottom-content {
+    padding: var(--md-spacing-3);
+  }
+
+  .footer-description {
+    max-width: 100%;
+  }
+}

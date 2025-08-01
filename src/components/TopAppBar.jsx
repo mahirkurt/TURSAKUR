@@ -8,14 +8,13 @@ function TopAppBar() {
   return (
     <header className="top-app-bar">
       <div className="top-app-bar-content">
-        {/* Logo ve Başlık */}
+        {/* Logo */}
         <div className="top-app-bar-title-section">
           <img 
             src="/assets/logos/TURSAKUR-Color.png" 
             alt="TURSAKUR" 
             className="app-logo"
           />
-          <h1 className="headline-small app-title">TURSAKUR</h1>
         </div>
 
         {/* Navigasyon Linkleri */}
