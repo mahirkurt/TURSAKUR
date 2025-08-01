@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TURSAKUR 2.0 - Supabase Test (Canlı Veritabanı)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1976d2;
+            --primary-variant: #1565c0;
+            --secondary-color: #dc004e;
+            --surface-color: #ffffff;
+            --background-color: #f5f5f5;
+            --on-surface: #1c1b1f;
+            --on-background: #1c1b1f;
+            --outline: #79747e;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --error-color: #f44336;
+            --shadow: 0 2px 4px rgba(0,0,0,0.1);
+            --elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-color);
+            color: var(--on-background);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding: 32px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-variant));
+            color: white;
+            border-radius: 16px;
+            box-shadow: var(--elevation-2);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding: 16px 24px;
+            background: var(--surface-color);
+            border-radius: 12px;
+            box-shadow: var(--elevation-1);
+        }
+
+        .connection-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .connection-indicator.connecting {
+            background: var(--warning-color);
+            animation: pulse 1.5s infinite;
+        }
+
+        .connection-indicator.connected {
+            background: var(--success-color);
+        }
+
+        .connection-indicator.error {
+            background: var(--error-color);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 24px;
+            background: var(--surface-color);
+            border-radius: 12px;
+            box-shadow: var(--elevation-1);
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-weight: 500;
+            color: var(--on-surface);
+            font-size: 0.875rem;
+        }
+
+        .control-group select,
+        .control-group input {
+            padding: 12px 16px;
+            border: 2px solid var(--outline);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--surface-color);
+            transition: border-color 0.2s ease;
+        }
+
+        .control-group select:focus,
+        .control-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--surface-color);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: var(--elevation-1);
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--outline);
+            font-weight: 500;
+        }
+
+        .facilities-section {
+            background: var(--surface-color);
+            border-radius: 12px;
+            box-shadow: var(--elevation-1);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 24px;
+            background: var(--background-color);
+            border-bottom: 1px solid var(--outline);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--on-surface);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .facility-grid {
+            display: grid;
+            gap: 1px;
+            background: var(--outline);
+        }
+
+        .facility-card {
+            background: var(--surface-color);
+            padding: 20px;
+            transition: background-color 0.2s ease;
+        }
+
+        .facility-card:hover {
+            background: var(--background-color);
+        }
+
+        .facility-name {
+            font-weight: 600;
+            color: var(--on-surface);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .facility-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .facility-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            color: var(--outline);
+        }
+
+        .facility-detail .material-icons {
+            font-size: 16px;
+            color: var(--primary-color);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--outline);
+        }
+
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: var(--error-color);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .facility-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 TURSAKUR 2.0</h1>
+            <p>Türkiye Sağlık Kurumları Haritası - Canlı Supabase Test</p>
+        </div>
+
+        <div class="connection-status">
+            <div id="connection-status" class="connection-indicator connecting"></div>
+            <div id="status-text">Bağlanıyor...</div>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="province-filter">İl Filtresi</label>
+                <select id="province-filter">
+                    <option value="">Tüm İller</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="type-filter">Tür Filtresi</label>
+                <select id="type-filter">
+                    <option value="">Tüm Türler</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="search-input">Arama</label>
+                <input type="text" id="search-input" placeholder="Hastane adı veya adres...">
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="total-facilities">-</div>
+                <div class="stat-label">Toplam Sağlık Kurumu</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-provinces">-</div>
+                <div class="stat-label">İl Sayısı</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-types">-</div>
+                <div class="stat-label">Kurum Türü</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="facility-count">-</div>
+                <div class="stat-label">Gösterilen Kurum</div>
+            </div>
+        </div>
+
+        <div class="facilities-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <span class="material-icons">local_hospital</span>
+                    Sağlık Kurumları
+                </div>
+            </div>
+            <div id="facility-list" class="facility-grid">
+                <div class="loading">Veriler yükleniyor...</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // TURSAKUR 2.0 - Supabase Test Application (PRODUCTION MODE)
+        import { createClient } from 'https://cdn.skypack.dev/@supabase/supabase-js'
+        
+        // REAL Supabase credentials from .env
+        const supabaseUrl = 'https://moamwmxcpgjvyyawlygw.supabase.co'
+        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vYW13bXhjcGdqdnl5YXdseWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwMzA1NzgsImV4cCI6MjA2OTYwNjU3OH0.w88NfzOopSYo8Q23ypWaknnaZcSXnV0WPtiE2-ePGfU'
+        
+        // Create Supabase client
+        const supabase = createClient(supabaseUrl, supabaseAnonKey)
+        
+        // Connection status
+        let isConnected = false
+        let currentData = []
+        let filteredData = []
+        
+        // DOM elements
+        const connectionIndicator = document.getElementById('connection-status')
+        const statusText = document.getElementById('status-text')
+        const facilityCount = document.getElementById('facility-count')
+        const facilityList = document.getElementById('facility-list')
+        const provinceFilter = document.getElementById('province-filter')
+        const typeFilter = document.getElementById('type-filter')
+        const searchInput = document.getElementById('search-input')
+        const totalFacilities = document.getElementById('total-facilities')
+        const totalProvinces = document.getElementById('total-provinces')
+        const totalTypes = document.getElementById('total-types')
+        
+        // Test Supabase connection and load data
+        async function testConnection() {
+            try {
+                console.log('🔄 Testing production Supabase connection...')
+                statusText.textContent = 'Canlı veritabanına bağlanıyor...'
+                connectionIndicator.className = 'connection-indicator connecting'
+                
+                // Test connection with real database
+                const { data, error } = await supabase
+                    .from('health_facilities')
+                    .select('*')
+                    .eq('is_active', true)
+                    .order('name')
+                
+                if (error) {
+                    throw error
+                }
+                
+                console.log(`✅ Production Supabase connected! Found ${data.length} facilities`)
+                isConnected = true
+                currentData = data
+                filteredData = [...data]
+                
+                connectionIndicator.className = 'connection-indicator connected'
+                statusText.innerHTML = `
+                    <strong>✅ Canlı Supabase Bağlantısı Başarılı</strong><br>
+                    <small>${data.length} sağlık kurumu yüklendi</small>
+                `
+                
+                // Populate filters and display data
+                populateFilters()
+                displayFacilities()
+                updateStatistics()
+                
+            } catch (error) {
+                console.error('❌ Production Supabase connection failed:', error)
+                isConnected = false
+                
+                connectionIndicator.className = 'connection-indicator error'
+                statusText.innerHTML = `
+                    <strong>❌ Veritabanı Bağlantı Hatası</strong><br>
+                    <small>${error.message}</small>
+                `
+                
+                facilityList.innerHTML = `
+                    <div class="error">
+                        <h3>Bağlantı Hatası</h3>
+                        <p>Supabase veritabanına bağlanılamadı.</p>
+                        <p>Hata: ${error.message}</p>
+                    </div>
+                `
+            }
+        }
+        
+        // Populate filter dropdowns
+        function populateFilters() {
+            if (!currentData || currentData.length === 0) return
+            
+            // Get unique provinces
+            const provinces = [...new Set(currentData.map(f => f.province))].sort()
+            provinceFilter.innerHTML = '<option value="">Tüm İller</option>'
+            provinces.forEach(province => {
+                const option = document.createElement('option')
+                option.value = province
+                option.textContent = province
+                provinceFilter.appendChild(option)
+            })
+            
+            // Get unique facility types
+            const types = [...new Set(currentData.map(f => f.facility_type).filter(Boolean))].sort()
+            typeFilter.innerHTML = '<option value="">Tüm Türler</option>'
+            types.forEach(type => {
+                const option = document.createElement('option')
+                option.value = type
+                option.textContent = type
+                typeFilter.appendChild(option)
+            })
+        }
+        
+        // Filter data
+        function applyFilters() {
+            let filtered = [...currentData]
+            
+            // Province filter
+            if (provinceFilter.value) {
+                filtered = filtered.filter(f => f.province === provinceFilter.value)
+            }
+            
+            // Type filter
+            if (typeFilter.value) {
+                filtered = filtered.filter(f => f.facility_type === typeFilter.value)
+            }
+            
+            // Search filter
+            if (searchInput.value) {
+                const searchTerm = searchInput.value.toLowerCase()
+                filtered = filtered.filter(f => 
+                    f.name.toLowerCase().includes(searchTerm) ||
+                    (f.address && f.address.toLowerCase().includes(searchTerm))
+                )
+            }
+            
+            filteredData = filtered
+            displayFacilities()
+            facilityCount.textContent = filtered.length
+        }
+        
+        // Display facilities
+        function displayFacilities() {
+            if (!filteredData || filteredData.length === 0) {
+                facilityList.innerHTML = '<div class="loading">Gösterilecek kurum bulunamadı</div>'
+                return
+            }
+            
+            facilityList.innerHTML = filteredData.map(facility => `
+                <div class="facility-card">
+                    <div class="facility-name">${facility.name}</div>
+                    <div class="facility-details">
+                        <div class="facility-detail">
+                            <span class="material-icons">business</span>
+                            <span class="badge">${facility.facility_type || 'Belirtilmemiş'}</span>
+                        </div>
+                        <div class="facility-detail">
+                            <span class="material-icons">location_on</span>
+                            <span>${facility.province}${facility.district ? `, ${facility.district}` : ''}</span>
+                        </div>
+                        ${facility.phone ? `
+                        <div class="facility-detail">
+                            <span class="material-icons">phone</span>
+                            <span>${facility.phone}</span>
+                        </div>
+                        ` : ''}
+                        ${facility.website ? `
+                        <div class="facility-detail">
+                            <span class="material-icons">language</span>
+                            <a href="${facility.website}" target="_blank" style="color: var(--primary-color); text-decoration: none;">Web Sitesi</a>
+                        </div>
+                        ` : ''}
+                        ${facility.latitude && facility.longitude ? `
+                        <div class="facility-detail">
+                            <span class="material-icons">map</span>
+                            <span>Koordinatlar mevcut</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('')
+        }
+        
+        // Update statistics
+        function updateStatistics() {
+            if (!currentData) return
+            
+            const stats = {
+                total: currentData.length,
+                provinces: new Set(currentData.map(f => f.province)).size,
+                types: new Set(currentData.map(f => f.facility_type).filter(Boolean)).size
+            }
+            
+            totalFacilities.textContent = stats.total.toLocaleString('tr-TR')
+            totalProvinces.textContent = stats.provinces
+            totalTypes.textContent = stats.types
+            facilityCount.textContent = filteredData.length
+        }
+        
+        // Event listeners
+        provinceFilter.addEventListener('change', applyFilters)
+        typeFilter.addEventListener('change', applyFilters)
+        searchInput.addEventListener('input', applyFilters)
+        
+        // Initialize
+        testConnection()
+    </script>
+</body>
+</html>

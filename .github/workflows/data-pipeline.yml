@@ -1,0 +1,141 @@
+name: TURSAKUR Data Pipeline
+
+on:
+  schedule:
+    # Her gün 03:00'da çalışır (UTC)
+    - cron: '0 3 * * *'
+  
+  workflow_dispatch:
+    inputs:
+      skip_tier1:
+        description: 'Tier 1 kaynaklarını atla'
+        required: false
+        default: false
+        type: boolean
+      skip_tier2:
+        description: 'Tier 2 kaynaklarını atla'
+        required: false
+        default: false
+        type: boolean
+      skip_tier3:
+        description: 'Tier 3 kaynaklarını atla'
+        required: false
+        default: false
+        type: boolean
+      skip_processing:
+        description: 'Veri işlemeyi atla'
+        required: false
+        default: false
+        type: boolean
+      skip_loading:
+        description: 'Supabase yüklemeyi atla'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  data-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240  # 4 hours timeout
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+        
+    - name: Install Chrome for Selenium
+      uses: browser-actions/setup-chrome@latest
+      
+    - name: Install ChromeDriver
+      uses: nanasess/setup-chromedriver@master
+      
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Create Data Directories
+      run: |
+        mkdir -p data/raw
+        mkdir -p data/processed
+        mkdir -p logs
+        
+    - name: Set Environment Variables
+      run: |
+        echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
+        echo "SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}" >> $GITHUB_ENV
+        echo "SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" >> $GITHUB_ENV
+        echo "GOOGLE_PLACES_API_KEY=${{ secrets.GOOGLE_PLACES_API_KEY }}" >> $GITHUB_ENV
+        
+    - name: Run Data Pipeline
+      run: |
+        cd scripts
+        python fetch_all_sources.py \
+          ${{ github.event.inputs.skip_tier1 == 'true' && '--skip-tier1' || '' }} \
+          ${{ github.event.inputs.skip_tier2 == 'true' && '--skip-tier2' || '' }} \
+          ${{ github.event.inputs.skip_tier3 == 'true' && '--skip-tier3' || '' }} \
+          ${{ github.event.inputs.skip_processing == 'true' && '--skip-processing' || '' }} \
+          ${{ github.event.inputs.skip_loading == 'true' && '--skip-loading' || '' }}
+          
+    - name: Upload Raw Data Artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: raw-data-${{ github.run_number }}
+        path: data/raw/
+        retention-days: 7
+        
+    - name: Upload Processed Data Artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: processed-data-${{ github.run_number }}
+        path: data/processed/
+        retention-days: 30
+        
+    - name: Upload Logs
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: pipeline-logs-${{ github.run_number }}
+        path: |
+          logs/
+          data/pipeline*.log
+          data/pipeline_report*.md
+        retention-days: 30
+        
+    - name: Generate Pipeline Summary
+      if: always()
+      run: |
+        echo "## TURSAKUR Data Pipeline Summary" >> $GITHUB_STEP_SUMMARY
+        echo "**Run ID:** ${{ github.run_number }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Triggered:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Timestamp:** $(date -u)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        # En son raporu bulup özeti ekle
+        if [ -f "$(ls -t data/pipeline_report_*.md 2>/dev/null | head -1)" ]; then
+          echo "### Pipeline Report" >> $GITHUB_STEP_SUMMARY
+          head -n 20 "$(ls -t data/pipeline_report_*.md | head -1)" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        # Veri dosyalarının sayısını ve boyutunu göster
+        echo "### Data Files Generated" >> $GITHUB_STEP_SUMMARY
+        echo "**Raw Data Files:**" >> $GITHUB_STEP_SUMMARY
+        ls -la data/raw/ | tail -n +2 | wc -l >> $GITHUB_STEP_SUMMARY
+        echo "**Processed Data Files:**" >> $GITHUB_STEP_SUMMARY
+        ls -la data/processed/ 2>/dev/null | tail -n +2 | wc -l >> $GITHUB_STEP_SUMMARY || echo "0" >> $GITHUB_STEP_SUMMARY
+        
+    - name: Notify on Failure
+      if: failure()
+      run: |
+        echo "❌ TURSAKUR Data Pipeline failed on run #${{ github.run_number }}"
+        echo "Check the logs and artifacts for details."

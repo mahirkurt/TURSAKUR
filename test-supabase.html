@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TURSAKUR 2.0 - Supabase Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .status {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .status.loading {
+            background: #fef5e7;
+            color: #744210;
+            border: 1px solid #f6e05e;
+        }
+        
+        .status.success {
+            background: #f0fff4;
+            color: #22543d;
+            border: 1px solid #68d391;
+        }
+        
+        .status.error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+        }
+        
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 15px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .filter-group label {
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .filter-group select,
+        .filter-group input {
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s;
+            background: white;
+        }
+        
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .facility-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .facility-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .facility-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+        
+        .facility-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        
+        .facility-type {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .facility-details {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .facility-details strong {
+            color: #4a5568;
+        }
+        
+        .facility-contact {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            background: #f8fafc;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #4a5568;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 TURSAKUR 2.0</h1>
+            <p style="color: #666; font-size: 1.1rem;">Türkiye Sağlık Kuruluşları Database - Supabase Test</p>
+        </div>
+        
+        <div id="status" class="status loading">
+            <span class="loading-spinner"></span>
+            Supabase bağlantısı test ediliyor...
+        </div>
+        
+        <div id="stats" class="stats" style="display: none;"></div>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label for="provinceFilter">İl Seçin</label>
+                <select id="provinceFilter">
+                    <option value="">Tüm İller</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="typeFilter">Kuruluş Tipi</label>
+                <select id="typeFilter">
+                    <option value="">Tüm Tipler</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="searchInput">Arama</label>
+                <input type="text" id="searchInput" placeholder="Hastane adı veya adres...">
+            </div>
+        </div>
+        
+        <div id="facilities" class="facilities-grid"></div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        // Supabase configuration
+        const supabaseUrl = 'https://demo.supabase.co' // Demo URL for testing
+        const supabaseKey = 'demo-key'
+        
+        let supabase = null
+        let isTestMode = true
+        
+        // Test data
+        const testFacilities = [
+            {
+                id: 1,
+                name: 'Ankara Şehir Hastanesi',
+                facility_type: 'Şehir Hastanesi',
+                province: 'Ankara',
+                district: 'Çankaya',
+                address: 'Ankara Şehir Hastanesi, Bilkent/Ankara',
+                phone: '0312 552 60 00',
+                website: 'https://ankarashehir.saglik.gov.tr',
+                latitude: 39.8667,
+                longitude: 32.7333,
+                sources: ['saglik_bakanligi']
+            },
+            {
+                id: 2,
+                name: 'Hacettepe Üniversitesi Hastanesi',
+                facility_type: 'Üniversite Hastanesi',
+                province: 'Ankara',
+                district: 'Altındağ',
+                address: 'Hacettepe Üniversitesi, Sıhhiye/Ankara',
+                phone: '0312 305 10 00',
+                website: 'https://www.hacettepe.edu.tr',
+                latitude: 39.9400,
+                longitude: 32.8600,
+                sources: ['universite_hastaneleri']
+            },
+            {
+                id: 3,
+                name: 'İstanbul Şişli Etfal Hastanesi',
+                facility_type: 'Devlet Hastanesi',
+                province: 'İstanbul',
+                district: 'Şişli',
+                address: 'Şişli Etfal Hastanesi, Şişli/İstanbul',
+                phone: '0212 373 50 00',
+                website: 'https://sislientfal.saglik.gov.tr',
+                latitude: 41.0500,
+                longitude: 28.9800,
+                sources: ['saglik_bakanligi']
+            },
+            {
+                id: 4,
+                name: 'Acıbadem Maslak Hastanesi',
+                facility_type: 'Özel Hastane',
+                province: 'İstanbul',
+                district: 'Sarıyer',
+                address: 'Büyükdere Cad. No:40, Maslak/İstanbul',
+                phone: '0212 304 44 44',
+                website: 'https://www.acibadem.com.tr',
+                latitude: 41.1100,
+                longitude: 29.0100,
+                sources: ['ozel_hastane']
+            },
+            {
+                id: 5,
+                name: 'Ege Üniversitesi Hastanesi',
+                facility_type: 'Üniversite Hastanesi',
+                province: 'İzmir',
+                district: 'Bornova',
+                address: 'Ege Üniversitesi, Bornova/İzmir',
+                phone: '0232 390 10 00',
+                website: 'https://www.ege.edu.tr',
+                latitude: 38.4600,
+                longitude: 27.2200,
+                sources: ['universite_hastaneleri']
+            }
+        ]
+        
+        let allFacilities = []
+        let filteredFacilities = []
+        
+        // Initialize Supabase
+        async function initSupabase() {
+            try {
+                if (window.supabase) {
+                    supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+                    
+                    // Test connection
+                    const { data, error } = await supabase.from('health_facilities').select('count').limit(1)
+                    
+                    if (error) {
+                        throw new Error(error.message)
+                    }
+                    
+                    isTestMode = false
+                    updateStatus('success', '✅ Supabase bağlantısı başarılı! Gerçek veri kullanılıyor.')
+                } else {
+                    throw new Error('Supabase library yüklenmedi')
+                }
+            } catch (error) {
+                console.warn('Supabase bağlantısı başarısız, test modu:', error)
+                isTestMode = true
+                updateStatus('error', '⚠️ Supabase bağlantısı başarısız. Test verisi kullanılıyor.')
+            }
+        }
+        
+        // Update status
+        function updateStatus(type, message) {
+            const statusEl = document.getElementById('status')
+            statusEl.className = `status ${type}`
+            statusEl.innerHTML = message
+        }
+        
+        // Get facilities data
+        async function getFacilities(filters = {}) {
+            if (isTestMode) {
+                return getTestData(filters)
+            }
+            
+            try {
+                let query = supabase.from('health_facilities').select('*')
+                
+                if (filters.province) {
+                    query = query.eq('province', filters.province)
+                }
+                
+                if (filters.facility_type) {
+                    query = query.eq('facility_type', filters.facility_type)
+                }
+                
+                if (filters.search) {
+                    query = query.or(`name.ilike.%${filters.search}%,address.ilike.%${filters.search}%`)
+                }
+                
+                const { data, error } = await query.limit(100)
+                
+                if (error) {
+                    throw new Error(error.message)
+                }
+                
+                return data || []
+                
+            } catch (error) {
+                console.error('Veri getirme hatası:', error)
+                return getTestData(filters)
+            }
+        }
+        
+        // Get test data with filters
+        function getTestData(filters = {}) {
+            let data = [...testFacilities]
+            
+            if (filters.province) {
+                data = data.filter(f => f.province === filters.province)
+            }
+            
+            if (filters.facility_type) {
+                data = data.filter(f => f.facility_type === filters.facility_type)
+            }
+            
+            if (filters.search) {
+                const searchLower = filters.search.toLowerCase()
+                data = data.filter(f => 
+                    f.name.toLowerCase().includes(searchLower) ||
+                    f.address.toLowerCase().includes(searchLower)
+                )
+            }
+            
+            return data
+        }
+        
+        // Get unique provinces
+        function getProvinces() {
+            return [...new Set(allFacilities.map(f => f.province))].sort()
+        }
+        
+        // Get unique facility types
+        function getFacilityTypes() {
+            return [...new Set(allFacilities.map(f => f.facility_type))].sort()
+        }
+        
+        // Render facilities
+        function renderFacilities(facilities) {
+            const facilitiesEl = document.getElementById('facilities')
+            
+            if (!facilities || facilities.length === 0) {
+                facilitiesEl.innerHTML = `
+                    <div class="empty-state">
+                        <h3>Sonuç bulunamadı</h3>
+                        <p>Arama kriterlerinizi değiştirip tekrar deneyin.</p>
+                    </div>
+                `
+                return
+            }
+            
+            facilitiesEl.innerHTML = facilities.map(facility => `
+                <div class="facility-card">
+                    <div class="facility-name">${facility.name}</div>
+                    <div class="facility-type">${facility.facility_type}</div>
+                    <div class="facility-details">
+                        <strong>Lokasyon:</strong> ${facility.district ? facility.district + '/' : ''}${facility.province}<br>
+                        <strong>Adres:</strong> ${facility.address || 'Bilgi yok'}
+                        ${facility.latitude && facility.longitude ? 
+                            `<br><strong>Koordinat:</strong> ${facility.latitude.toFixed(4)}, ${facility.longitude.toFixed(4)}` : 
+                            ''
+                        }
+                    </div>
+                    ${facility.phone || facility.website ? `
+                        <div class="facility-contact">
+                            ${facility.phone ? `<div class="contact-item">📞 ${facility.phone}</div>` : ''}
+                            ${facility.website ? `<div class="contact-item">🌐 Website</div>` : ''}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('')
+        }
+        
+        // Render statistics
+        function renderStats(facilities) {
+            const statsEl = document.getElementById('stats')
+            
+            const stats = {
+                total: facilities.length,
+                withCoordinates: facilities.filter(f => f.latitude && f.longitude).length,
+                withPhone: facilities.filter(f => f.phone).length,
+                withWebsite: facilities.filter(f => f.website).length
+            }
+            
+            statsEl.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${stats.total}</div>
+                    <div class="stat-label">Toplam Kuruluş</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.withCoordinates}</div>
+                    <div class="stat-label">Koordinatlı</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.withPhone}</div>
+                    <div class="stat-label">Telefonlu</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.withWebsite}</div>
+                    <div class="stat-label">Websiteli</div>
+                </div>
+            `
+            
+            statsEl.style.display = 'grid'
+        }
+        
+        // Populate filters
+        function populateFilters() {
+            const provinceSelect = document.getElementById('provinceFilter')
+            const typeSelect = document.getElementById('typeFilter')
+            
+            // Provinces
+            const provinces = getProvinces()
+            provinceSelect.innerHTML = '<option value="">Tüm İller</option>' +
+                provinces.map(p => `<option value="${p}">${p}</option>`).join('')
+            
+            // Facility types
+            const types = getFacilityTypes()
+            typeSelect.innerHTML = '<option value="">Tüm Tipler</option>' +
+                types.map(t => `<option value="${t}">${t}</option>`).join('')
+        }
+        
+        // Apply filters
+        async function applyFilters() {
+            const province = document.getElementById('provinceFilter').value
+            const facilityType = document.getElementById('typeFilter').value
+            const search = document.getElementById('searchInput').value
+            
+            const filters = {}
+            if (province) filters.province = province
+            if (facilityType) filters.facility_type = facilityType
+            if (search) filters.search = search
+            
+            filteredFacilities = await getFacilities(filters)
+            renderFacilities(filteredFacilities)
+            renderStats(filteredFacilities)
+        }
+        
+        // Event listeners
+        function setupEventListeners() {
+            document.getElementById('provinceFilter').addEventListener('change', applyFilters)
+            document.getElementById('typeFilter').addEventListener('change', applyFilters)
+            
+            let searchTimeout
+            document.getElementById('searchInput').addEventListener('input', () => {
+                clearTimeout(searchTimeout)
+                searchTimeout = setTimeout(applyFilters, 300)
+            })
+        }
+        
+        // Initialize app
+        async function init() {
+            await initSupabase()
+            
+            // Load initial data
+            allFacilities = await getFacilities()
+            filteredFacilities = allFacilities
+            
+            // Setup UI
+            populateFilters()
+            renderFacilities(filteredFacilities)
+            renderStats(filteredFacilities)
+            setupEventListeners()
+            
+            console.log('🎉 TURSAKUR 2.0 test uygulaması hazır!')
+        }
+        
+        // Start the app
+        init()
+    </script>
+</body>
+</html>
