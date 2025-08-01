@@ -1,39 +1,42 @@
 {
   "name": "tursakur",
-  "version": "2.0.3",
-  "description": "Türkiye Sağlık Kuruluşları Kapsamlı Veritabanı - Üniversite-Hastane İlişkileri ile Material Design 3 Modern Web Uygulaması",
-  "main": "index.html",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Türkiye Sağlık Kuruluşları Database - Modern React Frontend with Supabase Backend",
   "scripts": {
-    "build": "python scripts/process_data.py && python build.py",
-    "build:prod": "python build.py",
-    "validate": "python scripts/validate_data.py",
-    "dev": "python -m http.server 8000",
-    "deploy": "firebase deploy",
-    "deploy:gh-pages": "npm run build && gh-pages -d _build",
-    "scrape:health-departments": "python scripts/fetch_il_saglik_mudurlukeri.py",
-    "scrape:all": "python scripts/fetch_all_sources.py",
-    "scrape:universities": "python scripts/fetch_trhastane_universite.py",
-    "scrape:comprehensive-universities": "python scripts/fetch_kapsamli_universite_hastane.py",
-    "merge:duplicates": "python scripts/merge_duplicate_records.py",
-    "update:quarterly": "python scripts/quarterly_update.py",
-    "test:system": "python scripts/test_full_system.py",
-    "final:report": "python simple_final_report.py"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "format": "prettier --write src/",
+    "type-check": "tsc --noEmit",
+    "analyze": "npm run build && npx vite-bundle-analyzer",
+    "clean": "rm -rf dist node_modules/.vite",
+    "migrate": "python scripts/load_to_supabase.py",
+    "test-db": "python scripts/supabase_client.py"
   },
-  "keywords": [
-    "türkiye",
-    "sağlık",
-    "hastane", 
-    "kurum",
-    "database",
-    "material-design",
-    "web-app",
-    "healthcare"
-  ],
-  "author": "TURSAKUR Team",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mahirkurt/TURSAKUR.git"
+  "dependencies": {
+    "@supabase/supabase-js": "^2.53.0",
+    "@tanstack/react-query": "^5.84.0",
+    "@tanstack/react-query-devtools": "^5.84.0",
+    "leaflet": "^1.9.4",
+    "prop-types": "^15.8.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-leaflet": "^5.0.0",
+    "react-router-dom": "^7.7.1",
+    "zustand": "^5.0.7"
   },
-  "homepage": "https://tursakur.web.app"
+  "devDependencies": {
+    "@eslint/js": "^9.30.1",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.6.0",
+    "eslint": "^9.30.1",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "vite": "^7.0.4"
+  }
 }

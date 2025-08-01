@@ -1,277 +1,306 @@
-# TURSAKUR - Türkiye Sağlık Kuruluşları
+# TURSAKUR 2.0 🏥
 
-> Modern ve kapsamlı Türkiye sağlık kuruluşları veritabanı - Material Design 3 ile
+**Türkiye Sağlık Kuruluşları Veritabanı** - Modern React Frontend ile Supabase Backend
 
-Bu proje, Türkiye'deki tüm sağlık kuruluşlarının kapsamlı, güncel ve kullanıcı dostu bir veritabanını sunar. **1,674 sağlık kuruluşu** ile Türkiye'nin en geniş kapsamlı sağlık veritabanıdır.
+[![React](https://img.shields.io/badge/React-19.1.0-blue.svg)](https://reactjs.org/)
+[![Supabase](https://img.shields.io/badge/Supabase-2.53.0-green.svg)](https://supabase.com/)
+[![Vite](https://img.shields.io/badge/Vite-Latest-purple.svg)](https://vitejs.dev/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-## 🌐 Canlı Uygulama
+## 🎯 Proje Özeti
 
-**🚀 GitHub Pages:** [https://mahirkurt.github.io/TURSAKUR/](https://mahirkurt.github.io/TURSAKUR/)  
-**🔗 Firebase Hosting:** [https://tursakur.web.app](https://tursakur.web.app)
+TURSAKUR 2.0, Türkiye'deki tüm sağlık kuruluşlarının kapsamlı veritabanını sunan modern bir web uygulamasıdır. PostGIS tabanlı coğrafi sorgular, real-time arama, ve kullanıcı dostu arayüz ile sağlık kuruluşlarına kolay erişim sağlar.
 
-[![Deployment Status](https://github.com/mahirkurt/TURSAKUR/actions/workflows/github-pages.yml/badge.svg)](https://github.com/mahirkurt/TURSAKUR/actions/workflows/github-pages.yml)
+## ✨ Özellikler
 
-## 🆕 Yeni Özellikler (v2.0.3)
+- 🗺️ **Interaktif Harita**: Leaflet.js ile coğrafi görselleştirme
+- 🔍 **Gelişmiş Arama**: Real-time filtreleme ve coğrafi sorgular
+- 📱 **Responsive Tasarım**: Mobile-first approach
+- ⚡ **Hızlı Performans**: Vite build tool ve React Query
+- 🗄️ **Supabase Backend**: PostgreSQL + PostGIS ile güçlü veri yönetimi
+- 🔄 **Real-time Updates**: Anlık veri güncellemeleri
+- 📊 **Data Visualization**: İstatistiksel görselleştirmeler
 
-### 🗺️ İnteraktif Harita
-- Leaflet.js ile profesyonel harita görünümü
-- Hastane türlerine göre renkli marker'lar  
-- GPS konum bulma ve en yakın hastaneler
-- Pop-up ile detaylı hastane bilgileri
-- Yol tarifi entegrasyonu
-
-### 🔍 Gelişmiş Arama
-- Akıllı otomatik tamamlama (autocomplete)
-- Son aramalar hafızası
-- Hızlı filtre butonları  
-- Arama ipuçları ve öneriler
-- Klavye navigasyonu desteği
-
-### ✨ Kullanıcı Deneyimi
-- Modern yükleme animasyonları
-- Skeleton loader'lar
-- Kart giriş animasyonları
-- Bildirim sistemi
-- Performans takibi ve analytics
-
-### 📱 Mobil Optimizasyon
-- Touch-friendly arayüz
-- Responsive tasarım
-- PWA (Progressive Web App) desteği
-- Erişilebilirlik (a11y) iyileştirmeleri
-
-## 📊 İstatistikler (v2.0)
-
-- **🏥 Toplam Kurum**: 1,674
-- **🗺️ Toplam İl**: 81 (tam kapsama)
-- **🏥 Devlet Hastanesi**: 837
-- **🏥 Özel Hastane**: 571  
-- **🦷 Ağız Diş Sağlığı Merkezi**: 167
-- **🎓 Eğitim Araştırma Hastanesi**: 91
-- **🎓 Üniversite Hastanesi**: 8
-
-## 🎯 Veri Kaynakları
-
-- **T.C. Sağlık Bakanlığı** - Resmi hastane ve sağlık merkezleri
-- **Özel Hastaneler Veritabanı** - Tüm özel sağlık kuruluşları  
-- **Üniversite Hastaneleri** - Akademik sağlık kuruluşları
-- **TR Hastane** - Ek üniversite hastanesi verileri
-
-## ✨ Ana Özellikler
-
-### 🎨 Modern Tasarım
-- **Material Design 3 Expressive** tema sistemi
-- **Responsive Design** - Tüm cihazlarda mükemmel görünüm
-- **Tema Switching** - Açık/koyu mod otomatik geçiş
-- **Accessibility Ready** - Erişilebilirlik standartları
-
-### 🔍 Güçlü Arama & Filtreleme
-- **Multi-level Filtering** - İl → İlçe progressive seçimi
-- **Type-based Filtering** - Kurum tipine göre renkli kategoriler
-- **Real-time Search** - Anlık arama sonuçları
-- **Advanced Sorting** - Ada, ile, türe göre sıralama
-
-### 📱 Modern Web App
-- **PWA Ready** - Progressive Web App desteği
-- **Offline Support** - Service Worker ile çevrimdışı çalışma
-- **Fast Loading** - Firebase CDN optimizasyonu
-- **Mobile First** - Mobil öncelikli tasarım
+## 🏗️ Teknik Stack
 
 ### Frontend
-- **HTML5** - Semantic web yapısı
-- **CSS3** - Modern styling ve animasyonlar
-- **JavaScript (ES6+)** - Modüler uygulama mimarisi
-- **Material Design 3** - Google'ın tasarım sistemi
-- **Material Symbols** - İkon seti
-- **Service Worker** - Offline desteği ve performans
+- **React 19.1.0** - Modern UI library
+- **Vite** - Next generation build tool
+- **React Router** - SPA routing
+- **Leaflet.js** - Interactive maps
+- **React Query** - Server state management
+- **Zustand** - Client state management
 
-### Backend & İşleme
-- **Python 3.11+** - Veri işleme ve scraping
-- **Requests** - HTTP istekleri
-- **BeautifulSoup4** - Web scraping
-- **Pandas** - Veri manipülasyonu
-- **JSON** - Veri depolama formatı
+### Backend
+- **Supabase** - Backend-as-a-Service
+- **PostgreSQL** - Primary database
+- **PostGIS** - Spatial database extension
+- **Row Level Security** - Data security
 
-### DevOps & Deployment
+### Development
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **Python** - Data processing scripts - Modern Türkiye Sağlık Kuruluşları Haritası
+
+Modern web teknolojileri ile geliştirilmiş, Türkiye'deki sağlık kuruluşlarını harita üzerinde gösteren kapsamlı web uygulaması.
+
+## 🚀 Özellikler
+
+### 🔍 Akıllı Arama ve Filtreleme
+- **Gerçek zamanlı arama**: 300ms debounce ile optimize edilmiş
+- **Gelişmiş filtreleme**: İl, ilçe, kuruluş tipi, mesafe bazlı filtreleme
+- **Coğrafi sorgular**: Harita görünümü bazlı arama
+- **Öneri sistemi**: Arama geçmişi ve akıllı öneriler
+
+### 🗺️ İnteraktif Harita
+- **Leaflet entegrasyonu**: Performanslı harita deneyimi
+- **Kümeleme**: Binlerce kuruluşu optimize şekilde gösterme
+- **Gerçek zamanlı filtreleme**: Harita üzerinde anlık filtreleme
+- **Çoklu katman desteği**: Farklı kuruluş tiplerini ayrı katmanlarda
+
+### 🎨 Modern Tasarım
+- **Material Design 3**: Google'ın en güncel tasarım sistemi
+- **Responsive**: Mobil, tablet ve masaüstü uyumlu
+- **Dark/Light Mode**: Otomatik tema geçişi
+- **Accessibility**: WCAG 2.1 AA standartlarına uygun
+
+### 📊 Analitik ve İstatistikler
+- **Gerçek zamanlı istatistikler**: Kuruluş sayıları, tip dağılımı
+- **Coğrafi analiz**: İl ve bölge bazlı dağılım
+- **Performans metrikleri**: Arama ve filtreleme hızları
+
+## 🏗️ Teknoloji Stack
+
+### Frontend
+- **React 18** - Modern UI kütüphanesi
+- **Vite** - Hızlı geliştirme ortamı
+- **TanStack Query** - Server state yönetimi
+- **React Router** - SPA routing
+- **Leaflet & React-Leaflet** - Harita entegrasyonu
+- **Material Design 3** - Tasarım sistemi
+
+### Backend
+- **Supabase** - Backend-as-a-Service
+- **PostgreSQL** - İlişkisel veritabanı
+- **PostGIS** - Coğrafi veri eklentisi
+- **Row Level Security** - Güvenlik katmanı
+
+### DevOps
 - **GitHub Actions** - CI/CD pipeline
-- **GitHub Pages** - Static site hosting
-- **Automated Testing** - Veri doğrulama testleri
-- **Dependency Management** - Requirements.txt
+- **ESLint + Prettier** - Kod kalitesi
+- **Lighthouse** - Performans testi
+- **Docker** - Konteynerizasyon desteği
+
+## 📋 Hızlı Başlangıç
+
+### Gereksinimler
+- Node.js 18+
+- Python 3.11+
+- Git
+
+### Kurulum
+
+1. **Repository'yi klonlayın**
+```bash
+git clone https://github.com/[username]/TURSAKUR.git
+cd TURSAKUR/tursakur-2.0
+```
+
+2. **Bağımlılıkları yükleyin**
+```bash
+npm install
+pip install -r requirements.txt
+```
+
+3. **Çevre değişkenlerini ayarlayın**
+```bash
+cp .env.example .env
+# .env dosyasını Supabase bilgilerinizle güncelleyin
+```
+
+4. **Uygulamayı başlatın**
+```bash
+npm run dev
+```
+
+Uygulama http://localhost:5173 adresinde çalışacaktır.
+
+## 🔧 Konfigürasyon
+
+### Çevre Değişkenleri
+
+```bash
+# Supabase Konfigürasyonu
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_service_role_key
+
+# Uygulama Konfigürasyonu
+VITE_APP_TITLE=TURSAKUR 2.0
+VITE_DEFAULT_CENTER_LAT=39.9334
+VITE_DEFAULT_CENTER_LNG=32.8597
+VITE_DEFAULT_ZOOM=6
+```
+
+### Veritabanı Schema
+
+Schema dosyası `database/schema.sql` içinde yer almaktadır. Supabase SQL Editor'da çalıştırın:
+
+```sql
+-- PostGIS eklentisini etkinleştir
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+-- Diğer schema komutları...
+```
+
+## 📊 Veri Migrasyonu
+
+Mevcut JSON verilerini Supabase'e aktarmak için:
+
+```bash
+python scripts/load_to_supabase.py
+```
+
+Bu script:
+- Mevcut JSON dosyalarını okur
+- Veri kalitesi kontrolü yapar
+- Supabase veritabanına toplu olarak aktarır
+- Migrasyon raporunu oluşturur
+
+## 🚀 Deployment
+
+### GitHub Actions ile Otomatik Deploy
+
+1. Repository'nize aşağıdaki secrets'ları ekleyin:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+   - `SUPABASE_URL`
+   - `SUPABASE_KEY`
+
+2. Main branch'e push yapın:
+```bash
+git push origin main
+```
+
+GitHub Actions otomatik olarak:
+- Kodu test eder
+- Build alır
+- Production'a deploy eder
+- Veri senkronizasyonu yapar
+
+### Manuel Build
+
+```bash
+npm run build
+```
+
+Build dosyaları `dist/` klasöründe oluşturulur.
+
+## 🧪 Testing
+
+### Unit Testler
+```bash
+npm test
+```
+
+### E2E Testler
+```bash
+npm run test:e2e
+```
+
+### Performans Testleri
+```bash
+npm run lighthouse
+```
 
 ## 📁 Proje Yapısı
 
 ```
-├── .github/
-│   ├── workflows/
-│   │   └── deploy.yml           # GitHub Actions workflow
-│   └── copilot-instructions.md  # Copilot talimatları
-├── css/                         # Tema dosyaları
-│   ├── light.css               # Açık tema
-│   ├── dark.css                # Koyu tema
-│   ├── light-hc.css            # Yüksek kontrast açık
-│   ├── dark-hc.css             # Yüksek kontrast koyu
-│   ├── light-mc.css            # Orta kontrast açık
-│   └── dark-mc.css             # Orta kontrast koyu
-├── data/
-│   ├── turkiye_saglik_kuruluslari.json  # Ana veritabanı
-│   └── raw/                     # Ham veri dosyaları
-├── scripts/                     # Python betikleri
-│   ├── process_data.py          # Ana veri işleme
-│   ├── validate_data.py         # Veri doğrulama
-│   ├── fetch_saglik_bakanligi_data.py
-│   ├── fetch_ozel_hastaneler_data.py
-│   └── fetch_universite_hastaneleri.py
-├── web/                         # Web arayüzü
-│   ├── index.html              # Ana sayfa
-│   ├── styles/
-│   │   └── main.css            # Ana CSS dosyası
-│   ├── js/                     # JavaScript modülleri
-│   │   ├── main.js             # Ana uygulama
-│   │   ├── app.js              # Tema ve modal yönetimi
-│   │   ├── data-loader.js      # Veri yükleme modülü
-│   │   └── search-filter.js    # Arama ve filtreleme
-│   └── sw.js                   # Service Worker
-├── requirements.txt            # Python bağımlılıkları
-└── README.md                   # Proje dokümantasyonu
+tursakur-2.0/
+├── src/
+│   ├── components/          # Yeniden kullanılabilir bileşenler
+│   │   ├── TopAppBar.jsx
+│   │   ├── SearchBar.jsx
+│   │   ├── MapView.jsx
+│   │   └── ...
+│   ├── pages/              # Sayfa bileşenleri
+│   │   ├── HomePage.jsx
+│   │   ├── MapPage.jsx
+│   │   └── ...
+│   ├── hooks/              # Custom React hooks
+│   │   └── useInstitutions.js
+│   ├── contexts/           # React context providers
+│   │   └── ThemeContext.jsx
+│   ├── lib/                # Utility kütüphaneleri
+│   │   └── supabase.js
+│   └── styles/             # Global stiller
+│       ├── base.css
+│       ├── light.css
+│       └── dark.css
+├── scripts/                # Python ETL scriptleri
+│   ├── supabase_client.py
+│   └── load_to_supabase.py
+├── database/               # Veritabanı schema
+│   └── schema.sql
+├── .github/workflows/      # CI/CD konfigürasyonu
+└── data/                   # Veri dosyaları
 ```
 
-## 🛠️ Kurulum
+## 🎨 Tasarım Sistemi
 
-### Gereksinimler
-- Python 3.11+
-- Git
-- Modern web tarayıcısı
+### Renk Paleti
+- **Primary**: #BB0012 (Türk Kırmızısı)
+- **Secondary**: #00696D (Petrol Yeşili)
+- **Tertiary**: #775700 (Altın Sarısı)
 
-### Yerel Geliştirme
+### Tipografi
+- **Font**: Figtree (Google Fonts)
+- **Scale**: Material Design 3 Type Scale
 
-1. **Projeyi klonlayın:**
-```bash
-git clone https://github.com/USERNAME/REPOSITORY.git
-cd REPOSITORY
-```
-
-2. **Python bağımlılıklarını yükleyin:**
-```bash
-pip install -r requirements.txt
-```
-
-3. **Veri işleme betiğini çalıştırın:**
-```bash
-# Tüm kaynaklardan veri çekme
-npm run scrape:all
-
-# Duplicate kayıtları birleştirme  
-npm run merge:duplicates
-
-# Ana veri dosyasını oluşturma
-npm run build
-
-# Sistem testini çalıştırma
-npm run test:system
-
-# Final raporu oluşturma
-npm run final:report
-```
-
-4. **Web arayüzünü çalıştırın:**
-```bash
-# Basit HTTP sunucusu
-cd web
-python -m http.server 8000
-```
-
-5. **Tarayıcıda açın:**
-```
-http://localhost:8000
-```
-
-### GitHub Pages Deployment
-
-1. **Repository'yi GitHub'a push edin**
-2. **GitHub Pages'i etkinleştirin:**
-   - Settings > Pages
-   - Source: GitHub Actions
-3. **Workflow otomatik olarak çalışacak**
-
-## 📊 Veri Yapısı
-
-Her sağlık kurumu için aşağıdaki alanlar bulunur:
-
-```json
-{
-  "kurum_id": "TR-34-DEV-001",
-  "kurum_adi": "İstanbul Üniversitesi İstanbul Tıp Fakültesi",
-  "kurum_tipi": "Üniversite Hastanesi",
-  "il_kodu": 34,
-  "il_adi": "İstanbul",
-  "ilce_adi": "Fatih",
-  "adres": "Millet Cad. Çapa, 34093 Fatih/İstanbul",
-  "telefon": "+902126351188",
-  "koordinat_lat": 41.0178,
-  "koordinat_lon": 28.9619,
-  "web_sitesi": "https://www.itf.istanbul.edu.tr",
-  "veri_kaynagi": "Üniversite Hastaneleri",
-  "son_guncelleme": "2024-01-15"
-}
-```
-
-## 🔧 API Kullanımı
-
-### Veri Dosyasına Erişim
-```javascript
-// Tüm verileri al
-fetch('/data/turkiye_saglik_kuruluslari.json')
-  .then(response => response.json())
-  .then(data => {
-    console.log(`Toplam kurum: ${data.kurumlar.length}`);
-  });
-```
-
-### Filtreleme Örnekleri
-```javascript
-// İstanbul'daki hastaneler
-const istanbulHospitals = data.kurumlar.filter(k => k.il_adi === 'İstanbul');
-
-// Üniversite hastaneleri
-const universitySites = data.kurumlar.filter(k => k.kurum_tipi.includes('Üniversite'));
-
-// Telefonu olan kurumlar
-const withPhone = data.kurumlar.filter(k => k.telefon);
-```
+### Spacing
+- **Base Unit**: 8dp
+- **Responsive Breakpoints**: 600px, 900px, 1240px
 
 ## 🤝 Katkıda Bulunma
 
-1. **Fork** edin
-2. **Feature branch** oluşturun (`git checkout -b feature/AmazingFeature`)
-3. **Commit** edin (`git commit -m 'Add some AmazingFeature'`)
-4. **Push** edin (`git push origin feature/AmazingFeature`)
-5. **Pull Request** açın
+1. Fork edin
+2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Commit edin (`git commit -m 'Add some amazing feature'`)
+4. Push edin (`git push origin feature/amazing-feature`)
+5. Pull Request açın
 
-### Kod Yazım Kuralları
-- Python için PEP 8 standartları
-- Type hints kullanın
-- Docstring'leri dahil edin
-- Kapsamlı hata yönetimi
-- Logging için Python logging modülü
+### Kod Standartları
+- ESLint konfigürasyonuna uyun
+- Prettier ile formatlayın
+- Testler yazın
+- Commit message'ları konvansiyonel olsun
 
 ## 📜 Lisans
 
-Bu proje MIT Lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
-
-## 📞 İletişim
-
-- **GitHub Issues:** Bug raporları ve özellik istekleri
-- **Email:** [YOUR_EMAIL]
-- **Web:** [https://USERNAME.github.io/REPOSITORY](https://USERNAME.github.io/REPOSITORY)
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
 
 ## 🙏 Teşekkürler
 
-- **Sağlık Bakanlığı** - Resmi sağlık tesisleri verileri
-- **Özel Hastaneler** - Özel sağlık kurumları bilgileri  
-- **Üniversiteler** - Üniversite hastaneleri verileri
-- **Material Design Team** - Tasarım sistemi
-- **GitHub** - Hosting ve CI/CD altyapısı
+- **OpenStreetMap** - Harita verileri
+- **Supabase** - Backend altyapısı
+- **Material Design** - Tasarım sistemi
+- **Leaflet** - Harita kütüphanesi
+
+## 📞 İletişim
+
+- **Project Link**: [https://github.com/[username]/TURSAKUR](https://github.com/[username]/TURSAKUR)
+- **Documentation**: [Talimatnameler](/talimatnameler/)
+- **Issues**: [GitHub Issues](https://github.com/[username]/TURSAKUR/issues)
 
 ---
 
-**⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!**
+<p align="center">
+  <strong>TURSAKUR 2.0</strong> - Modern Türkiye Sağlık Kuruluşları Haritası
+  <br>
+  ❤️ ile Türkiye için geliştirilmiştir
+</p>
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

@@ -1,46 +1,24 @@
-# Firebase dosyaları
-.firebase/
-firebase-debug.log
-firebase-debug.*.log
-firebase-service-account.json
-*firebase-adminsdk*.json
-
-# Build dosyaları
-dist/
-build/
-
-# Node modules
-node_modules/
-
-# Python cache
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Log dosyaları
+# Logs
+logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Geçici dosyalar
-*.tmp
-*.temp
-temp_*
-debug_*
+node_modules
+dist
+dist-ssr
+*.local
 
-# Excel dosyaları (geçici)
-*.xls
-*.xlsx
-
-# Test dosyaları
-test.html
-test_*.py
-
-# IDE dosyaları
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS dosyaları
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
-Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

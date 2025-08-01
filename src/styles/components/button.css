@@ -1,0 +1,208 @@
+/* Material Design 3 Button Component Styles */
+
+.md-button {
+  /* Base styles */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--md-spacing-2);
+  padding: var(--md-spacing-2) var(--md-spacing-6);
+  border: none;
+  border-radius: var(--md-sys-shape-corner-full);
+  font-family: var(--md-sys-typescale-label-large-font);
+  font-size: var(--md-sys-typescale-label-large-size);
+  font-weight: var(--md-sys-typescale-label-large-weight);
+  line-height: var(--md-sys-typescale-label-large-line-height);
+  letter-spacing: var(--md-sys-typescale-label-large-tracking);
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+  overflow: hidden;
+  min-height: 40px;
+}
+
+.md-button:disabled {
+  pointer-events: none;
+  opacity: 0.38;
+}
+
+/* State layer overlay */
+.md-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+  pointer-events: none;
+}
+
+/* Filled Button (Primary) */
+.md-button--filled {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  box-shadow: var(--md-sys-elevation-level0);
+}
+
+.md-button--filled:hover::before {
+  background-color: var(--md-sys-color-on-primary);
+  opacity: var(--md-sys-state-hover-state-layer-opacity);
+}
+
+.md-button--filled:focus-visible::before {
+  background-color: var(--md-sys-color-on-primary);
+  opacity: var(--md-sys-state-focus-state-layer-opacity);
+}
+
+.md-button--filled:active {
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.md-button--filled:active::before {
+  background-color: var(--md-sys-color-on-primary);
+  opacity: var(--md-sys-state-pressed-state-layer-opacity);
+}
+
+/* Outlined Button */
+.md-button--outlined {
+  background-color: transparent;
+  color: var(--md-sys-color-primary);
+  border: 1px solid var(--md-sys-color-outline);
+}
+
+.md-button--outlined:hover::before {
+  background-color: var(--md-sys-color-primary);
+  opacity: var(--md-sys-state-hover-state-layer-opacity);
+}
+
+.md-button--outlined:focus-visible::before {
+  background-color: var(--md-sys-color-primary);
+  opacity: var(--md-sys-state-focus-state-layer-opacity);
+}
+
+.md-button--outlined:active::before {
+  background-color: var(--md-sys-color-primary);
+  opacity: var(--md-sys-state-pressed-state-layer-opacity);
+}
+
+/* Text Button */
+.md-button--text {
+  background-color: transparent;
+  color: var(--md-sys-color-primary);
+  padding: var(--md-spacing-2) var(--md-spacing-3);
+}
+
+.md-button--text:hover::before {
+  background-color: var(--md-sys-color-primary);
+  opacity: var(--md-sys-state-hover-state-layer-opacity);
+}
+
+.md-button--text:focus-visible::before {
+  background-color: var(--md-sys-color-primary);
+  opacity: var(--md-sys-state-focus-state-layer-opacity);
+}
+
+.md-button--text:active::before {
+  background-color: var(--md-sys-color-primary);
+  opacity: var(--md-sys-state-pressed-state-layer-opacity);
+}
+
+/* Elevated Button */
+.md-button--elevated {
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-primary);
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.md-button--elevated:hover {
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+.md-button--elevated:hover::before {
+  background-color: var(--md-sys-color-primary);
+  opacity: var(--md-sys-state-hover-state-layer-opacity);
+}
+
+.md-button--elevated:focus-visible::before {
+  background-color: var(--md-sys-color-primary);
+  opacity: var(--md-sys-state-focus-state-layer-opacity);
+}
+
+.md-button--elevated:active {
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.md-button--elevated:active::before {
+  background-color: var(--md-sys-color-primary);
+  opacity: var(--md-sys-state-pressed-state-layer-opacity);
+}
+
+/* Filled Tonal Button */
+.md-button--filled-tonal {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.md-button--filled-tonal:hover::before {
+  background-color: var(--md-sys-color-on-secondary-container);
+  opacity: var(--md-sys-state-hover-state-layer-opacity);
+}
+
+.md-button--filled-tonal:focus-visible::before {
+  background-color: var(--md-sys-color-on-secondary-container);
+  opacity: var(--md-sys-state-focus-state-layer-opacity);
+}
+
+.md-button--filled-tonal:active::before {
+  background-color: var(--md-sys-color-on-secondary-container);
+  opacity: var(--md-sys-state-pressed-state-layer-opacity);
+}
+
+/* Icon styles */
+.md-button__icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Button variants */
+.md-button--small {
+  min-height: 32px;
+  padding: var(--md-spacing-1) var(--md-spacing-4);
+  font-size: var(--md-sys-typescale-label-small-size);
+}
+
+.md-button--large {
+  min-height: 48px;
+  padding: var(--md-spacing-3) var(--md-spacing-8);
+  font-size: var(--md-sys-typescale-label-large-size);
+}
+
+/* Extended FAB (Floating Action Button) */
+.md-fab {
+  position: fixed;
+  bottom: var(--md-spacing-4);
+  right: var(--md-spacing-4);
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-radius: var(--md-sys-shape-corner-large);
+  box-shadow: var(--md-sys-elevation-level3);
+  z-index: 1000;
+}
+
+.md-fab:hover {
+  box-shadow: var(--md-sys-elevation-level4);
+}
+
+.md-fab:active {
+  box-shadow: var(--md-sys-elevation-level3);
+}
+
+.md-fab::before {
+  background-color: var(--md-sys-color-on-primary-container);
+}

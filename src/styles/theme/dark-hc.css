@@ -1,0 +1,61 @@
+/* TURSAKUR 2.0 - Dark High Contrast Theme (Material Design 3)
+ * Yüksek kontrastlı koyu tema - görme zorluğu yaşayanlar için
+ * Primary: #BB0012 (Canlı Kırmızı)
+ * Secondary: #00696D (Turkuaz/Deniz Mavisi)  
+ * Tertiary: #775700 (Altın Sarısı/Okra)
+ */
+
+.dark-hc {
+  /* Primary Colors - High Contrast */
+  --md-sys-color-primary: rgb(255, 195, 190);
+  --md-sys-color-on-primary: rgb(22, 0, 0);
+  --md-sys-color-primary-container: rgb(157, 0, 14);
+  --md-sys-color-on-primary-container: rgb(255, 228, 224);
+  
+  /* Secondary Colors - High Contrast */
+  --md-sys-color-secondary: rgb(165, 254, 255);
+  --md-sys-color-on-secondary: rgb(0, 16, 17);
+  --md-sys-color-secondary-container: rgb(0, 81, 85);
+  --md-sys-color-on-secondary-container: rgb(161, 250, 254);
+  
+  /* Tertiary Colors - High Contrast */
+  --md-sys-color-tertiary: rgb(255, 237, 174);
+  --md-sys-color-on-tertiary: rgb(16, 12, 0);
+  --md-sys-color-tertiary-container: rgb(91, 67, 0);
+  --md-sys-color-on-tertiary-container: rgb(255, 233, 170);
+  
+  /* Error Colors - High Contrast */
+  --md-sys-color-error: rgb(255, 190, 181);
+  --md-sys-color-on-error: rgb(33, 0, 0);
+  --md-sys-color-error-container: rgb(147, 0, 10);
+  --md-sys-color-on-error-container: rgb(255, 228, 224);
+  
+  /* Surface Colors - High Contrast */
+  --md-sys-color-surface: rgb(16, 16, 16);
+  --md-sys-color-on-surface: rgb(255, 255, 255);
+  --md-sys-color-surface-variant: rgb(52, 47, 46);
+  --md-sys-color-on-surface-variant: rgb(231, 207, 204);
+  
+  --md-sys-color-surface-dim: rgb(16, 16, 16);
+  --md-sys-color-surface-bright: rgb(54, 54, 54);
+  --md-sys-color-surface-container-lowest: rgb(11, 11, 11);
+  --md-sys-color-surface-container-low: rgb(24, 24, 24);
+  --md-sys-color-surface-container: rgb(28, 28, 28);
+  --md-sys-color-surface-container-high: rgb(38, 38, 38);
+  --md-sys-color-surface-container-highest: rgb(49, 49, 49);
+  
+  /* Background Colors - High Contrast */
+  --md-sys-color-background: rgb(16, 16, 16);
+  --md-sys-color-on-background: rgb(255, 255, 255);
+  
+  /* Outline Colors - High Contrast */
+  --md-sys-color-outline: rgb(198, 198, 198);
+  --md-sys-color-outline-variant: rgb(52, 47, 46);
+  
+  /* Other Colors - High Contrast */
+  --md-sys-color-shadow: rgb(0, 0, 0);
+  --md-sys-color-scrim: rgb(0, 0, 0);
+  --md-sys-color-inverse-surface: rgb(232, 228, 232);
+  --md-sys-color-inverse-on-surface: rgb(16, 16, 16);
+  --md-sys-color-inverse-primary: rgb(187, 0, 18);
+}
