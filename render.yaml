@@ -1,12 +1,16 @@
 services:
-  - type: static_site
+  - type: static
     name: tursakur
-    runtime: node
-    plan: free
-    region: frankfurt
-    branch: main
     buildCommand: npm ci && npm run build
     publishPath: ./dist
+    buildFilter:
+      paths:
+        - src/**
+        - public/**
+        - package.json
+        - package-lock.json
+        - vite.config.js
+        - index.html
     envVars:
       - key: NODE_ENV
         value: production
@@ -14,8 +18,6 @@ services:
         value: https://moamwmxcpgjvyyawlygw.supabase.co
       - key: VITE_SUPABASE_ANON_KEY
         value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vYW13bXhjcGdqdnl5YXdseWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwMzA1NzgsImV4cCI6MjA2OTYwNjU3OH0.w88NfzOopSYo8Q23ypWaknnaZcSXnV0WPtiE2-ePGfU
-    domains:
-      - tursakur.onrender.com
     headers:
       - path: /*
         name: X-Frame-Options
