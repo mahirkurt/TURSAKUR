@@ -126,16 +126,18 @@ function InstitutionCard({
       interactive
       onClick={handleCardClick}
       className={`institution-card ${className}`}
+      data-testid="facility-item"
+      data-has-coords={!!(koordinat_lat && koordinat_lon)}
     >
       {/* Kurum tipi badge'i - Renkli */}
-      <CardBadge className={`institution-card__type institution-card__type--${institutionTypeColor}`}>
+      <CardBadge className={`institution-card__type institution-card__type--${institutionTypeColor} facility-type`}>
         {kurum_tipi || 'Sağlık Kuruluşu'}
       </CardBadge>
 
       <CardContent>
         <CardHeader
-          title={highlightText(kurum_adi, searchQuery)}
-          subtitle={`${ilce_adi}, ${il_adi}`}
+          title={<span className="facility-name">{highlightText(kurum_adi, searchQuery)}</span>}
+          subtitle={<span className="facility-location">{`${ilce_adi}, ${il_adi}`}</span>}
         />
 
         {/* Açık/Kapalı durumu KALDIRILDI */}

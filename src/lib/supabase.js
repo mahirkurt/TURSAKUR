@@ -96,22 +96,41 @@ const TEST_FACILITIES = [
 
 // API Functions with fallback to test data
 export const healthFacilitiesAPI = {
+  // Map Supabase column names to frontend expected names
+  mapRecordFromSupabase(record) {
+    return {
+      id: record.kurum_id,
+      name: record.kurum_adi,
+      facility_type: record.kurum_tipi,
+      province: record.il_adi,
+      district: record.ilce_adi,
+      address: record.adres,
+      phone: record.telefon,
+      website: record.web_sitesi,
+      latitude: record.koordinat_lat,
+      longitude: record.koordinat_lon,
+      sources: [record.veri_kaynagi],
+      created_at: record.created_at,
+      updated_at: record.updated_at
+    }
+  },
+
   // Get all health facilities with optional filters
   async getAll(filters = {}) {
     try {
-      let query = supabase.from('health_facilities').select('*')
+      let query = supabase.from('kuruluslar').select('*')
       
-      // Apply filters
+      // Apply filters using Supabase column names
       if (filters.province) {
-        query = query.eq('province', filters.province)
+        query = query.eq('il_adi', filters.province)
       }
       
       if (filters.facility_type) {
-        query = query.eq('facility_type', filters.facility_type)
+        query = query.eq('kurum_tipi', filters.facility_type)
       }
       
       if (filters.search) {
-        query = query.or(`name.ilike.%${filters.search}%,address.ilike.%${filters.search}%`)
+        query = query.or(`kurum_adi.ilike.%${filters.search}%,adres.ilike.%${filters.search}%`)
       }
       
       // Pagination
@@ -128,7 +147,8 @@ export const healthFacilitiesAPI = {
         return this.getTestData(filters)
       }
       
-      return data || []
+      // Map Supabase records to frontend format
+      return (data || []).map(record => this.mapRecordFromSupabase(record))
       
     } catch (error) {
       console.warn('API error, using test data:', error)
@@ -168,15 +188,15 @@ export const healthFacilitiesAPI = {
   async getProvinces() {
     try {
       const { data, error } = await supabase
-        .from('health_facilities')
-        .select('province')
-        .neq('province', null)
+        .from('kuruluslar')
+        .select('il_adi')
+        .neq('il_adi', null)
       
       if (error) {
         return [...new Set(TEST_FACILITIES.map(f => f.province))].sort()
       }
       
-      return [...new Set(data.map(item => item.province))].sort()
+      return [...new Set(data.map(item => item.il_adi))].sort()
       
     } catch (error) {
       return [...new Set(TEST_FACILITIES.map(f => f.province))].sort()
@@ -187,15 +207,15 @@ export const healthFacilitiesAPI = {
   async getFacilityTypes() {
     try {
       const { data, error } = await supabase
-        .from('health_facilities')
-        .select('facility_type')
-        .neq('facility_type', null)
+        .from('kuruluslar')
+        .select('kurum_tipi')
+        .neq('kurum_tipi', null)
       
       if (error) {
         return [...new Set(TEST_FACILITIES.map(f => f.facility_type))].sort()
       }
       
-      return [...new Set(data.map(item => item.facility_type))].sort()
+      return [...new Set(data.map(item => item.kurum_tipi))].sort()
       
     } catch (error) {
       return [...new Set(TEST_FACILITIES.map(f => f.facility_type))].sort()

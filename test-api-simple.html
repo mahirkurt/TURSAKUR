@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supabase API Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <h1>TURSAKUR Supabase API Test</h1>
+    <div id="results"></div>
+
+    <script>
+        // Create Supabase client
+        const supabaseUrl = 'https://moamwmxcpgjvyyawlygw.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vYW13bXhjcGdqdnl5YXdseWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwMzA1NzgsImV4cCI6MjA2OTYwNjU3OH0.w88NfzOopSYo8Q23ypWaknnaZcSXnV0WPtiE2-ePGfU';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        async function testAPI() {
+            const results = document.getElementById('results');
+            
+            try {
+                // Test 1: Get all records
+                console.log('Testing: Get all records...');
+                const { data: allData, error: allError } = await supabase
+                    .from('kuruluslar')
+                    .select('*')
+                    .limit(5);
+                
+                if (allError) {
+                    results.innerHTML += `<p style="color: red;">❌ All records error: ${allError.message}</p>`;
+                } else {
+                    results.innerHTML += `<p style="color: green;">✅ All records: ${allData.length} found</p>`;
+                    results.innerHTML += `<pre>${JSON.stringify(allData[0], null, 2)}</pre>`;
+                }
+
+                // Test 2: Get provinces
+                console.log('Testing: Get provinces...');
+                const { data: provinces, error: provError } = await supabase
+                    .from('kuruluslar')
+                    .select('il_adi')
+                    .neq('il_adi', null);
+                    
+                if (provError) {
+                    results.innerHTML += `<p style="color: red;">❌ Provinces error: ${provError.message}</p>`;
+                } else {
+                    const uniqueProvinces = [...new Set(provinces.map(p => p.il_adi))].sort();
+                    results.innerHTML += `<p style="color: green;">✅ Provinces: ${uniqueProvinces.length} found</p>`;
+                    results.innerHTML += `<p>First 5: ${uniqueProvinces.slice(0, 5).join(', ')}</p>`;
+                }
+
+                // Test 3: Filter by province
+                console.log('Testing: Filter by İstanbul...');
+                const { data: istanbulData, error: istError } = await supabase
+                    .from('kuruluslar')
+                    .select('kurum_adi, kurum_tipi, il_adi')
+                    .eq('il_adi', 'İstanbul')
+                    .limit(3);
+                    
+                if (istError) {
+                    results.innerHTML += `<p style="color: red;">❌ İstanbul filter error: ${istError.message}</p>`;
+                } else {
+                    results.innerHTML += `<p style="color: green;">✅ İstanbul facilities: ${istanbulData.length} found</p>`;
+                    istanbulData.forEach(item => {
+                        results.innerHTML += `<p>- ${item.kurum_adi} (${item.kurum_tipi})</p>`;
+                    });
+                }
+
+            } catch (error) {
+                results.innerHTML += `<p style="color: red;">❌ General error: ${error.message}</p>`;
+            }
+        }
+
+        // Run tests when page loads
+        testAPI();
+    </script>
+</body>
+</html>

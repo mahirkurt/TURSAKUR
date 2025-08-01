@@ -156,7 +156,7 @@ function HomePage() {
   );
 
   const renderEmptyStateFiltered = () => (
-    <div className="empty-state">
+    <div className="empty-state" data-testid="no-results">
       <span className="empty-state-icon material-symbols-outlined">
         search_off
       </span>
@@ -309,7 +309,7 @@ function HomePage() {
             )}
 
             {/* Sonuç İçeriği */}
-            <div className="results-content">
+            <div className="results-content" data-testid="results-list">
               {renderResultsContent()}
             </div>
           </main>

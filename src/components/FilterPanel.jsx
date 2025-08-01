@@ -41,7 +41,7 @@ export function FilterPanel({
   };
 
   return (
-    <div className={`filter-panel ${className}`}>
+    <div className={`filter-panel ${className}`} data-testid="filter-panel">
       <div className="filter-header">
         <h3 className="title-medium">Filtreler</h3>
         <button 
@@ -126,6 +126,7 @@ export function FilterPanel({
                 icon="filter_list_off"
                 onClick={onClearFilters}
                 className="clear-filters-btn"
+                data-testid="clear-filters"
               >
                 Filtreleri Temizle
               </Button>

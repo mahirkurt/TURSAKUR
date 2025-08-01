@@ -15,9 +15,19 @@
     "clean": "rm -rf dist node_modules/.vite",
     "migrate": "python scripts/load_to_supabase.py",
     "test-db": "python scripts/supabase_client.py",
-    "vercel-build": "npm run build"
+    "vercel-build": "npm run build",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "test:install": "playwright install",
+    "test:codegen": "playwright codegen localhost:5173",
+    "test:smoke": "playwright test --project=chromium tests/homepage.spec.js tests/database.spec.js",
+    "test:ci": "playwright test --reporter=github"
   },
   "dependencies": {
+    "@playwright/test": "^1.54.2",
     "@supabase/supabase-js": "^2.53.0",
     "@tanstack/react-query": "^5.84.0",
     "@tanstack/react-query-devtools": "^5.84.0",

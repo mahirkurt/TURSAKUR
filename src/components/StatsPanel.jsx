@@ -12,12 +12,12 @@ function StatsPanel({ stats, isLoading, className = "" }) {
   }
 
   return (
-    <div className={`stats-panel ${className}`}>
+    <div className={`stats-panel ${className}`} data-testid="stats-panel">
       <h3 className="title-medium">İstatistikler</h3>
       {stats && (
         <div className="stats-content">
           <div className="stat-item">
-            <span className="stat-value headline-small">{stats.total?.toLocaleString('tr-TR')}</span>
+            <span className="stat-value headline-small" data-testid="total-count">{stats.total?.toLocaleString('tr-TR')}</span>
             <span className="stat-label body-small">Toplam Kurum</span>
           </div>
         </div>

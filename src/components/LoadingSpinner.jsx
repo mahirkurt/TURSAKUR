@@ -3,7 +3,7 @@ import './LoadingSpinner.css'
 
 function LoadingSpinner({ message = "Yükleniyor...", size = "medium", className = "" }) {
   return (
-    <div className={`loading-spinner ${size} ${className}`}>
+    <div className={`loading-spinner ${size} ${className}`} data-testid="loading">
       <div className="spinner">
         <div className="spinner-ring"></div>
         <div className="spinner-ring"></div>
