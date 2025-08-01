@@ -1,0 +1,9 @@
+# Vercel deployment ignore
+.github/
+logs/
+__pycache__/
+*.pyc
+*.log
+scripts/
+talimatnameler/
+.git/

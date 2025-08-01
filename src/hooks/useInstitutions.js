@@ -16,19 +16,19 @@ export function useInstitutions(filters = {}) {
 
       // Filtreler uygula
       if (filters.search) {
-        query = query.or(`isim_standart.ilike.%${filters.search}%,adres_yapilandirilmis->>il.ilike.%${filters.search}%,adres_yapilandirilmis->>ilce.ilike.%${filters.search}%`)
+        query = query.or(`kurum_adi.ilike.%${filters.search}%,il_adi.ilike.%${filters.search}%,ilce_adi.ilike.%${filters.search}%`)
       }
 
       if (filters.il) {
-        query = query.eq('adres_yapilandirilmis->>il', filters.il)
+        query = query.eq('il_adi', filters.il)
       }
 
       if (filters.ilce) {
-        query = query.eq('adres_yapilandirilmis->>ilce', filters.ilce)
+        query = query.eq('ilce_adi', filters.ilce)
       }
 
       if (filters.tip && filters.tip.length > 0) {
-        query = query.in('tip', filters.tip)
+        query = query.in('kurum_tipi', filters.tip)
       }
 
       // Coğrafi sınırlama (harita "Bu Alanda Ara" özelliği için)
@@ -88,7 +88,7 @@ export function useInstitution(id) {
     queryKey: ['institution', id],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('kuruluslar')
+        .from('turkiye_saglik_kuruluslari')
         .select('*')
         .eq('id', id)
         .single()
@@ -112,10 +112,9 @@ export function useProvinces() {
     queryKey: ['provinces'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('kuruluslar')
-        .select('adres_yapilandirilmis->>il')
-        .not('adres_yapilandirilmis->>il', 'is', null)
-        .eq('aktif', true)
+        .from('turkiye_saglik_kuruluslari')
+        .select('il_adi')
+        .not('il_adi', 'is', null)
 
       if (error) {
         throw new Error(`İl listesi alınamadı: ${error.message}`)
@@ -123,7 +122,7 @@ export function useProvinces() {
 
       // Unique iller ve sayıları
       const provinces = data
-        .map(item => item.il)
+        .map(item => item.il_adi)
         .filter(Boolean)
         .reduce((acc, il) => {
           acc[il] = (acc[il] || 0) + 1
@@ -146,13 +145,12 @@ export function useDistricts(selectedProvince) {
     queryKey: ['districts', selectedProvince],
     queryFn: async () => {
       let query = supabase
-        .from('kuruluslar')
-        .select('adres_yapilandirilmis->>ilce')
-        .not('adres_yapilandirilmis->>ilce', 'is', null)
-        .eq('aktif', true)
+        .from('turkiye_saglik_kuruluslari')
+        .select('ilce_adi')
+        .not('ilce_adi', 'is', null)
 
       if (selectedProvince) {
-        query = query.eq('adres_yapilandirilmis->>il', selectedProvince)
+        query = query.eq('il_adi', selectedProvince)
       }
 
       const { data, error } = await query
@@ -163,7 +161,7 @@ export function useDistricts(selectedProvince) {
 
       // Unique ilçeler ve sayıları
       const districts = data
-        .map(item => item.ilce)
+        .map(item => item.ilce_adi)
         .filter(Boolean)
         .reduce((acc, ilce) => {
           acc[ilce] = (acc[ilce] || 0) + 1
@@ -187,10 +185,9 @@ export function useInstitutionTypes() {
     queryKey: ['institution-types'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('kuruluslar')
-        .select('tip')
-        .not('tip', 'is', null)
-        .eq('aktif', true)
+        .from('turkiye_saglik_kuruluslari')
+        .select('kurum_tipi')
+        .not('kurum_tipi', 'is', null)
 
       if (error) {
         throw new Error(`Kurum tipleri alınamadı: ${error.message}`)
@@ -198,7 +195,7 @@ export function useInstitutionTypes() {
 
       // Unique tipler ve sayıları
       const types = data
-        .map(item => item.tip)
+        .map(item => item.kurum_tipi)
         .filter(Boolean)
         .reduce((acc, tip) => {
           acc[tip] = (acc[tip] || 0) + 1
@@ -222,9 +219,8 @@ export function useStatistics() {
     queryFn: async () => {
       // Toplam kurum sayısı
       const { count: totalCount, error: totalError } = await supabase
-        .from('kuruluslar')
+        .from('turkiye_saglik_kuruluslari')
         .select('*', { count: 'exact', head: true })
-        .eq('aktif', true)
 
       if (totalError) {
         throw new Error(`İstatistik alınamadı: ${totalError.message}`)
@@ -232,33 +228,31 @@ export function useStatistics() {
 
       // Tip bazında sayılar
       const { data: typeData, error: typeError } = await supabase
-        .from('kuruluslar')
-        .select('tip')
-        .eq('aktif', true)
+        .from('turkiye_saglik_kuruluslari')
+        .select('kurum_tipi')
 
       if (typeError) {
         throw new Error(`Tip istatistikleri alınamadı: ${typeError.message}`)
       }
 
       const typeStats = typeData
-        .filter(item => item.tip)
+        .filter(item => item.kurum_tipi)
         .reduce((acc, item) => {
-          acc[item.tip] = (acc[item.tip] || 0) + 1
+          acc[item.kurum_tipi] = (acc[item.kurum_tipi] || 0) + 1
           return acc
         }, {})
 
       // İl bazında sayılar (top 10)
       const { data: provinceData, error: provinceError } = await supabase
-        .from('kuruluslar')
-        .select('adres_yapilandirilmis->>il')
-        .eq('aktif', true)
+        .from('turkiye_saglik_kuruluslari')
+        .select('il_adi')
 
       if (provinceError) {
         throw new Error(`İl istatistikleri alınamadı: ${provinceError.message}`)
       }
 
       const provinceStats = provinceData
-        .map(item => item.il)
+        .map(item => item.il_adi)
         .filter(Boolean)
         .reduce((acc, il) => {
           acc[il] = (acc[il] || 0) + 1
@@ -289,7 +283,7 @@ export function useUpdateInstitution() {
   return useMutation({
     mutationFn: async ({ id, updates }) => {
       const { data, error } = await supabase
-        .from('kuruluslar')
+        .from('turkiye_saglik_kuruluslari')
         .update(updates)
         .eq('id', id)
         .select()
