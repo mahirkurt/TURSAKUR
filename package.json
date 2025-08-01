@@ -14,7 +14,8 @@
     "analyze": "npm run build && npx vite-bundle-analyzer",
     "clean": "rm -rf dist node_modules/.vite",
     "migrate": "python scripts/load_to_supabase.py",
-    "test-db": "python scripts/supabase_client.py"
+    "test-db": "python scripts/supabase_client.py",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.53.0",
