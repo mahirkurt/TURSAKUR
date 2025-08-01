@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useInstitutions } from '../hooks/useInstitutions';
 import { ThemeProvider } from '../contexts/ThemeContext';
@@ -24,6 +24,13 @@ function InstitutionDetail() {
   });
 
   const institution = institutionsData?.institutions?.[0];
+
+  // Eğer ID yoksa veya geçersizse ana sayfaya yönlendir
+  useEffect(() => {
+    if (!id || id === 'undefined' || id === 'null') {
+      navigate('/', { replace: true });
+    }
+  }, [id, navigate]);
 
   const handleBack = () => {
     navigate(-1);
@@ -72,8 +79,8 @@ function InstitutionDetail() {
               <ErrorMessage 
                 title="Kurum bulunamadı"
                 message="Aradığınız sağlık kuruluşu bulunamadı veya bir hata oluştu."
-                onRetry={handleBack}
-                retryText="Geri Dön"
+                onRetry={() => navigate('/', { replace: true })}
+                retryText="Ana Sayfaya Dön"
               />
             </div>
           </main>

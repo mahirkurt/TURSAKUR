@@ -35,9 +35,10 @@
 
 .hero-content {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0 240px; /* Production fix: hard-coded değer */
   position: relative;
   z-index: 1;
+  padding: 0 var(--md-spacing-6, 24px);
 }
 
 .hero-title {
@@ -89,13 +90,13 @@
   padding: var(--md-spacing-5);
 }
 
-/* Main Content Layout - Enhanced */
+/* Main Content Layout - Enhanced with Consistent Margins */
 .main-content {
   display: flex;
   max-width: 1280px;
-  margin: 0 auto;
-  gap: var(--md-spacing-10);
-  padding: var(--md-spacing-12) var(--md-spacing-12);
+  margin: 0 240px; /* Production fix: hard-coded tutarlı margin */
+  gap: var(--md-spacing-10, 40px);
+  padding: var(--md-spacing-12, 48px) var(--md-spacing-6, 24px);
   flex: 1;
 }
 
@@ -277,11 +278,16 @@
 
 /* Responsive Design - Enhanced */
 @media (max-width: 1024px) {
+  .hero-content {
+    margin: 0 48px; /* Production fix: hard-coded tablet margin */
+  }
+
   .main-content {
     flex-direction: column;
-    gap: var(--md-spacing-8);
-    padding: var(--md-spacing-8) var(--md-spacing-6);
+    gap: var(--md-spacing-8, 32px);
+    padding: var(--md-spacing-8, 32px) var(--md-spacing-6, 24px);
     max-width: 100%;
+    margin: 0 48px; /* Production fix: tutarlı tablet margin */
   }
   
   .sidebar {
@@ -308,7 +314,12 @@
 
 @media (max-width: 768px) {
   .hero-section {
-    padding: var(--md-spacing-12) var(--md-spacing-8) var(--md-spacing-16);
+    padding: var(--md-spacing-12, 48px) var(--md-spacing-6, 24px) var(--md-spacing-16, 64px);
+  }
+
+  .hero-content {
+    margin: 0 32px; /* Production fix: hard-coded small tablet margin */
+    padding: 0 var(--md-spacing-4, 16px);
   }
 
   .hero-title {
@@ -321,12 +332,13 @@
 
   .hero-search .md-textfield__input {
     font-size: var(--md-sys-typescale-body-large-size);
-    padding: var(--md-spacing-4);
+    padding: var(--md-spacing-4, 16px);
   }
   
   .main-content {
-    padding: var(--md-spacing-6) var(--md-spacing-4);
-    gap: var(--md-spacing-6);
+    margin: 0 32px; /* Production fix: tutarlı small tablet margin */
+    padding: var(--md-spacing-6, 24px) var(--md-spacing-4, 16px);
+    gap: var(--md-spacing-6, 24px);
   }
 
   .sidebar {
@@ -359,7 +371,12 @@
 
 @media (max-width: 480px) {
   .hero-section {
-    padding: var(--md-spacing-10) var(--md-spacing-6) var(--md-spacing-12);
+    padding: var(--md-spacing-10) var(--md-spacing-4) var(--md-spacing-12);
+  }
+
+  .hero-content {
+    margin: 0 24px; /* Production fix: hard-coded mobile margin */
+    padding: 0 var(--md-spacing-2, 8px);
   }
 
   .hero-title {
@@ -367,7 +384,8 @@
   }
 
   .main-content {
-    padding: var(--md-spacing-4) var(--md-spacing-3);
+    margin: 0 24px; /* Production fix: tutarlı mobile margin */
+    padding: var(--md-spacing-4, 16px) var(--md-spacing-3, 12px);
   }
 
   .main-results {

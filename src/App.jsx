@@ -17,6 +17,8 @@ function App() {
             <Route path="/kurum/:id" element={<InstitutionDetail />} />
             <Route path="/harita" element={<MapPage />} />
             <Route path="/hakkinda" element={<AboutPage />} />
+            {/* Fallback route - tüm bilinmeyen sayfaları ana sayfaya yönlendir */}
+            <Route path="*" element={<HomePage />} />
           </Routes>
         </div>
       </Router>
