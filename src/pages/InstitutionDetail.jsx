@@ -100,8 +100,7 @@ function InstitutionDetail() {
     koordinat_lat,
     koordinat_lon,
     veri_kaynagi,
-    adres_yapilandirilmis,
-    aktif
+    adres_yapilandirilmis
   } = institution;
 
   return (
@@ -137,12 +136,6 @@ function InstitutionDetail() {
                       <span className="material-symbols-outlined">location_on</span>
                       {ilce_adi}, {il_adi}
                     </p>
-                    <div className="detail-status">
-                      <span className={`status-indicator ${aktif ? 'status-active' : 'status-inactive'}`}>
-                        <span className="status-dot"></span>
-                        {aktif ? 'Aktif' : 'Pasif'}
-                      </span>
-                    </div>
                   </div>
 
                   <div className="detail-actions">
@@ -254,13 +247,6 @@ function InstitutionDetail() {
                       <div className="detail-info-item">
                         <span className="detail-info-label">Kurum Tipi:</span>
                         <span className="detail-info-value">{kurum_tipi}</span>
-                      </div>
-                      
-                      <div className="detail-info-item">
-                        <span className="detail-info-label">Durum:</span>
-                        <span className="detail-info-value">
-                          {aktif ? 'Aktif' : 'Pasif'}
-                        </span>
                       </div>
 
                       {veri_kaynagi && (

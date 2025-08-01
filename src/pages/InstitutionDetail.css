@@ -3,31 +3,32 @@
 .institution-detail-page {
   min-height: calc(100vh - 64px - 200px); /* Header yüksekliği - Footer yüksekliği */
   background-color: var(--md-sys-color-surface);
-  padding: var(--md-spacing-4) 0;
+  padding: 24px 0;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--md-spacing-4);
+  padding: 0 24px;
 }
 
 /* Navigasyon */
 .detail-navigation {
-  margin-bottom: var(--md-spacing-4);
+  margin-bottom: 24px;
 }
 
 /* Başlık Kartı */
 .detail-header-card {
-  margin-bottom: var(--md-spacing-5);
+  margin-bottom: 32px;
+  border-radius: 16px;
 }
 
 .detail-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: var(--md-spacing-4);
-  padding: var(--md-spacing-5);
+  gap: 24px;
+  padding: 32px;
 }
 
 .detail-title-section {
@@ -35,11 +36,12 @@
 }
 
 .detail-type-badge {
-  margin-bottom: var(--md-spacing-2);
+  margin-bottom: 12px;
+  border-radius: 16px;
 }
 
 .detail-title {
-  margin: 0 0 var(--md-spacing-2) 0;
+  margin: 0 0 12px 0;
   color: var(--md-sys-color-on-surface);
   line-height: 1.2;
 }
@@ -47,8 +49,8 @@
 .detail-location {
   display: flex;
   align-items: center;
-  gap: var(--md-spacing-1);
-  margin: 0 0 var(--md-spacing-3) 0;
+  gap: 8px;
+  margin: 0 0 20px 0;
   color: var(--md-sys-color-on-surface-variant);
 }
 
@@ -57,15 +59,15 @@
 }
 
 .detail-status {
-  margin-top: var(--md-spacing-2);
+  margin-top: 12px;
 }
 
 .status-indicator {
   display: inline-flex;
   align-items: center;
-  gap: var(--md-spacing-1);
-  padding: var(--md-spacing-1) var(--md-spacing-2);
-  border-radius: var(--md-sys-shape-corner-full);
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 16px;
   font-family: var(--md-sys-typescale-label-medium-font);
   font-size: var(--md-sys-typescale-label-medium-size);
   font-weight: var(--md-sys-typescale-label-medium-weight);
@@ -91,30 +93,31 @@
 .detail-actions {
   display: flex;
   flex-direction: column;
-  gap: var(--md-spacing-2);
+  gap: 12px;
   min-width: 140px;
 }
 
 /* Detay İçeriği */
 .detail-content {
-  margin-bottom: var(--md-spacing-6);
+  margin-bottom: 48px;
 }
 
 .detail-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: var(--md-spacing-4);
+  gap: 24px;
 }
 
 .detail-card {
   height: fit-content;
+  border-radius: 16px;
 }
 
 .detail-card-title {
   display: flex;
   align-items: center;
-  gap: var(--md-spacing-2);
-  margin: 0 0 var(--md-spacing-4) 0;
+  gap: 12px;
+  margin: 0 0 24px 0;
   color: var(--md-sys-color-on-surface);
 }
 
@@ -127,13 +130,13 @@
 .detail-info-list {
   display: flex;
   flex-direction: column;
-  gap: var(--md-spacing-3);
+  gap: 20px;
 }
 
 .detail-info-item {
   display: flex;
   flex-direction: column;
-  gap: var(--md-spacing-1);
+  gap: 8px;
 }
 
 .detail-info-label {
@@ -165,8 +168,8 @@
 
 /* Harita Bölümü */
 .detail-map-section {
-  margin-top: var(--md-spacing-4);
-  padding-top: var(--md-spacing-4);
+  margin-top: 24px;
+  padding-top: 24px;
   border-top: 1px solid var(--md-sys-color-outline-variant);
 }
 
@@ -179,7 +182,7 @@
   .detail-header {
     flex-direction: column;
     align-items: stretch;
-    gap: var(--md-spacing-4);
+    gap: 24px;
   }
 
   .detail-actions {
@@ -192,17 +195,17 @@
   }
 
   .container {
-    padding: 0 var(--md-spacing-3);
+    padding: 0 20px;
   }
 }
 
 @media (max-width: 480px) {
   .institution-detail-page {
-    padding: var(--md-spacing-3) 0;
+    padding: 20px 0;
   }
 
   .detail-header {
-    padding: var(--md-spacing-4);
+    padding: 24px;
   }
 
   .detail-title {

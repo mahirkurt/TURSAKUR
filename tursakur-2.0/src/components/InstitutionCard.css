@@ -1,36 +1,18 @@
-/* InstitutionCard Component Styles - Improved */
+/* InstitutionCard Component Styles */
 
 .institution-card {
-  background-color: var(--md-sys-color-surface-container-low, #f7f2fa);
-  border-radius: 16px; /* Yuvarlak köşeli dikdörtgen */
-  padding: 20px; /* Consistent padding */
-  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  background-color: var(--md-sys-color-surface-container-low);
+  border-radius: var(--md-sys-shape-corner-large);
+  padding: var(--spacing-lg);
+  transition: all 0.2s ease;
   cursor: pointer;
-  border: 2px solid var(--md-sys-color-outline-variant, #c4c7c5);
-  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0px rgba(0, 0, 0, 0.30);
-  position: relative;
-  overflow: hidden;
-  margin: 16px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: var(--md-sys-elevation-level1);
 }
 
-/* Hover Effect - Improved (No Red Background) */
 .institution-card:hover {
-  box-shadow: 
-    0 6px 20px 4px rgba(0, 0, 0, 0.15),
-    0 2px 8px 2px rgba(0, 0, 0, 0.12);
-  transform: translateY(-4px) scale(1.01);
-  border-color: var(--md-sys-color-primary, #bb0012);
-  background-color: var(--md-sys-color-surface-container, #f3edf7);
-}
-
-/* Remove problematic gradient overlay */
-.institution-card::before {
-  display: none;
-}
-
-.institution-card > * {
-  position: relative;
-  z-index: 1;
+  box-shadow: var(--md-sys-elevation-level2);
+  transform: translateY(-2px);
 }
 
 /* Card Header */
@@ -53,65 +35,16 @@
 }
 
 .institution-type {
-  background-color: var(--md-sys-color-primary-container, #ffdad6);
-  color: var(--md-sys-color-on-primary-container, #410002);
-  padding: 4px 12px;
-  border-radius: 16px; /* Yuvarlak köşeli dikdörtgen */
-  font-family: var(--md-sys-typescale-label-small-font, 'Figtree');
-  font-size: var(--md-sys-typescale-label-small-size, 11px);
-  font-weight: var(--md-sys-typescale-label-small-weight, 500);
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--md-sys-shape-corner-full);
+  font-family: var(--md-sys-typescale-label-small-font);
+  font-size: var(--md-sys-typescale-label-small-size);
+  font-weight: var(--md-sys-typescale-label-small-weight);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
-}
-
-/* Kurum Tipi Renkleri */
-.institution-card__type--red {
-  background-color: #ffebee;
-  color: #c62828;
-  border: 1px solid #e57373;
-}
-
-.institution-card__type--blue {
-  background-color: #e3f2fd;
-  color: #1565c0;
-  border: 1px solid #64b5f6;
-}
-
-.institution-card__type--green {
-  background-color: #e8f5e8;
-  color: #2e7d32;
-  border: 1px solid #81c784;
-}
-
-.institution-card__type--purple {
-  background-color: #f3e5f5;
-  color: #7b1fa2;
-  border: 1px solid #ba68c8;
-}
-
-.institution-card__type--orange {
-  background-color: #fff3e0;
-  color: #ef6c00;
-  border: 1px solid #ffb74d;
-}
-
-.institution-card__type--teal {
-  background-color: #e0f2f1;
-  color: #00695c;
-  border: 1px solid #4db6ac;
-}
-
-.institution-card__type--indigo {
-  background-color: #e8eaf6;
-  color: #283593;
-  border: 1px solid #7986cb;
-}
-
-.institution-card__type--gray {
-  background-color: #f5f5f5;
-  color: #424242;
-  border: 1px solid #9e9e9e;
 }
 
 /* Card Content */
@@ -203,25 +136,22 @@
 
 .action-button {
   background: none;
-  border: 2px solid var(--md-sys-color-outline);
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--md-sys-shape-corner-full);
+  border: 1px solid var(--md-sys-color-outline);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--md-sys-shape-corner-small);
   font-family: var(--md-sys-typescale-label-medium-font);
   font-size: var(--md-sys-typescale-label-medium-size);
   color: var(--md-sys-color-primary);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: all 0.15s ease;
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
-  font-weight: 600;
 }
 
 .action-button:hover {
   background-color: var(--md-sys-color-primary-container);
   border-color: var(--md-sys-color-primary);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .action-button-icon {

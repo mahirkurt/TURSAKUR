@@ -14,23 +14,21 @@
 
 .search-input {
   width: 100%;
-  padding: 16px 24px; /* Consistent padding */
+  padding: var(--spacing-md) var(--spacing-lg);
   padding-left: 48px;
-  border: 2px solid var(--md-sys-color-outline, #79747e);
-  border-radius: 16px; /* Yuvarlak köşeli dikdörtgen */
-  background-color: var(--md-sys-color-surface, #fffbff);
-  color: var(--md-sys-color-on-surface, #1c1b1f);
-  font-family: var(--md-sys-typescale-body-large-font, 'Figtree');
-  font-size: var(--md-sys-typescale-body-large-size, 16px);
+  border: 2px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-corner-medium);
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--md-sys-typescale-body-large-font);
+  font-size: var(--md-sys-typescale-body-large-size);
   transition: all 0.15s ease;
-  height: 56px; /* Consistent height */
-  box-sizing: border-box;
 }
 
 .search-input:focus {
   outline: none;
-  border-color: var(--md-sys-color-primary, #bb0012);
-  box-shadow: 0 0 0 2px var(--md-sys-color-primary-container, #ffdad6);
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
 }
 
 .search-input::placeholder {
@@ -39,8 +37,8 @@
 
 .search-icon {
   position: absolute;
-  left: 16px;
-  color: var(--md-sys-color-on-surface-variant, #49454f);
+  left: var(--spacing-md);
+  color: var(--md-sys-color-on-surface-variant);
   font-size: 20px;
   pointer-events: none;
   z-index: 1;
@@ -48,13 +46,13 @@
 
 .clear-button {
   position: absolute;
-  right: 8px;
+  right: var(--spacing-sm);
   background: none;
   border: none;
-  padding: 4px;
-  border-radius: 8px; /* Yuvarlak köşeli dikdörtgen */
+  padding: var(--spacing-xs);
+  border-radius: var(--md-sys-shape-corner-small);
   cursor: pointer;
-  color: var(--md-sys-color-on-surface-variant, #49454f);
+  color: var(--md-sys-color-on-surface-variant);
   font-size: 18px;
   opacity: 0;
   transition: all 0.15s ease;

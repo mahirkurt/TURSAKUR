@@ -8,7 +8,6 @@ import StatsPanel from '../components/StatsPanel';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import TopAppBar from '../components/TopAppBar';
-import Footer from '../components/Footer';
 import Button from '../components/ui/Button';
 import './HomePage.css';
 
@@ -55,6 +54,7 @@ function HomePage() {
   // Derived data
   const institutions = institutionsData?.institutions || [];
   const totalCount = institutionsData?.totalCount || 0;
+  const isLoading = institutionsLoading;
 
   // Event handlers
   const handleSearchChange = (value) => {
@@ -97,114 +97,6 @@ function HomePage() {
       item.subtitle.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [searchQuery]);
-
-  // Render functions
-  const renderLoadingState = () => (
-    <LoadingSpinner message="Sağlık kuruluşları yükleniyor..." />
-  );
-
-  const renderErrorState = () => (
-    <ErrorMessage 
-      title="Veri yüklenirken hata oluştu"
-      message={institutionsError.message}
-      onRetry={() => window.location.reload()}
-    />
-  );
-
-  const renderInstitutionsList = () => (
-    <>
-      {/* Kuruluş Kartları - Material Design 3 Grid */}
-      <div className="institutions-grid">
-        {institutions.map((institution) => (
-          <InstitutionCard 
-            key={institution.kurum_id}
-            institution={institution}
-            searchQuery={debouncedSearch}
-            className="institution-card-item"
-          />
-        ))}
-      </div>
-
-      {/* Sayfalama - Material Design 3 */}
-      {totalCount > pageSize && (
-        <div className="pagination">
-          <Button
-            variant="outlined"
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(p => p - 1)}
-            icon="chevron_left"
-          >
-            Önceki
-          </Button>
-          
-          <span className="pagination-info body-medium">
-            Sayfa {currentPage} / {Math.ceil(totalCount / pageSize)}
-          </span>
-          
-          <Button
-            variant="outlined"
-            disabled={currentPage >= Math.ceil(totalCount / pageSize)}
-            onClick={() => setCurrentPage(p => p + 1)}
-            icon="chevron_right"
-            iconPosition="end"
-          >
-            Sonraki
-          </Button>
-        </div>
-      )}
-    </>
-  );
-
-  const renderEmptyStateFiltered = () => (
-    <div className="empty-state">
-      <span className="empty-state-icon material-symbols-outlined">
-        search_off
-      </span>
-      <h3 className="headline-small">Sonuç bulunamadı</h3>
-      <p className="body-medium">
-        Arama kriterlerinizi değiştirip tekrar deneyin.
-      </p>
-      <Button 
-        variant="filled-tonal"
-        onClick={clearFilters}
-        icon="filter_list_off"
-      >
-        Filtreleri Temizle
-      </Button>
-    </div>
-  );
-
-  const renderEmptyStateWelcome = () => (
-    <div className="empty-state">
-      <span className="empty-state-icon material-symbols-outlined">
-        local_hospital
-      </span>
-      <h3 className="headline-small">Hoş geldiniz</h3>
-      <p className="body-medium">
-        Arama yapmak için yukarıdaki arama çubuğunu kullanın veya filtreleri deneyin.
-      </p>
-    </div>
-  );
-
-  const renderResultsContent = () => {
-    if (institutionsLoading) {
-      return renderLoadingState();
-    }
-    
-    if (institutionsError) {
-      return renderErrorState();
-    }
-    
-    if (institutions.length > 0) {
-      return renderInstitutionsList();
-    }
-    
-    if (hasActiveFilters) {
-      return renderEmptyStateFiltered();
-    }
-    
-    return renderEmptyStateWelcome();
-  };
 
   return (
     <ThemeProvider>
@@ -286,9 +178,8 @@ function HomePage() {
                 {/* Sıralama Kontrolü */}
                 {institutionsData.totalCount > 0 && (
                   <div className="sort-controls">
-                    <label htmlFor="sort-select" className="label-medium">Sırala:</label>
+                    <label className="label-medium">Sırala:</label>
                     <select 
-                      id="sort-select"
                       value={`${sortBy}-${sortOrder}`}
                       onChange={(e) => {
                         const [newSortBy, newSortOrder] = e.target.value.split('-');
@@ -310,12 +201,87 @@ function HomePage() {
 
             {/* Sonuç İçeriği */}
             <div className="results-content">
-              {renderResultsContent()}
+              {institutionsLoading ? (
+                <LoadingSpinner message="Sağlık kuruluşları yükleniyor..." />
+              ) : institutionsError ? (
+                <ErrorMessage 
+                  title="Veri yüklenirken hata oluştu"
+                  message={institutionsError.message}
+                  onRetry={() => window.location.reload()}
+                />
+              ) : institutions.length > 0 ? (
+                <>
+                  {/* Kuruluş Kartları - Material Design 3 Grid */}
+                  <div className="institutions-grid">
+                    {institutions.map((institution) => (
+                      <InstitutionCard 
+                        key={institution.id}
+                        institution={institution}
+                        searchQuery={debouncedSearch}
+                        className="institution-card-item"
+                      />
+                    ))}
+                  </div>
+
+                  {/* Sayfalama - Material Design 3 */}
+                  {totalCount > pageSize && (
+                    <div className="pagination">
+                      <Button
+                        variant="outlined"
+                        disabled={currentPage === 1}
+                        onClick={() => setCurrentPage(p => p - 1)}
+                        icon="chevron_left"
+                      >
+                        Önceki
+                      </Button>
+                      
+                      <span className="pagination-info body-medium">
+                        Sayfa {currentPage} / {Math.ceil(totalCount / pageSize)}
+                      </span>
+                      
+                      <Button
+                        variant="outlined"
+                        disabled={currentPage >= Math.ceil(totalCount / pageSize)}
+                        onClick={() => setCurrentPage(p => p + 1)}
+                        icon="chevron_right"
+                        iconPosition="end"
+                      >
+                        Sonraki
+                      </Button>
+                    </div>
+                  )}
+                </>
+              ) : hasActiveFilters ? (
+                <div className="empty-state">
+                  <span className="empty-state-icon material-symbols-outlined">
+                    search_off
+                  </span>
+                  <h3 className="headline-small">Sonuç bulunamadı</h3>
+                  <p className="body-medium">
+                    Arama kriterlerinizi değiştirip tekrar deneyin.
+                  </p>
+                  <Button 
+                    variant="filled-tonal"
+                    onClick={clearFilters}
+                    icon="filter_list_off"
+                  >
+                    Filtreleri Temizle
+                  </Button>
+                </div>
+              ) : (
+                <div className="empty-state">
+                  <span className="empty-state-icon material-symbols-outlined">
+                    local_hospital
+                  </span>
+                  <h3 className="headline-small">Hoş geldiniz</h3>
+                  <p className="body-medium">
+                    Arama yapmak için yukarıdaki arama çubuğunu kullanın veya filtreleri deneyin.
+                  </p>
+                </div>
+              )}
             </div>
           </main>
         </div>
-
-        <Footer />
       </div>
     </ThemeProvider>
   );

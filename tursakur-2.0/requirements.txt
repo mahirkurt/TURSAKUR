@@ -1,0 +1,25 @@
+# TURSAKUR 2.0 Python Dependencies
+# Core dependencies for data processing and Supabase integration
+
+# Database and API
+supabase==2.17.0
+python-dotenv==1.1.1
+requests==2.32.3
+
+# Data processing
+pandas==2.2.2
+numpy==1.26.4
+geopy==2.4.1
+
+# Logging and utilities
+colorama==0.4.6
+tqdm==4.66.5
+
+# Development dependencies (optional)
+flake8==7.1.1
+black==24.8.0
+pytest==8.3.2
+
+# Additional utilities
+python-dateutil==2.9.0
+urllib3==2.2.3

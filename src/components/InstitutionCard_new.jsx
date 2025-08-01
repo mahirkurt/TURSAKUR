@@ -20,17 +20,13 @@ function InstitutionCard({
   const navigate = useNavigate();
   
   const { 
-    kurum_id, 
-    kurum_adi, 
-    kurum_tipi, 
-    il_adi,
-    ilce_adi,
-    adres,
-    telefon,
-    koordinat_lat,
-    koordinat_lon,
-    veri_kaynagi,
-    adres_yapilandirilmis 
+    id, 
+    isim_standart, 
+    tip, 
+    adres_yapilandirilmis, 
+    iletisim, 
+    meta_veri,
+    kaynaklar 
   } = institution
 
   // Arama terimini vurgula
@@ -42,72 +38,69 @@ function InstitutionCard({
     
     return parts.map((part, index) => 
       regex.test(part) ? 
-        <mark key={`highlight-${index}-${part}`} className="highlight">{part}</mark> : 
+        <mark key={index} className="highlight">{part}</mark> : 
         part
     )
   }
 
-  // Kurum tipi renk belirleme
-  const getInstitutionTypeColor = (type) => {
-    if (!type) return 'default';
+  // Açık/kapalı durumu
+  const getStatus = () => {
+    const now = new Date();
+    const currentHour = now.getHours();
     
-    const typeLower = type.toLowerCase();
-    
-    if (typeLower.includes('hastane')) return 'red';
-    if (typeLower.includes('sağlık ocağı') || typeLower.includes('aile sağlığı')) return 'blue';
-    if (typeLower.includes('poliklinik') || typeLower.includes('muayenehane')) return 'green';
-    if (typeLower.includes('eczane')) return 'purple';
-    if (typeLower.includes('diş')) return 'orange';
-    if (typeLower.includes('özel')) return 'teal';
-    if (typeLower.includes('devlet')) return 'indigo';
-    
-    return 'gray';
+    // 7/24 hizmet veren kurumlar
+    if (tip?.toLowerCase().includes('acil') || tip?.toLowerCase().includes('hastane')) {
+      return 'open';
+    } else if (currentHour >= 8 && currentHour < 17) {
+      return 'open';
+    } else {
+      return 'closed';
+    }
   };
-
-  // Açık/kapalı durumu hesaplaması KALDIRILDI
 
   const handleCardClick = () => {
     if (onNavigate) {
       onNavigate(institution);
     } else {
-      navigate(`/kurum/${kurum_id}`);
+      navigate(`/kurum/${id}`);
     }
   };
 
-  const handleMapClick = (e) => {
+  const handleDirectionsClick = (e) => {
     e.stopPropagation();
-    if (koordinat_lat && koordinat_lon) {
-      const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${koordinat_lat},${koordinat_lon}`;
+    if (meta_veri?.koordinatlar?.latitude && meta_veri?.koordinatlar?.longitude) {
+      const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${meta_veri.koordinatlar.latitude},${meta_veri.koordinatlar.longitude}`;
       window.open(mapsUrl, '_blank');
     }
   };
 
   const handleCallClick = (e) => {
     e.stopPropagation();
-    if (telefon) {
-      window.location.href = `tel:${telefon}`;
+    if (iletisim?.telefon?.[0]) {
+      window.location.href = `tel:${iletisim.telefon[0]}`;
     }
   };
 
-  const institutionTypeColor = getInstitutionTypeColor(kurum_tipi);
+  const status = getStatus();
+  const statusText = {
+    open: 'Açık',
+    closed: 'Kapalı',
+    unknown: 'Bilinmiyor'
+  };
 
-  // Adres bilgisi - önce yapılandırılmış adresi dene, yoksa ham adresi kullan
-  let fullAddress = '';
-  if (adres_yapilandirilmis) {
-    fullAddress = [
-      adres_yapilandirilmis.sokak_no || adres_yapilandirilmis.sokak, 
-      adres_yapilandirilmis.mahalle, 
-      adres_yapilandirilmis.ilce || ilce_adi, 
-      adres_yapilandirilmis.il || il_adi
-    ].filter(Boolean).join(', ');
-  } else {
-    fullAddress = [adres, ilce_adi, il_adi].filter(Boolean).join(', ');
-  }
+  // Adres bilgisi
+  const address = adres_yapilandirilmis;
+  const fullAddress = [
+    address?.sokak_no, 
+    address?.mahalle, 
+    address?.ilce, 
+    address?.il
+  ].filter(Boolean).join(', ');
 
   // Metadata items
   const metadataItems = [
     ...(fullAddress ? [{ icon: 'location_on', text: fullAddress }] : []),
-    ...(telefon ? [{ icon: 'phone', text: telefon }] : []),
+    ...(iletisim?.telefon?.[0] ? [{ icon: 'phone', text: iletisim.telefon[0] }] : []),
     ...(showDistance && distance ? [{ icon: 'near_me', text: `${distance} km`, className: 'institution-card__distance' }] : [])
   ];
 
@@ -118,18 +111,21 @@ function InstitutionCard({
       onClick={handleCardClick}
       className={`institution-card ${className}`}
     >
-      {/* Kurum tipi badge'i - Renkli */}
-      <CardBadge className={`institution-card__type institution-card__type--${institutionTypeColor}`}>
-        {kurum_tipi || 'Sağlık Kuruluşu'}
+      {/* Kurum tipi badge'i */}
+      <CardBadge className="institution-card__type">
+        {tip || 'Sağlık Kuruluşu'}
       </CardBadge>
 
       <CardContent>
         <CardHeader
-          title={highlightText(kurum_adi, searchQuery)}
-          subtitle={`${ilce_adi}, ${il_adi}`}
+          title={highlightText(isim_standart, searchQuery)}
+          subtitle={meta_veri?.bagli_oldugu_kurum}
         />
 
-        {/* Açık/Kapalı durumu KALDIRILDI */
+        {/* Açık/Kapalı durumu */}
+        <div className={`institution-card__status institution-card__status--${status}`}>
+          {statusText[status]}
+        </div>
 
         {/* Metadata */}
         {metadataItems.length > 0 && (
@@ -137,13 +133,13 @@ function InstitutionCard({
         )}
 
         {/* Kaynak bilgisi */}
-        {veri_kaynagi && (
+        {kaynaklar && kaynaklar.length > 0 && (
           <div className="md-card__metadata">
             <div className="md-card__metadata-item">
               <span className="md-card__metadata-icon material-symbols-outlined">
                 verified
               </span>
-              <span>Kaynak: {veri_kaynagi}</span>
+              <span>Kaynak: {kaynaklar[0]}</span>
             </div>
           </div>
         )}
@@ -151,7 +147,7 @@ function InstitutionCard({
 
       <CardActions alignment="between">
         <div style={{ display: 'flex', gap: 'var(--md-spacing-2)' }}>
-          {telefon && (
+          {iletisim?.telefon?.[0] && (
             <Button
               variant="text"
               size="small"
@@ -162,14 +158,14 @@ function InstitutionCard({
             </Button>
           )}
           
-          {koordinat_lat && koordinat_lon && (
+          {meta_veri?.koordinatlar?.latitude && meta_veri?.koordinatlar?.longitude && (
             <Button
               variant="text"
               size="small"
-              icon="map"
-              onClick={handleMapClick}
+              icon="directions"
+              onClick={handleDirectionsClick}
             >
-              Haritada Göster
+              Yol Tarifi
             </Button>
           )}
         </div>
@@ -188,18 +184,13 @@ function InstitutionCard({
 
 InstitutionCard.propTypes = {
   institution: PropTypes.shape({
-    kurum_id: PropTypes.string.isRequired,
-    kurum_adi: PropTypes.string.isRequired,
-    kurum_tipi: PropTypes.string,
-    il_adi: PropTypes.string,
-    ilce_adi: PropTypes.string,
-    adres: PropTypes.string,
-    telefon: PropTypes.string,
-    koordinat_lat: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    koordinat_lon: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    web_sitesi: PropTypes.string,
-    veri_kaynagi: PropTypes.string,
-    adres_yapilandirilmis: PropTypes.object
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    isim_standart: PropTypes.string.isRequired,
+    tip: PropTypes.string,
+    adres_yapilandirilmis: PropTypes.object,
+    iletisim: PropTypes.object,
+    meta_veri: PropTypes.object,
+    kaynaklar: PropTypes.array
   }).isRequired,
   searchQuery: PropTypes.string,
   showDistance: PropTypes.bool,

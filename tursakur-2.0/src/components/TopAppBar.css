@@ -1,0 +1,181 @@
+/* TopAppBar Component Styles */
+
+.top-app-bar {
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.app-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-lg);
+  max-width: 1440px;
+  margin: 0 auto;
+  height: 64px;
+}
+
+/* Logo Section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.logo-text {
+  font-family: var(--md-sys-typescale-headline-medium-font);
+  font-size: var(--md-sys-typescale-headline-medium-size);
+  font-weight: var(--md-sys-typescale-headline-medium-weight);
+  color: var(--md-sys-color-primary);
+  text-decoration: none;
+}
+
+.logo-subtitle {
+  font-family: var(--md-sys-typescale-body-small-font);
+  font-size: var(--md-sys-typescale-body-small-size);
+  color: var(--md-sys-color-on-surface-variant);
+  margin-left: var(--spacing-xs);
+}
+
+/* Navigation */
+.nav-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--spacing-md);
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--md-sys-typescale-label-large-font);
+  font-size: var(--md-sys-typescale-label-large-size);
+  font-weight: var(--md-sys-typescale-label-large-weight);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--md-sys-shape-corner-small);
+  transition: background-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.nav-link.active {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+/* Action Buttons */
+.action-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.theme-toggle {
+  padding: var(--spacing-sm);
+  border: none;
+  background: none;
+  border-radius: var(--md-sys-shape-corner-small);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  font-size: 20px;
+}
+
+.theme-toggle:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.menu-button {
+  display: none;
+  padding: var(--spacing-sm);
+  border: none;
+  background: none;
+  border-radius: var(--md-sys-shape-corner-small);
+  cursor: pointer;
+  font-size: 24px;
+  transition: background-color 0.15s ease;
+}
+
+.menu-button:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--md-sys-color-surface-container);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: var(--spacing-sm) 0;
+}
+
+.mobile-nav-link {
+  text-decoration: none;
+  color: var(--md-sys-color-on-surface);
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-family: var(--md-sys-typescale-body-large-font);
+  font-size: var(--md-sys-typescale-body-large-size);
+  transition: background-color 0.15s ease;
+}
+
+.mobile-nav-link:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.mobile-nav-link.active {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .menu-button {
+    display: block;
+  }
+  
+  .mobile-nav.open {
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-bar-content {
+    padding: var(--spacing-md);
+  }
+  
+  .logo-subtitle {
+    display: none;
+  }
+  
+  .logo-text {
+    font-size: var(--md-sys-typescale-title-medium-size);
+  }
+}

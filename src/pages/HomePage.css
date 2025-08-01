@@ -205,26 +205,18 @@
   background-color: var(--md-sys-color-surface-container-high);
 }
 
-/* Institution Grid - Enhanced */
+/* Institution Grid - Optimized and Compact */
 .institutions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: var(--md-spacing-8);
-  margin-bottom: var(--md-spacing-10);
-  padding: var(--md-spacing-6);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Daha küçük min-width */
+  gap: 20px; /* Daha az boşluk */
+  margin-bottom: 40px;
+  padding: 24px;
 }
 
 .institution-card-item {
   height: 100%;
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-}
-
-.institution-card-item:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.12),
-    0 4px 16px rgba(0, 0, 0, 0.08);
-  border-color: var(--md-sys-color-primary);
 }
 
 /* Pagination - Enhanced */
