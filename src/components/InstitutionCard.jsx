@@ -20,13 +20,17 @@ function InstitutionCard({
   const navigate = useNavigate();
   
   const { 
-    id, 
-    isim_standart, 
-    tip, 
-    adres_yapilandirilmis, 
-    iletisim, 
-    meta_veri,
-    kaynaklar 
+    kurum_id, 
+    kurum_adi, 
+    kurum_tipi, 
+    il_adi,
+    ilce_adi,
+    adres,
+    telefon,
+    koordinat_lat,
+    koordinat_lon,
+    veri_kaynagi,
+    adres_yapilandirilmis 
   } = institution
 
   // Arama terimini vurgula
@@ -38,7 +42,7 @@ function InstitutionCard({
     
     return parts.map((part, index) => 
       regex.test(part) ? 
-        <mark key={index} className="highlight">{part}</mark> : 
+        <mark key={`highlight-${index}-${part}`} className="highlight">{part}</mark> : 
         part
     )
   }
@@ -49,7 +53,8 @@ function InstitutionCard({
     const currentHour = now.getHours();
     
     // 7/24 hizmet veren kurumlar
-    if (tip?.toLowerCase().includes('acil') || tip?.toLowerCase().includes('hastane')) {
+    if (kurum_tipi?.toLowerCase().includes('acil') || 
+        kurum_tipi?.toLowerCase().includes('hastane')) {
       return 'open';
     } else if (currentHour >= 8 && currentHour < 17) {
       return 'open';
@@ -62,22 +67,22 @@ function InstitutionCard({
     if (onNavigate) {
       onNavigate(institution);
     } else {
-      navigate(`/kurum/${id}`);
+      navigate(`/kurum/${kurum_id}`);
     }
   };
 
   const handleDirectionsClick = (e) => {
     e.stopPropagation();
-    if (meta_veri?.koordinatlar?.latitude && meta_veri?.koordinatlar?.longitude) {
-      const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${meta_veri.koordinatlar.latitude},${meta_veri.koordinatlar.longitude}`;
+    if (koordinat_lat && koordinat_lon) {
+      const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${koordinat_lat},${koordinat_lon}`;
       window.open(mapsUrl, '_blank');
     }
   };
 
   const handleCallClick = (e) => {
     e.stopPropagation();
-    if (iletisim?.telefon?.[0]) {
-      window.location.href = `tel:${iletisim.telefon[0]}`;
+    if (telefon) {
+      window.location.href = `tel:${telefon}`;
     }
   };
 
@@ -88,19 +93,23 @@ function InstitutionCard({
     unknown: 'Bilinmiyor'
   };
 
-  // Adres bilgisi
-  const address = adres_yapilandirilmis;
-  const fullAddress = [
-    address?.sokak_no, 
-    address?.mahalle, 
-    address?.ilce, 
-    address?.il
-  ].filter(Boolean).join(', ');
+  // Adres bilgisi - önce yapılandırılmış adresi dene, yoksa ham adresi kullan
+  let fullAddress = '';
+  if (adres_yapilandirilmis) {
+    fullAddress = [
+      adres_yapilandirilmis.sokak_no || adres_yapilandirilmis.sokak, 
+      adres_yapilandirilmis.mahalle, 
+      adres_yapilandirilmis.ilce || ilce_adi, 
+      adres_yapilandirilmis.il || il_adi
+    ].filter(Boolean).join(', ');
+  } else {
+    fullAddress = [adres, ilce_adi, il_adi].filter(Boolean).join(', ');
+  }
 
   // Metadata items
   const metadataItems = [
     ...(fullAddress ? [{ icon: 'location_on', text: fullAddress }] : []),
-    ...(iletisim?.telefon?.[0] ? [{ icon: 'phone', text: iletisim.telefon[0] }] : []),
+    ...(telefon ? [{ icon: 'phone', text: telefon }] : []),
     ...(showDistance && distance ? [{ icon: 'near_me', text: `${distance} km`, className: 'institution-card__distance' }] : [])
   ];
 
@@ -113,13 +122,13 @@ function InstitutionCard({
     >
       {/* Kurum tipi badge'i */}
       <CardBadge className="institution-card__type">
-        {tip || 'Sağlık Kuruluşu'}
+        {kurum_tipi || 'Sağlık Kuruluşu'}
       </CardBadge>
 
       <CardContent>
         <CardHeader
-          title={highlightText(isim_standart, searchQuery)}
-          subtitle={meta_veri?.bagli_oldugu_kurum}
+          title={highlightText(kurum_adi, searchQuery)}
+          subtitle={`${ilce_adi}, ${il_adi}`}
         />
 
         {/* Açık/Kapalı durumu */}
@@ -133,13 +142,13 @@ function InstitutionCard({
         )}
 
         {/* Kaynak bilgisi */}
-        {kaynaklar && kaynaklar.length > 0 && (
+        {veri_kaynagi && (
           <div className="md-card__metadata">
             <div className="md-card__metadata-item">
               <span className="md-card__metadata-icon material-symbols-outlined">
                 verified
               </span>
-              <span>Kaynak: {kaynaklar[0]}</span>
+              <span>Kaynak: {veri_kaynagi}</span>
             </div>
           </div>
         )}
@@ -147,7 +156,7 @@ function InstitutionCard({
 
       <CardActions alignment="between">
         <div style={{ display: 'flex', gap: 'var(--md-spacing-2)' }}>
-          {iletisim?.telefon?.[0] && (
+          {telefon && (
             <Button
               variant="text"
               size="small"
@@ -158,7 +167,7 @@ function InstitutionCard({
             </Button>
           )}
           
-          {meta_veri?.koordinatlar?.latitude && meta_veri?.koordinatlar?.longitude && (
+          {koordinat_lat && koordinat_lon && (
             <Button
               variant="text"
               size="small"
@@ -184,13 +193,18 @@ function InstitutionCard({
 
 InstitutionCard.propTypes = {
   institution: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    isim_standart: PropTypes.string.isRequired,
-    tip: PropTypes.string,
-    adres_yapilandirilmis: PropTypes.object,
-    iletisim: PropTypes.object,
-    meta_veri: PropTypes.object,
-    kaynaklar: PropTypes.array
+    kurum_id: PropTypes.string.isRequired,
+    kurum_adi: PropTypes.string.isRequired,
+    kurum_tipi: PropTypes.string,
+    il_adi: PropTypes.string,
+    ilce_adi: PropTypes.string,
+    adres: PropTypes.string,
+    telefon: PropTypes.string,
+    koordinat_lat: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    koordinat_lon: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    web_sitesi: PropTypes.string,
+    veri_kaynagi: PropTypes.string,
+    adres_yapilandirilmis: PropTypes.object
   }).isRequired,
   searchQuery: PropTypes.string,
   showDistance: PropTypes.bool,

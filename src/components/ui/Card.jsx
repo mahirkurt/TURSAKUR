@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../styles/components/card.css';
+import '../../styles/components/card.css';
 
 /**
  * Material Design 3 Card Component

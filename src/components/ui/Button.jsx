@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import '../styles/components/button.css';
+import '../../styles/components/button.css';
 
 /**
  * Material Design 3 Button Component

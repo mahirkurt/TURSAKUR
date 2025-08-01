@@ -1,6 +1,6 @@
 services:
   - type: static_site
-    name: tursakur
+    name: tursakur-static
     runtime: node
     plan: free
     region: frankfurt
