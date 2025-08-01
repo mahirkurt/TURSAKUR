@@ -89,6 +89,15 @@ function InstitutionCard({
     }
   };
 
+  const handleDetailsClick = (e) => {
+    e.stopPropagation();
+    if (onNavigate) {
+      onNavigate(institution);
+    } else {
+      navigate(`/kurum/${kurum_id}`);
+    }
+  };
+
   const institutionTypeColor = getInstitutionTypeColor(kurum_tipi);
 
   // Adres bilgisi - önce yapılandırılmış adresi dene, yoksa ham adresi kullan
@@ -129,7 +138,7 @@ function InstitutionCard({
           subtitle={`${ilce_adi}, ${il_adi}`}
         />
 
-        {/* Açık/Kapalı durumu KALDIRILDI */
+        {/* Açık/Kapalı durumu KALDIRILDI */}
 
         {/* Metadata */}
         {metadataItems.length > 0 && (
@@ -178,6 +187,7 @@ function InstitutionCard({
           variant="filled-tonal"
           size="small"
           icon="info"
+          onClick={handleDetailsClick}
         >
           Detaylar
         </Button>
