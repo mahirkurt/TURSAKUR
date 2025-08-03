@@ -182,11 +182,11 @@ export function useDistricts(selectedProvince) {
     queryFn: async () => {
       let query = supabase
         .from('kuruluslar')
-        .select('ilce_adi')
-        .not('ilce_adi', 'is', null)
+        .select('adres_yapilandirilmis')
+        .not('adres_yapilandirilmis', 'is', null)
 
       if (selectedProvince) {
-        query = query.eq('il_adi', selectedProvince)
+        query = query.eq('adres_yapilandirilmis->>il', selectedProvince)
       }
 
       const { data, error } = await query
@@ -197,7 +197,7 @@ export function useDistricts(selectedProvince) {
 
       // Unique ilçeler ve sayıları
       const districts = data
-        .map(item => item.ilce_adi)
+        .map(item => item.adres_yapilandirilmis?.ilce)
         .filter(Boolean)
         .reduce((acc, ilce) => {
           acc[ilce] = (acc[ilce] || 0) + 1
@@ -262,33 +262,33 @@ export function useStatistics() {
         throw new Error(`İstatistik alınamadı: ${totalError.message}`)
       }
 
-      // Tip bazında sayılar
+      // Tip bazında sayılar - JSONB yapısından
       const { data: typeData, error: typeError } = await supabase
         .from('kuruluslar')
-        .select('kurum_tipi')
+        .select('tip')
 
       if (typeError) {
         throw new Error(`Tip istatistikleri alınamadı: ${typeError.message}`)
       }
 
       const typeStats = typeData
-        .filter(item => item.kurum_tipi)
+        .filter(item => item.tip)
         .reduce((acc, item) => {
-          acc[item.kurum_tipi] = (acc[item.kurum_tipi] || 0) + 1
+          acc[item.tip] = (acc[item.tip] || 0) + 1
           return acc
         }, {})
 
-      // İl bazında sayılar (top 10)
+      // İl bazında sayılar (top 10) - JSONB yapısından
       const { data: provinceData, error: provinceError } = await supabase
         .from('kuruluslar')
-        .select('il_adi')
+        .select('adres_yapilandirilmis')
 
       if (provinceError) {
         throw new Error(`İl istatistikleri alınamadı: ${provinceError.message}`)
       }
 
       const provinceStats = provinceData
-        .map(item => item.il_adi)
+        .map(item => item.adres_yapilandirilmis?.il)
         .filter(Boolean)
         .reduce((acc, il) => {
           acc[il] = (acc[il] || 0) + 1
