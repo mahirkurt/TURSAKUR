@@ -67,7 +67,7 @@ function DebugSupabase() {
           setError(`Doğru tablo adı: ${foundTable.name}`);
         } else {
           setStatus('error');
-          setError('Hiçbir tablo bulunamadı!');
+          setError('Hiçbir tablo bulunamadı! SKRS entegrasyonu gerekli olabilir.');
         }
         
       } catch (err) {

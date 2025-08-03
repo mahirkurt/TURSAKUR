@@ -11,6 +11,7 @@ import TopAppBar from '../components/TopAppBar';
 import Footer from '../components/Footer';
 import Button from '../components/ui/Button';
 import DebugSupabase from '../components/DebugSupabase';
+import SKRSAdminPanel from '../components/SKRSAdminPanel';
 import './HomePage.css';
 
 function HomePage() {
@@ -22,6 +23,7 @@ function HomePage() {
   const [sortBy, setSortBy] = useState('isim_standart');
   const [sortOrder, setSortOrder] = useState('asc');
   const [currentPage, setCurrentPage] = useState(1);
+  const [showSKRSPanel, setShowSKRSPanel] = useState(false);
   const pageSize = 20;
 
   // Debounced search query (300ms gecikme)
@@ -238,6 +240,32 @@ function HomePage() {
 
         {/* Debug Bileşeni - Geliştirme için */}
         <DebugSupabase />
+
+        {/* SKRS Admin Panel Toggle */}
+        <div style={{ 
+          textAlign: 'center', 
+          padding: '10px',
+          backgroundColor: '#f5f5f5',
+          borderBottom: '1px solid #ddd'
+        }}>
+          <button
+            onClick={() => setShowSKRSPanel(!showSKRSPanel)}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: showSKRSPanel ? '#f44336' : '#2196f3',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '14px'
+            }}
+          >
+            {showSKRSPanel ? '❌ SKRS Panelini Kapat' : '🏥 SKRS Entegrasyonu Aç'}
+          </button>
+        </div>
+
+        {/* SKRS Admin Panel */}
+        {showSKRSPanel && <SKRSAdminPanel />}
 
         <div className="main-content">
           {/* Sidebar - Material Design 3 Layout */}
