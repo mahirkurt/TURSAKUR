@@ -18,7 +18,7 @@ function DebugSupabase() {
         
         // 1. Connection Test
         const { data: testData, error: testError, count: totalCount } = await supabase
-          .from('kuruluslar')
+          .from('turkiye_saglik_kuruluslari')
           .select('id, isim_standart, tip, adres_yapilandirilmis', { count: 'exact' })
           .eq('aktif', true)
           .limit(5);

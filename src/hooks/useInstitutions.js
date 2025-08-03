@@ -12,7 +12,7 @@ export function useInstitutions(filters = {}) {
     queryFn: async () => {
       return await queryWithRetry(async () => {
         let query = supabase
-          .from('kuruluslar')
+          .from('turkiye_saglik_kuruluslari')
           .select('*')
           .eq('aktif', true)
 
@@ -92,7 +92,7 @@ export function useInstitution(id) {
     queryFn: async () => {
       return await queryWithRetry(async () => {
         const { data, error } = await supabase
-          .from('kuruluslar')
+          .from('turkiye_saglik_kuruluslari')
           .select('*')
         .eq('id', id)
         .single()
@@ -121,7 +121,7 @@ export function useProvinces() {
         // Önce Supabase'den gerçek veriyi al - JSONB yapısından
         const result = await queryWithRetry(async () => {
           return await supabase
-            .from('kuruluslar')
+            .from('turkiye_saglik_kuruluslari')
             .select('adres_yapilandirilmis')
             .not('adres_yapilandirilmis', 'is', null)
         })
@@ -181,7 +181,7 @@ export function useDistricts(selectedProvince) {
     queryKey: ['districts', selectedProvince],
     queryFn: async () => {
       let query = supabase
-        .from('kuruluslar')
+        .from('turkiye_saglik_kuruluslari')
         .select('adres_yapilandirilmis')
         .not('adres_yapilandirilmis', 'is', null)
 
@@ -221,7 +221,7 @@ export function useInstitutionTypes() {
     queryKey: ['institution-types'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('kuruluslar')
+        .from('turkiye_saglik_kuruluslari')
         .select('tip')
         .not('tip', 'is', null)
 
@@ -255,7 +255,7 @@ export function useStatistics() {
     queryFn: async () => {
       // Toplam kurum sayısı
       const { count: totalCount, error: totalError } = await supabase
-        .from('kuruluslar')
+        .from('turkiye_saglik_kuruluslari')
         .select('*', { count: 'exact', head: true })
 
       if (totalError) {
@@ -264,7 +264,7 @@ export function useStatistics() {
 
       // Tip bazında sayılar - JSONB yapısından
       const { data: typeData, error: typeError } = await supabase
-        .from('kuruluslar')
+        .from('turkiye_saglik_kuruluslari')
         .select('tip')
 
       if (typeError) {
@@ -280,7 +280,7 @@ export function useStatistics() {
 
       // İl bazında sayılar (top 10) - JSONB yapısından
       const { data: provinceData, error: provinceError } = await supabase
-        .from('kuruluslar')
+        .from('turkiye_saglik_kuruluslari')
         .select('adres_yapilandirilmis')
 
       if (provinceError) {
@@ -319,7 +319,7 @@ export function useUpdateInstitution() {
   return useMutation({
     mutationFn: async ({ id, updates }) => {
       const { data, error } = await supabase
-        .from('kuruluslar')
+        .from('turkiye_saglik_kuruluslari')
         .update(updates)
         .eq('id', id)
         .select()
