@@ -1,6 +1,7 @@
 /**
  * SKRS (Sağlık Kodlama Referans Servisi) Entegrasyon Modülü
  * Sağlık Bakanlığı'nın resmi WSDL servislerini kullanır
+ * CORS sorununu çözmek için backend proxy kullanır
  * 
  * Servisler:
  * - SKRSKurumveKurulus: Tüm sağlık kurum ve kuruluşları
@@ -10,102 +11,44 @@
 
 import { supabase } from '../lib/supabase';
 
-// SKRS WSDL Endpoint'leri
-const SKRS_ENDPOINTS = {
-  KURUM_KURULUS: 'https://skrs.saglik.gov.tr/servis/SKRSKurumveKurulus.svc?wsdl',
-  IL: 'https://skrs.saglik.gov.tr/servis/SKRSIl.svc?wsdl',
-  KLINIK_KODLARI: 'https://skrs.saglik.gov.tr/servis/SKRSKlinikKodlari.svc?wsdl'
-};
-
-// SOAP istekleri için XML template'leri
-const SOAP_TEMPLATES = {
-  KURUM_KURULUS: `<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Body>
-    <SKRSKurumveKuruluslariGetir xmlns="http://tempuri.org/" />
-  </soap:Body>
-</soap:Envelope>`,
-
-  IL: `<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Body>
-    <SKRSIlleriGetir xmlns="http://tempuri.org/" />
-  </soap:Body>
-</soap:Envelope>`,
-
-  KLINIK_KODLARI: `<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Body>
-    <SKRSKlinikKodlariniGetir xmlns="http://tempuri.org/" />
-  </soap:Body>
-</soap:Envelope>`
-};
+// Proxy API endpoint (Vercel serverless function)
+const PROXY_BASE_URL = '/api/skrs-proxy';
 
 /**
- * SOAP isteği gönder
- * @param {string} endpoint - WSDL endpoint'i
- * @param {string} soapAction - SOAP Action header'ı  
- * @param {string} xmlBody - SOAP XML body
- * @returns {Promise<Document>} XML response
+ * Proxy API üzerinden SKRS servisini çağır
+ * @param {string} service - Servis tipi (kurum, il, klinik)
+ * @returns {Promise<Object>} API yanıtı
  */
-async function sendSOAPRequest(endpoint, soapAction, xmlBody) {
+async function callSKRSProxy(service) {
   try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
+    console.log(`📡 SKRS ${service} servisi proxy üzerinden çağrılıyor...`);
+    
+    const response = await fetch(`${PROXY_BASE_URL}?service=${service}`, {
+      method: 'GET',
       headers: {
-        'Content-Type': 'text/xml; charset=utf-8',
-        'SOAPAction': soapAction,
-        'Accept': 'text/xml'
-      },
-      body: xmlBody
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
     });
 
     if (!response.ok) {
-      throw new Error(`SKRS API Hatası: ${response.status} ${response.statusText}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(`Proxy API Hatası: ${response.status} - ${errorData.error || response.statusText}`);
     }
 
-    const xmlText = await response.text();
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+    const data = await response.json();
     
-    // XML parsing hatalarını kontrol et
-    const parseError = xmlDoc.querySelector('parsererror');
-    if (parseError) {
-      throw new Error(`XML Parse Hatası: ${parseError.textContent}`);
+    if (!data.success) {
+      throw new Error(`SKRS Servisi Hatası: ${data.error}`);
     }
-
-    return xmlDoc;
+    
+    console.log(`✅ SKRS ${service} başarıyla alındı: ${data.count} kayıt`);
+    return data;
+    
   } catch (error) {
-    console.error('SOAP İsteği Hatası:', error);
-    throw new Error(`SKRS servisi ile bağlantı kurulamadı: ${error.message}`);
+    console.error(`❌ SKRS ${service} Hatası:`, error);
+    throw new Error(`SKRS ${service} servisi çağrılamadı: ${error.message}`);
   }
-}
-
-/**
- * XML'den veri çıkar
- * @param {Document} xmlDoc - XML document
- * @param {string} tagName - Çıkarılacak tag adı
- * @returns {Array} Veri dizisi
- */
-function extractDataFromXML(xmlDoc, tagName) {
-  const items = xmlDoc.querySelectorAll(tagName);
-  const data = [];
-  
-  items.forEach(item => {
-    const obj = {};
-    Array.from(item.children).forEach(child => {
-      obj[child.tagName] = child.textContent;
-    });
-    data.push(obj);
-  });
-  
-  return data;
 }
 
 /**
@@ -115,17 +58,9 @@ function extractDataFromXML(xmlDoc, tagName) {
 export async function fetchSKRSInstitutions() {
   console.log('🏥 SKRS Kurum ve Kuruluşlar getiriliyor...');
   
-  const xmlDoc = await sendSOAPRequest(
-    SKRS_ENDPOINTS.KURUM_KURULUS.replace('?wsdl', ''),
-    'http://tempuri.org/SKRSKurumveKuruluslariGetir',
-    SOAP_TEMPLATES.KURUM_KURULUS
-  );
-  
-  // XML'den kurum verilerini çıkar
-  const institutions = extractDataFromXML(xmlDoc, 'KurumKurulus');
-  
-  console.log(`✅ SKRS'den ${institutions.length} kurum alındı`);
-  return institutions;
+  const result = await callSKRSProxy('kurum');
+  console.log(`✅ SKRS'den ${result.count} kurum alındı`);
+  return result.data;
 }
 
 /**
@@ -135,16 +70,9 @@ export async function fetchSKRSInstitutions() {
 export async function fetchSKRSProvinces() {
   console.log('📍 SKRS İller getiriliyor...');
   
-  const xmlDoc = await sendSOAPRequest(
-    SKRS_ENDPOINTS.IL.replace('?wsdl', ''),
-    'http://tempuri.org/SKRSIlleriGetir',
-    SOAP_TEMPLATES.IL
-  );
-  
-  const provinces = extractDataFromXML(xmlDoc, 'Il');
-  
-  console.log(`✅ SKRS'den ${provinces.length} il alındı`);
-  return provinces;
+  const result = await callSKRSProxy('il');
+  console.log(`✅ SKRS'den ${result.count} il alındı`);
+  return result.data;
 }
 
 /**
@@ -154,16 +82,9 @@ export async function fetchSKRSProvinces() {
 export async function fetchSKRSSpecialties() {
   console.log('🩺 SKRS Klinik Kodları getiriliyor...');
   
-  const xmlDoc = await sendSOAPRequest(
-    SKRS_ENDPOINTS.KLINIK_KODLARI.replace('?wsdl', ''),
-    'http://tempuri.org/SKRSKlinikKodlariniGetir',
-    SOAP_TEMPLATES.KLINIK_KODLARI
-  );
-  
-  const specialties = extractDataFromXML(xmlDoc, 'KlinikKod');
-  
-  console.log(`✅ SKRS'den ${specialties.length} branş alındı`);
-  return specialties;
+  const result = await callSKRSProxy('klinik');
+  console.log(`✅ SKRS'den ${result.count} branş alındı`);
+  return result.data;
 }
 
 /**
