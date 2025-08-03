@@ -91,13 +91,21 @@ function InstitutionDetail() {
   }
 
   const {
-    kurum_adi,
-    kurum_tipi,
-    il_adi,
-    ilce_adi,
-    adres,
-    telefon,
-    koordinat_lat,
+    id: institutionId,
+    isim_standart,
+    tip,
+    adres_yapilandirilmis: adresYapilandirilmis,
+    iletisim,
+    koordinatlar,
+    kaynaklar,
+    // Backward compatibility için eski alanlar
+    kurum_adi = isim_standart,
+    kurum_tipi = tip,
+    il_adi = adresYapilandirilmis?.il,
+    ilce_adi = adresYapilandirilmis?.ilce,
+    adres = adresYapilandirilmis?.tam_adres,
+    telefon = iletisim?.telefon?.[0],
+    koordinat_lat = koordinatlar?.latitude,
     koordinat_lon,
     veri_kaynagi,
     adres_yapilandirilmis

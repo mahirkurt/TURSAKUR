@@ -20,17 +20,24 @@ function InstitutionCard({
   const navigate = useNavigate();
   
   const { 
-    kurum_id, 
-    kurum_adi, 
-    kurum_tipi, 
-    il_adi,
-    ilce_adi,
-    adres,
-    telefon,
-    koordinat_lat,
-    koordinat_lon,
-    veri_kaynagi,
-    adres_yapilandirilmis 
+    id, 
+    isim_standart, 
+    tip, 
+    adres_yapilandirilmis,
+    iletisim,
+    koordinatlar,
+    kaynaklar,
+    // Backward compatibility için eski alanlar
+    kurum_id = id, 
+    kurum_adi = isim_standart, 
+    kurum_tipi = tip, 
+    il_adi = adres_yapilandirilmis?.il,
+    ilce_adi = adres_yapilandirilmis?.ilce,
+    adres = adres_yapilandirilmis?.tam_adres,
+    telefon = iletisim?.telefon?.[0],
+    koordinat_lat = koordinatlar?.latitude,
+    koordinat_lon = koordinatlar?.longitude,
+    veri_kaynagi = kaynaklar?.[0]
   } = institution
 
   // Arama terimini vurgula
@@ -98,16 +105,16 @@ function InstitutionCard({
     }
   };
 
-  const institutionTypeColor = getInstitutionTypeColor(kurum_tipi);
+  const institutionTypeColor = getInstitutionTypeColor(tip);
 
-  // Adres bilgisi - önce yapılandırılmış adresi dene, yoksa ham adresi kullan
+  // Adres bilgisi - JSONB yapısından adres oluştur
   let fullAddress = '';
   if (adres_yapilandirilmis) {
     fullAddress = [
       adres_yapilandirilmis.sokak_no || adres_yapilandirilmis.sokak, 
       adres_yapilandirilmis.mahalle, 
-      adres_yapilandirilmis.ilce || ilce_adi, 
-      adres_yapilandirilmis.il || il_adi
+      adres_yapilandirilmis.ilce, 
+      adres_yapilandirilmis.il
     ].filter(Boolean).join(', ');
   } else {
     fullAddress = [adres, ilce_adi, il_adi].filter(Boolean).join(', ');
@@ -131,13 +138,13 @@ function InstitutionCard({
     >
       {/* Kurum tipi badge'i - Renkli */}
       <CardBadge className={`institution-card__type institution-card__type--${institutionTypeColor} facility-type`}>
-        {kurum_tipi || 'Sağlık Kuruluşu'}
+        {tip || 'Sağlık Kuruluşu'}
       </CardBadge>
 
       <CardContent>
         <CardHeader
-          title={<span className="facility-name">{highlightText(kurum_adi, searchQuery)}</span>}
-          subtitle={<span className="facility-location">{`${ilce_adi}, ${il_adi}`}</span>}
+          title={<span className="facility-name">{highlightText(isim_standart, searchQuery)}</span>}
+          subtitle={<span className="facility-location">{`${ilce_adi || adres_yapilandirilmis?.ilce}, ${il_adi || adres_yapilandirilmis?.il}`}</span>}
         />
 
         {/* Açık/Kapalı durumu KALDIRILDI */}
@@ -200,8 +207,16 @@ function InstitutionCard({
 
 InstitutionCard.propTypes = {
   institution: PropTypes.shape({
-    kurum_id: PropTypes.string.isRequired,
-    kurum_adi: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    isim_standart: PropTypes.string.isRequired,
+    tip: PropTypes.string,
+    adres_yapilandirilmis: PropTypes.object,
+    iletisim: PropTypes.object,
+    koordinatlar: PropTypes.object,
+    kaynaklar: PropTypes.array,
+    // Backward compatibility
+    kurum_id: PropTypes.string,
+    kurum_adi: PropTypes.string,
     kurum_tipi: PropTypes.string,
     il_adi: PropTypes.string,
     ilce_adi: PropTypes.string,
@@ -210,8 +225,7 @@ InstitutionCard.propTypes = {
     koordinat_lat: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     koordinat_lon: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     web_sitesi: PropTypes.string,
-    veri_kaynagi: PropTypes.string,
-    adres_yapilandirilmis: PropTypes.object
+    veri_kaynagi: PropTypes.string
   }).isRequired,
   searchQuery: PropTypes.string,
   showDistance: PropTypes.bool,
