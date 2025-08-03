@@ -16,21 +16,21 @@ export function useInstitutions(filters = {}) {
           .select('*')
           .eq('aktif', true)
 
-        // Filtreler uygula
+        // Filtreler uygula - JSONB yapısına göre
         if (filters.search) {
-          query = query.or(`kurum_adi.ilike.%${filters.search}%,il_adi.ilike.%${filters.search}%,ilce_adi.ilike.%${filters.search}%`)
+          query = query.or(`isim_standart.ilike.%${filters.search}%,adres_yapilandirilmis->>il.ilike.%${filters.search}%,adres_yapilandirilmis->>ilce.ilike.%${filters.search}%`)
         }
 
         if (filters.il) {
-          query = query.eq('il_adi', filters.il)
+          query = query.eq('adres_yapilandirilmis->>il', filters.il)
         }
 
         if (filters.ilce) {
-          query = query.eq('ilce_adi', filters.ilce)
+          query = query.eq('adres_yapilandirilmis->>ilce', filters.ilce)
         }
 
       if (filters.tip && filters.tip.length > 0) {
-        query = query.in('kurum_tipi', filters.tip)
+        query = query.in('tip', filters.tip)
       }
 
       // Coğrafi sınırlama (harita "Bu Alanda Ara" özelliği için)
@@ -118,12 +118,12 @@ export function useProvinces() {
     queryKey: ['provinces'],
     queryFn: async () => {
       try {
-        // Önce Supabase'den gerçek veriyi al
+        // Önce Supabase'den gerçek veriyi al - JSONB yapısından
         const result = await queryWithRetry(async () => {
           return await supabase
             .from('kuruluslar')
-            .select('il_adi, ilce_adi')
-            .not('il_adi', 'is', null)
+            .select('adres_yapilandirilmis')
+            .not('adres_yapilandirilmis', 'is', null)
         })
 
         const { data, error } = result
@@ -133,18 +133,19 @@ export function useProvinces() {
           const provinceMap = new Map()
           
           data.forEach(item => {
-            if (!item.il_adi) return
+            const adres = item.adres_yapilandirilmis
+            if (!adres || !adres.il) return
             
-            if (!provinceMap.has(item.il_adi)) {
-              provinceMap.set(item.il_adi, {
-                il_adi: item.il_adi,
+            if (!provinceMap.has(adres.il)) {
+              provinceMap.set(adres.il, {
+                il_adi: adres.il,
                 ilceler: []
               })
             }
             
-            const province = provinceMap.get(item.il_adi)
-            if (item.ilce_adi && !province.ilceler.includes(item.ilce_adi)) {
-              province.ilceler.push(item.ilce_adi)
+            const province = provinceMap.get(adres.il)
+            if (adres.ilce && !province.ilceler.includes(adres.ilce)) {
+              province.ilceler.push(adres.ilce)
             }
           })
 
@@ -221,8 +222,8 @@ export function useInstitutionTypes() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('kuruluslar')
-        .select('kurum_tipi')
-        .not('kurum_tipi', 'is', null)
+        .select('tip')
+        .not('tip', 'is', null)
 
       if (error) {
         throw new Error(`Kurum tipleri alınamadı: ${error.message}`)
@@ -230,7 +231,7 @@ export function useInstitutionTypes() {
 
       // Unique tipler ve sayıları
       const types = data
-        .map(item => item.kurum_tipi)
+        .map(item => item.tip)
         .filter(Boolean)
         .reduce((acc, tip) => {
           acc[tip] = (acc[tip] || 0) + 1
