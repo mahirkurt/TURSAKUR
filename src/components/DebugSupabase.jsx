@@ -30,11 +30,13 @@ function DebugSupabase() {
         
         // 3. Farklı tablo adlarını dene
         const possibleTableNames = [
-          'turkiye_saglik_kuruluslari',
-          'kuruluslar', 
+          'kuruluslar',
+          'turkiye_saglik_kuruluslari', 
           'saglik_kuruluslari',
           'institutions',
-          'health_institutions'
+          'health_institutions',
+          'tursakur',
+          'health_data'
         ];
         
         let foundTable = null;

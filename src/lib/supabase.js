@@ -158,7 +158,7 @@ export const healthFacilitiesAPI = {
   // Get all health facilities with optional filters
   async getAll(filters = {}) {
     try {
-      let query = supabase.from('turkiye_saglik_kuruluslari').select('*')
+      let query = supabase.from('kuruluslar').select('*')
       
       // Apply filters using kuruluslar table JSONB structure
       if (filters.province) {
@@ -231,7 +231,7 @@ export const healthFacilitiesAPI = {
   async getProvinces() {
     try {
       const { data, error } = await supabase
-        .from('turkiye_saglik_kuruluslari')
+        .from('kuruluslar')
         .select('adres_yapilandirilmis')
         .neq('adres_yapilandirilmis', null)
       
@@ -254,7 +254,7 @@ export const healthFacilitiesAPI = {
   async getFacilityTypes() {
     try {
       const { data, error } = await supabase
-        .from('turkiye_saglik_kuruluslari')
+        .from('kuruluslar')
         .select('tip')
         .neq('tip', null)
       
