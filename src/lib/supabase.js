@@ -136,20 +136,20 @@ const TEST_FACILITIES = [
 
 // API Functions with fallback to test data
 export const healthFacilitiesAPI = {
-  // Map Supabase column names to frontend expected names
+  // Map Supabase kuruluslar table to frontend expected names
   mapRecordFromSupabase(record) {
     return {
-      id: record.kurum_id,
-      name: record.kurum_adi,
-      facility_type: record.kurum_tipi,
-      province: record.il_adi,
-      district: record.ilce_adi,
-      address: record.adres,
-      phone: record.telefon,
-      website: record.web_sitesi,
-      latitude: record.koordinat_lat,
-      longitude: record.koordinat_lon,
-      sources: [record.veri_kaynagi],
+      id: record.id,
+      name: record.isim_standart || record.isim_resmi,
+      facility_type: record.tip,
+      province: record.adres_yapilandirilmis?.il || '',
+      district: record.adres_yapilandirilmis?.ilce || '',
+      address: record.adres_yapilandirilmis?.tam_adres || '',
+      phone: record.iletisim?.telefon || '',
+      website: record.iletisim?.website || '',
+      latitude: null, // PostGIS koordinat ayrıştırması gerekir
+      longitude: null, // PostGIS koordinat ayrıştırması gerekir
+      sources: [record.metaveri?.kaynak || 'bilinmeyen'],
       created_at: record.created_at,
       updated_at: record.updated_at
     }
@@ -160,18 +160,21 @@ export const healthFacilitiesAPI = {
     try {
       let query = supabase.from('kuruluslar').select('*')
       
-      // Apply filters using Supabase column names
+      // Apply filters using kuruluslar table JSONB structure
       if (filters.province) {
-        query = query.eq('il_adi', filters.province)
+        query = query.eq('adres_yapilandirilmis->>il', filters.province)
       }
       
       if (filters.facility_type) {
-        query = query.eq('kurum_tipi', filters.facility_type)
+        query = query.eq('tip', filters.facility_type)
       }
       
       if (filters.search) {
-        query = query.or(`kurum_adi.ilike.%${filters.search}%,adres.ilike.%${filters.search}%`)
+        query = query.or(`isim_standart.ilike.%${filters.search}%,adres_yapilandirilmis->>tam_adres.ilike.%${filters.search}%`)
       }
+      
+      // Only active facilities
+      query = query.eq('aktif', true)
       
       // Pagination
       if (filters.limit) {
@@ -229,14 +232,18 @@ export const healthFacilitiesAPI = {
     try {
       const { data, error } = await supabase
         .from('kuruluslar')
-        .select('il_adi')
-        .neq('il_adi', null)
+        .select('adres_yapilandirilmis')
+        .neq('adres_yapilandirilmis', null)
       
       if (error) {
         return [...new Set(TEST_FACILITIES.map(f => f.province))].sort()
       }
       
-      return [...new Set(data.map(item => item.il_adi))].sort()
+      const provinces = data
+        .map(item => item.adres_yapilandirilmis?.il)
+        .filter(il => il && il.trim())
+      
+      return [...new Set(provinces)].sort()
       
     } catch {
       return [...new Set(TEST_FACILITIES.map(f => f.province))].sort()
@@ -248,14 +255,14 @@ export const healthFacilitiesAPI = {
     try {
       const { data, error } = await supabase
         .from('kuruluslar')
-        .select('kurum_tipi')
-        .neq('kurum_tipi', null)
+        .select('tip')
+        .neq('tip', null)
       
       if (error) {
         return [...new Set(TEST_FACILITIES.map(f => f.facility_type))].sort()
       }
       
-      return [...new Set(data.map(item => item.kurum_tipi))].sort()
+      return [...new Set(data.map(item => item.tip).filter(tip => tip))].sort()
       
     } catch {
       return [...new Set(TEST_FACILITIES.map(f => f.facility_type))].sort()
