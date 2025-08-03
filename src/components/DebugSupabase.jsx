@@ -16,24 +16,57 @@ function DebugSupabase() {
       try {
         console.log('🔍 Supabase Debug Testi Başlatılıyor...');
         
-        // 1. Connection Test
-        const { data: testData, error: testError, count: totalCount } = await supabase
-          .from('turkiye_saglik_kuruluslari')
-          .select('id, isim_standart, tip, adres_yapilandirilmis', { count: 'exact' })
-          .eq('aktif', true)
-          .limit(5);
+        // 1. Önce tüm tabloları listele
+        const { data: tables } = await supabase.rpc('get_tables');
+        console.log('📊 Mevcut tablolar:', tables);
         
-        if (testError) {
-          console.error('❌ Supabase Error:', testError);
-          setError(testError.message);
-          setStatus('error');
-          return;
+        // 2. Information schema'dan tablo adlarını al
+        const { data: schemaData } = await supabase
+          .from('information_schema.tables')
+          .select('table_name')
+          .eq('table_schema', 'public');
+        
+        console.log('🗃️ Schema bilgisi:', schemaData);
+        
+        // 3. Farklı tablo adlarını dene
+        const possibleTableNames = [
+          'turkiye_saglik_kuruluslari',
+          'kuruluslar', 
+          'saglik_kuruluslari',
+          'institutions',
+          'health_institutions'
+        ];
+        
+        let foundTable = null;
+        
+        for (const tableName of possibleTableNames) {
+          try {
+            const { data: testData, error: testError, count: totalCount } = await supabase
+              .from(tableName)
+              .select('*', { count: 'exact' })
+              .limit(1);
+            
+            if (!testError) {
+              console.log(`✅ Tablo bulundu: ${tableName}, Kayıt sayısı: ${totalCount}`);
+              foundTable = { name: tableName, count: totalCount, sample: testData };
+              break;
+            } else {
+              console.log(`❌ ${tableName} bulunamadı:`, testError.message);
+            }
+          } catch (err) {
+            console.log(`⚠️ ${tableName} test hatası:`, err.message);
+          }
         }
         
-        console.log('✅ Supabase Success:', { data: testData, count: totalCount });
-        setData(testData);
-        setCount(totalCount);
-        setStatus('success');
+        if (foundTable) {
+          setData(foundTable.sample);
+          setCount(foundTable.count);
+          setStatus('success');
+          setError(`Doğru tablo adı: ${foundTable.name}`);
+        } else {
+          setStatus('error');
+          setError('Hiçbir tablo bulunamadı!');
+        }
         
       } catch (err) {
         console.error('❌ Exception:', err);
