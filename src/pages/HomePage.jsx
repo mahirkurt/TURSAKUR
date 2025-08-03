@@ -10,6 +10,7 @@ import ErrorMessage from '../components/ErrorMessage';
 import TopAppBar from '../components/TopAppBar';
 import Footer from '../components/Footer';
 import Button from '../components/ui/Button';
+import DebugSupabase from '../components/DebugSupabase';
 import './HomePage.css';
 
 function HomePage() {
@@ -234,6 +235,9 @@ function HomePage() {
             />
           </div>
         </section>
+
+        {/* Debug Bileşeni - Geliştirme için */}
+        <DebugSupabase />
 
         <div className="main-content">
           {/* Sidebar - Material Design 3 Layout */}
