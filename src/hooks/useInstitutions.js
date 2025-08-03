@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { supabase } from '../lib/supabase'
+import { supabase, queryWithRetry } from '../lib/supabase'
+import { TURKIYE_ILLER } from '../data/turkiye-iller'
 
 /**
  * Sağlık kuruluşlarını getir
@@ -9,23 +10,24 @@ export function useInstitutions(filters = {}) {
   return useQuery({
     queryKey: ['institutions', filters],
     queryFn: async () => {
-      let query = supabase
-        .from('kuruluslar')
-        .select('*')
-        .eq('aktif', true)
+      return await queryWithRetry(async () => {
+        let query = supabase
+          .from('kuruluslar')
+          .select('*')
+          .eq('aktif', true)
 
-      // Filtreler uygula
-      if (filters.search) {
-        query = query.or(`kurum_adi.ilike.%${filters.search}%,il_adi.ilike.%${filters.search}%,ilce_adi.ilike.%${filters.search}%`)
-      }
+        // Filtreler uygula
+        if (filters.search) {
+          query = query.or(`kurum_adi.ilike.%${filters.search}%,il_adi.ilike.%${filters.search}%,ilce_adi.ilike.%${filters.search}%`)
+        }
 
-      if (filters.il) {
-        query = query.eq('il_adi', filters.il)
-      }
+        if (filters.il) {
+          query = query.eq('il_adi', filters.il)
+        }
 
-      if (filters.ilce) {
-        query = query.eq('ilce_adi', filters.ilce)
-      }
+        if (filters.ilce) {
+          query = query.eq('ilce_adi', filters.ilce)
+        }
 
       if (filters.tip && filters.tip.length > 0) {
         query = query.in('kurum_tipi', filters.tip)
@@ -74,6 +76,7 @@ export function useInstitutions(filters = {}) {
         institutions: data || [],
         total: count || data?.length || 0
       }
+      })
     },
     staleTime: 5 * 60 * 1000, // 5 dakika
     cacheTime: 10 * 60 * 1000, // 10 dakika
@@ -87,9 +90,10 @@ export function useInstitution(id) {
   return useQuery({
     queryKey: ['institution', id],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('kuruluslar')
-        .select('*')
+      return await queryWithRetry(async () => {
+        const { data, error } = await supabase
+          .from('kuruluslar')
+          .select('*')
         .eq('id', id)
         .single()
 
@@ -98,6 +102,7 @@ export function useInstitution(id) {
       }
 
       return data
+      })
     },
     enabled: !!id,
     staleTime: 10 * 60 * 1000, // 10 dakika
@@ -106,34 +111,64 @@ export function useInstitution(id) {
 
 /**
  * İl listesini getir (filtreleme için)
+ * Static veri ile enhanced - 81 il garantili
  */
 export function useProvinces() {
   return useQuery({
     queryKey: ['provinces'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('kuruluslar')
-        .select('il_adi')
-        .not('il_adi', 'is', null)
+      try {
+        // Önce Supabase'den gerçek veriyi al
+        const result = await queryWithRetry(async () => {
+          return await supabase
+            .from('kuruluslar')
+            .select('il_adi, ilce_adi')
+            .not('il_adi', 'is', null)
+        })
 
-      if (error) {
-        throw new Error(`İl listesi alınamadı: ${error.message}`)
+        const { data, error } = result
+
+        if (!error && data && data.length > 0) {
+          // Supabase verisi varsa kullan
+          const provinceMap = new Map()
+          
+          data.forEach(item => {
+            if (!item.il_adi) return
+            
+            if (!provinceMap.has(item.il_adi)) {
+              provinceMap.set(item.il_adi, {
+                il_adi: item.il_adi,
+                ilceler: []
+              })
+            }
+            
+            const province = provinceMap.get(item.il_adi)
+            if (item.ilce_adi && !province.ilceler.includes(item.ilce_adi)) {
+              province.ilceler.push(item.ilce_adi)
+            }
+          })
+
+          const supabaseProvinces = Array.from(provinceMap.values())
+            .map(province => ({
+              ...province,
+              ilceler: province.ilceler.sort((a, b) => a.localeCompare(b, 'tr'))
+            }))
+            .sort((a, b) => a.il_adi.localeCompare(b.il_adi, 'tr'))
+
+          // Eğer 50'den fazla il varsa Supabase verisini kullan
+          if (supabaseProvinces.length > 50) {
+            return supabaseProvinces
+          }
+        }
+      } catch (error) {
+        console.warn('Supabase il verisi alınamadı, static veri kullanılıyor:', error)
       }
 
-      // Unique iller ve sayıları
-      const provinces = data
-        .map(item => item.il_adi)
-        .filter(Boolean)
-        .reduce((acc, il) => {
-          acc[il] = (acc[il] || 0) + 1
-          return acc
-        }, {})
-
-      return Object.entries(provinces)
-        .map(([name, count]) => ({ name, count }))
-        .sort((a, b) => a.name.localeCompare(b.name, 'tr'))
+      // Fallback: Static veri (81 il garantili)
+      return TURKIYE_ILLER.sort((a, b) => a.il_adi.localeCompare(b.il_adi, 'tr'))
     },
-    staleTime: 15 * 60 * 1000, // 15 dakika
+    staleTime: 30 * 60 * 1000, // 30 dakika - static veri uzun süre cache'lenir
+    retry: 1 // Hızlı fallback için az retry
   })
 }
 

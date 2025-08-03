@@ -10,7 +10,47 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     persistSession: false, // No authentication needed for this app
   },
+  db: {
+    schema: 'public'
+  },
+  global: {
+    headers: {
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation'
+    }
+  },
+  realtime: {
+    params: {
+      eventsPerSecond: 10
+    }
+  }
 })
+
+// Enhanced query function with retry mechanism
+export async function queryWithRetry(queryFn, maxRetries = 3, delay = 1000) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const result = await queryFn()
+      
+      if (result.error) {
+        if (attempt === maxRetries) {
+          throw new Error(`Supabase query failed after ${maxRetries} attempts: ${result.error.message}`)
+        }
+        console.warn(`Query attempt ${attempt} failed:`, result.error.message)
+        await new Promise(resolve => setTimeout(resolve, delay * attempt))
+        continue
+      }
+      
+      return result
+    } catch (err) {
+      if (attempt === maxRetries) {
+        throw err
+      }
+      console.warn(`Query attempt ${attempt} failed:`, err.message)
+      await new Promise(resolve => setTimeout(resolve, delay * attempt))
+    }
+  }
+}
 
 // Test mode fallback data
 const TEST_FACILITIES = [

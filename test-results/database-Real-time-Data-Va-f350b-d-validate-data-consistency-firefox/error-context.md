@@ -1,0 +1,58 @@
+# Page snapshot
+
+```yaml
+- banner "PharmaSphere":
+  - link "PharmaSphere":
+    - /url: /
+  - button "Search"
+  - button "Notifications"
+  - button "User Avatar"
+- navigation "Side navigation":
+  - list:
+    - listitem:
+      - link "Dashboard":
+        - /url: /
+    - listitem:
+      - link "Products":
+        - /url: /products
+    - listitem:
+      - link "Market Analysis":
+        - /url: /market-analysis
+    - listitem:
+      - link "Regulatory":
+        - /url: /regulatory
+- main:
+  - heading "PharmaSphere Intelligence Platform" [level=1]
+  - paragraph: Dağınık Veriden Stratejik Değer Yaratma Merkezi • Global İlaç Zekası v1.0
+  - text: Database Connection Error - Using Sample Data
+  - heading "Live Dashboard Metrics" [level=2]
+  - heading "Total Market Value" [level=3]
+  - paragraph: $1.8T
+  - paragraph: Live Metric
+  - text: "Growth: +10%"
+  - heading "Active Products" [level=3]
+  - paragraph: 287K
+  - paragraph: Live Metric
+  - text: "Growth: +13%"
+  - heading "Regulatory Updates" [level=3]
+  - paragraph: 1,250
+  - paragraph: Live Metric
+  - text: "Growth: +18%"
+  - heading "Market Growth" [level=3]
+  - paragraph: 8.5%
+  - paragraph: Live Metric
+  - text: "Growth: +18%"
+  - heading "Live Regulatory Updates" [level=3]
+  - paragraph: Regulatory updates will appear here when connected to database
+  - heading "Product Portfolio" [level=3]
+  - paragraph: Product data will appear here when connected to database
+  - heading "System Health & Performance" [level=3]
+  - paragraph: 0%
+  - paragraph: Database
+  - paragraph: 98%
+  - paragraph: API Response
+  - paragraph: 95%
+  - paragraph: Data Sync
+  - paragraph: 24/7
+  - paragraph: Uptime
+```

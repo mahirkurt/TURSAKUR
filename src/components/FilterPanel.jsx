@@ -20,9 +20,9 @@ export function FilterPanel({
 
   // İlçeleri seçili ile göre filtrele
   const districts = useMemo(() => {
-    if (!selectedProvince || !provinces.length) return [];
-    const province = provinces.find(p => p.il_adi === selectedProvince);
-    return province?.ilceler || [];
+    if (!selectedProvince || !Array.isArray(provinces) || !provinces.length) return [];
+    const province = provinces.find(p => p && p.il_adi === selectedProvince);
+    return Array.isArray(province?.ilceler) ? province.ilceler : [];
   }, [selectedProvince, provinces]);
 
   const handleProvinceChange = (e) => {
@@ -68,16 +68,16 @@ export function FilterPanel({
               disabled={isLoading}
             >
               <option value="">Tüm İller</option>
-              {provinces.map(province => (
-                <option key={province.il_adi} value={province.il_adi}>
-                  {province.il_adi}
+              {Array.isArray(provinces) && provinces.map(province => (
+                <option key={province?.il_adi || Math.random()} value={province?.il_adi || ''}>
+                  {province?.il_adi || 'Bilinmeyen İl'}
                 </option>
               ))}
             </select>
           </div>
 
           {/* İlçe Filtresi */}
-          {selectedProvince && districts.length > 0 && (
+          {selectedProvince && Array.isArray(districts) && districts.length > 0 && (
             <div className="filter-group">
               <label htmlFor="district-select" className="label-medium">İlçe</label>
               <select 
@@ -89,8 +89,8 @@ export function FilterPanel({
               >
                 <option value="">Tüm İlçeler</option>
                 {districts.map(district => (
-                  <option key={district} value={district}>
-                    {district}
+                  <option key={district || Math.random()} value={district || ''}>
+                    {district || 'Bilinmeyen İlçe'}
                   </option>
                 ))}
               </select>
@@ -99,7 +99,7 @@ export function FilterPanel({
 
           {/* Kurum Tipi Filtresi */}
           <div className="filter-group">
-            <label className="label-medium">Kurum Tipi</label>
+            <span className="label-medium">Kurum Tipi</span>
             <div className="filter-checkboxes">
               {types.map(type => (
                 <label key={type.value} className="checkbox-label">

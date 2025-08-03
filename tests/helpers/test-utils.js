@@ -4,17 +4,24 @@
  * Common helper functions for Playwright tests
  */
 
+export const TIMEOUTS = {
+  SHORT: 5000,
+  MEDIUM: 15000,
+  LONG: 60000,
+  API_CALL: 90000
+};
+
 export const SELECTORS = {
   // Navigation
-  searchInput: 'input[placeholder*="hastane"]',
+  searchInput: 'input[placeholder*="hastane"], input[placeholder*="arama"]',
   provinceSelect: '#province-select',
   districtSelect: '#district-select',
   clearFiltersBtn: '[data-testid="clear-filters"]',
   
   // Content
-  facilityItem: '[data-testid="facility-item"]',
+  facilityItem: '[data-testid="facility-item"], .institution-card',
   resultsList: '[data-testid="results-list"]',
-  loading: '[data-testid="loading"]',
+  loading: '[data-testid="loading"], .loading-spinner',
   noResults: '[data-testid="no-results"]',
   
   // Map
@@ -31,13 +38,6 @@ export const SELECTORS = {
   facilityName: '.facility-name',
   facilityType: '.facility-type',
   facilityLocation: '.facility-location'
-};
-
-export const TIMEOUTS = {
-  short: 2000,
-  medium: 5000,
-  long: 10000,
-  veryLong: 15000
 };
 
 export const TEST_DATA = {

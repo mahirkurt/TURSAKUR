@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import TopAppBar from '../components/TopAppBar'
 import MapView from '../components/MapView'
+import RobustMapView from '../components/RobustMapView'
+import MapErrorBoundary from '../components/MapErrorBoundary'
 import SearchBar from '../components/SearchBar'
 import LoadingSpinner from '../components/LoadingSpinner'
 import ErrorMessage from '../components/ErrorMessage'
@@ -54,12 +56,14 @@ function MapPage() {
               className="map-error"
             />
           ) : (
-            <MapView
-              institutions={institutions}
-              loading={isLoading}
-              onBoundsChange={handleBoundsChange}
-              className="main-map"
-            />
+            <MapErrorBoundary>
+              <RobustMapView
+                institutions={institutions}
+                loading={isLoading}
+                onBoundsChange={handleBoundsChange}
+                className="main-map"
+              />
+            </MapErrorBoundary>
           )}
         </div>
 
