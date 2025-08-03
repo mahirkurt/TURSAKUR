@@ -57,6 +57,10 @@ def create_supabase_client():
         url = os.getenv("SUPABASE_URL")
         key = os.getenv("SUPABASE_ANON_KEY")
         
+        if not url or not key:
+            print("❌ SUPABASE_URL veya SUPABASE_ANON_KEY environment variable'ları bulunamadı")
+            return None
+            
         client: Client = create_client(url, key)
         return client
     except Exception as e:
@@ -223,10 +227,14 @@ GRANT EXECUTE ON FUNCTION public.search_within_radius TO authenticated;
         url = os.getenv("SUPABASE_URL")
         service_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
         
+        if not url or not service_key:
+            print("❌ SUPABASE_URL veya SUPABASE_SERVICE_ROLE_KEY environment variable'ları bulunamadı")
+            return False
+            
         client = create_client(url, service_key)
         
         # Execute schema SQL
-        response = client.rpc('exec_sql', {'sql': schema_sql}).execute()
+        client.rpc('exec_sql', {'sql': schema_sql}).execute()
         print("✅ Schema başarıyla deploy edildi")
         return True
         
@@ -322,8 +330,8 @@ def test_queries():
     
     try:
         # Test 1: Tüm kayıtları say
-        response = client.table('kuruluslar').select("kurum_id", count="exact").execute()
-        total_count = response.count
+        response = client.table('kuruluslar').select("kurum_id").execute()
+        total_count = len(response.data) if response.data else 0
         print(f"✅ Toplam kayıt sayısı: {total_count}")
         
         # Test 2: İl bazında dağılım

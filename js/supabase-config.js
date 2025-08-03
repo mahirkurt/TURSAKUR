@@ -1,3 +1,4 @@
+/* eslint-env browser, node */
 /**
  * TURSAKUR 2.0 - Supabase Configuration
  * =====================================
@@ -66,6 +67,7 @@ class SupabaseConfig {
     }
     
     // Test data for development
+    // eslint-disable-next-line no-unused-vars
     getMockData(table, columns) {
         if (table === 'health_facilities') {
             return Promise.resolve({
@@ -238,6 +240,8 @@ class SupabaseConfig {
 window.tursakurSupabase = new SupabaseConfig();
 
 // Export for module systems
+/* eslint-disable no-undef */
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = SupabaseConfig;
 }
+/* eslint-enable no-undef */

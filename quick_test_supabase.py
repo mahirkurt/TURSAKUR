@@ -52,6 +52,11 @@ def test_table_structure():
         
         url = os.getenv("SUPABASE_URL")
         key = os.getenv("SUPABASE_ANON_KEY")
+        
+        if not url or not key:
+            print("❌ SUPABASE_URL veya SUPABASE_ANON_KEY environment variable'ları bulunamadı")
+            return False
+            
         supabase: Client = create_client(url, key)
         
         # Test select query
@@ -80,6 +85,11 @@ def test_sample_insert():
         
         url = os.getenv("SUPABASE_URL")
         key = os.getenv("SUPABASE_ANON_KEY")
+        
+        if not url or not key:
+            print("❌ Environment variables bulunamadı")
+            return False
+            
         supabase: Client = create_client(url, key)
         
         # Test data
@@ -118,6 +128,11 @@ def test_geographic_query():
         
         url = os.getenv("SUPABASE_URL")
         key = os.getenv("SUPABASE_ANON_KEY")
+        
+        if not url or not key:
+            print("❌ Environment variables bulunamadı")
+            return False
+            
         supabase: Client = create_client(url, key)
         
         # Test geographic function (if available)

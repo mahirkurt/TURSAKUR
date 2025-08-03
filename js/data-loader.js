@@ -1,3 +1,4 @@
+/* eslint-env browser, node */
 /**
  * TURSAKUR 2.0 - Data Loader
  * ===========================
@@ -368,6 +369,8 @@ if (document.readyState === 'loading') {
 }
 
 // Export for module systems
+/* eslint-disable no-undef */
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = TursakurDataLoader;
 }
+/* eslint-enable no-undef */

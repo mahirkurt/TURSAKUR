@@ -238,7 +238,7 @@ export const healthFacilitiesAPI = {
       
       return [...new Set(data.map(item => item.il_adi))].sort()
       
-    } catch (error) {
+    } catch {
       return [...new Set(TEST_FACILITIES.map(f => f.province))].sort()
     }
   },
@@ -257,7 +257,7 @@ export const healthFacilitiesAPI = {
       
       return [...new Set(data.map(item => item.kurum_tipi))].sort()
       
-    } catch (error) {
+    } catch {
       return [...new Set(TEST_FACILITIES.map(f => f.facility_type))].sort()
     }
   },
