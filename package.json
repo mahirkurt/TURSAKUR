@@ -2,7 +2,7 @@
   "name": "tursakur-static",
   "version": "2.0.2",
   "private": true,
-  "description": "TURSAKUR - Türkiye Sağlık Kuruluşları Rehberi (Static HTML/CSS/JS Version)",
+  "description": "TURSAKUR - Türkiye Sağlık Kuruluşları Rehberi (Static HTML/CSS/JS Version) - Auto Deploy Test",
   "scripts": {
     "build": "echo 'Static files are already built. No build step required.' && exit 0",
     "start": "echo 'This is a static site. Use a web server to serve the files.' && exit 0",
