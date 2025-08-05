@@ -2,22 +2,16 @@
   "version": 2,
   "framework": null,
   "public": true,
-  "routes": [
+  "rewrites": [
     {
-      "src": "/favicon.ico",
-      "dest": "/favicon.svg"
-    },
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "redirects": [
     {
-      "src": "/sitemap.xml",
-      "dest": "/sitemap.xml"
-    },
-    {
-      "src": "/robots.txt",
-      "dest": "/robots.txt"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/favicon.ico",
+      "destination": "/favicon.svg"
     }
   ],
   "headers": [
