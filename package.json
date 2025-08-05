@@ -1,0 +1,18 @@
+{
+  "name": "tursakur-static",
+  "version": "2.0.1",
+  "private": true,
+  "description": "TURSAKUR - Türkiye Sağlık Kuruluşları Rehberi (Static HTML/CSS/JS Version)",
+  "scripts": {
+    "build": "echo 'Static files are already built. No build step required.' && exit 0",
+    "start": "echo 'This is a static site. Use a web server to serve the files.' && exit 0"
+  },
+  "keywords": [
+    "healthcare",
+    "turkey",
+    "hospitals",
+    "static-site"
+  ],
+  "author": "TURSAKUR Team",
+  "license": "MIT"
+}
