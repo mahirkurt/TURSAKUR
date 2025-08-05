@@ -1,0 +1,39 @@
+{
+  "name": "TURSAKUR - Türkiye Sağlık Kurumları",
+  "short_name": "TURSAKUR",
+  "description": "Türkiye'deki tüm sağlık kuruluşlarını harita üzerinde görüntüleyin",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/logos/tursakur-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/logos/tursakur-512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "medical", "navigation"],
+  "shortcuts": [
+    {
+      "name": "Harita Görünümü",
+      "short_name": "Harita",
+      "description": "Sağlık kuruluşlarını harita üzerinde görüntüle",
+      "url": "/map.html",
+      "icons": [
+        {
+          "src": "/assets/logos/map-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

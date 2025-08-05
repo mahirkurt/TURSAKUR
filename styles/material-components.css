@@ -1,0 +1,890 @@
+/* ===============================================
+   TURSAKUR 2.0 - Material Design 3 Theme
+   =============================================== */
+
+/* Material Design 3 Theme Variables */
+:root {
+    /* Primary Color Palette */
+    --md-sys-color-primary: #BB0012;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #FFDAD6;
+    --md-sys-color-on-primary-container: #410002;
+    
+    /* Secondary Color Palette */
+    --md-sys-color-secondary: #00696D;
+    --md-sys-color-on-secondary: #FFFFFF;
+    --md-sys-color-secondary-container: #6FF6FF;
+    --md-sys-color-on-secondary-container: #001F21;
+    
+    /* Tertiary Color Palette */
+    --md-sys-color-tertiary: #775700;
+    --md-sys-color-on-tertiary: #FFFFFF;
+    --md-sys-color-tertiary-container: #FFDF9B;
+    --md-sys-color-on-tertiary-container: #241A00;
+    
+    /* Surface Colors */
+    --md-sys-color-surface: #FFFBFF;
+    --md-sys-color-surface-dim: #DDD8DD;
+    --md-sys-color-surface-bright: #FFFBFF;
+    --md-sys-color-surface-container-lowest: #FFFFFF;
+    --md-sys-color-surface-container-low: #F7F2F7;
+    --md-sys-color-surface-container: #F1ECF1;
+    --md-sys-color-surface-container-high: #ECE6EB;
+    --md-sys-color-surface-container-highest: #E6E0E5;
+    --md-sys-color-on-surface: #1C1B1F;
+    --md-sys-color-on-surface-variant: #49454F;
+    
+    /* Outline Colors */
+    --md-sys-color-outline: #79747E;
+    --md-sys-color-outline-variant: #CAC4D0;
+    
+    /* State Layer Opacities */
+    --md-sys-state-hover-opacity: 0.08;
+    --md-sys-state-focus-opacity: 0.12;
+    --md-sys-state-pressed-opacity: 0.12;
+    --md-sys-state-dragged-opacity: 0.16;
+    
+    /* Typography Scale */
+    --md-sys-typescale-display-large-font: 'Figtree', sans-serif;
+    --md-sys-typescale-display-large-size: 57px;
+    --md-sys-typescale-display-large-weight: 400;
+    
+    --md-sys-typescale-headline-large-font: 'Figtree', sans-serif;
+    --md-sys-typescale-headline-large-size: 32px;
+    --md-sys-typescale-headline-large-weight: 400;
+    
+    --md-sys-typescale-headline-medium-font: 'Figtree', sans-serif;
+    --md-sys-typescale-headline-medium-size: 28px;
+    --md-sys-typescale-headline-medium-weight: 400;
+    
+    --md-sys-typescale-title-large-font: 'Figtree', sans-serif;
+    --md-sys-typescale-title-large-size: 22px;
+    --md-sys-typescale-title-large-weight: 400;
+    
+    --md-sys-typescale-title-medium-font: 'Figtree', sans-serif;
+    --md-sys-typescale-title-medium-size: 16px;
+    --md-sys-typescale-title-medium-weight: 500;
+    
+    --md-sys-typescale-body-large-font: 'Figtree', sans-serif;
+    --md-sys-typescale-body-large-size: 16px;
+    --md-sys-typescale-body-large-weight: 400;
+    
+    --md-sys-typescale-body-medium-font: 'Figtree', sans-serif;
+    --md-sys-typescale-body-medium-size: 14px;
+    --md-sys-typescale-body-medium-weight: 400;
+    
+    --md-sys-typescale-label-large-font: 'Figtree', sans-serif;
+    --md-sys-typescale-label-large-size: 14px;
+    --md-sys-typescale-label-large-weight: 500;
+    
+    /* Shape Tokens */
+    --md-sys-shape-corner-none: 0px;
+    --md-sys-shape-corner-extra-small: 4px;
+    --md-sys-shape-corner-small: 8px;
+    --md-sys-shape-corner-medium: 12px;
+    --md-sys-shape-corner-large: 16px;
+    --md-sys-shape-corner-extra-large: 28px;
+    --md-sys-shape-corner-full: 1000px;
+    
+    /* Motion Tokens */
+    --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+    --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+    --md-sys-motion-easing-linear: cubic-bezier(0, 0, 1, 1);
+    --md-sys-motion-duration-short1: 50ms;
+    --md-sys-motion-duration-short2: 100ms;
+    --md-sys-motion-duration-short3: 150ms;
+    --md-sys-motion-duration-short4: 200ms;
+    --md-sys-motion-duration-medium1: 250ms;
+    --md-sys-motion-duration-medium2: 300ms;
+    --md-sys-motion-duration-medium3: 350ms;
+    --md-sys-motion-duration-medium4: 400ms;
+    --md-sys-motion-duration-long1: 450ms;
+    --md-sys-motion-duration-long2: 500ms;
+    --md-sys-motion-duration-long3: 550ms;
+    --md-sys-motion-duration-long4: 600ms;
+}
+
+/* Dark Theme */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --md-sys-color-primary: #FFB3BA;
+        --md-sys-color-on-primary: #690005;
+        --md-sys-color-primary-container: #93000A;
+        --md-sys-color-on-primary-container: #FFDAD6;
+        
+        --md-sys-color-secondary: #4DD8E0;
+        --md-sys-color-on-secondary: #003739;
+        --md-sys-color-secondary-container: #004F54;
+        --md-sys-color-on-secondary-container: #6FF6FF;
+        
+        --md-sys-color-tertiary: #E2C571;
+        --md-sys-color-on-tertiary: #3C2F00;
+        --md-sys-color-tertiary-container: #584200;
+        --md-sys-color-on-tertiary-container: #FFDF9B;
+        
+        --md-sys-color-surface: #100E13;
+        --md-sys-color-surface-dim: #10081B;
+        --md-sys-color-surface-bright: #362F39;
+        --md-sys-color-surface-container-lowest: #0B080E;
+        --md-sys-color-surface-container-low: #1C1B1F;
+        --md-sys-color-surface-container: #201F23;
+        --md-sys-color-surface-container-high: #2B292D;
+        --md-sys-color-surface-container-highest: #363438;
+        --md-sys-color-on-surface: #E6E0E5;
+        --md-sys-color-on-surface-variant: #CAC4D0;
+        
+        --md-sys-color-outline: #938F99;
+        --md-sys-color-outline-variant: #49454F;
+    }
+}
+
+/* ===============================================
+   KURUM KARTLARI - Material Design 3
+   =============================================== */
+
+.kurumlar-container {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.kurum-card {
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: var(--md-sys-shape-corner-medium);
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 
+        box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+        transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+    box-shadow: 
+        0px 1px 2px rgba(0, 0, 0, 0.3),
+        0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.kurum-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--md-sys-color-on-surface);
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+}
+
+.kurum-card:hover::before {
+    opacity: var(--md-sys-state-hover-opacity);
+}
+
+.kurum-card:focus-visible::before {
+    opacity: var(--md-sys-state-focus-opacity);
+}
+
+.kurum-card:active::before {
+    opacity: var(--md-sys-state-pressed-opacity);
+}
+
+.kurum-card:hover {
+    box-shadow: 
+        0px 2px 6px 2px rgba(0, 0, 0, 0.15),
+        0px 1px 2px rgba(0, 0, 0, 0.3);
+    transform: translateY(-1px);
+}
+
+.kurum-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.kurum-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    border-radius: var(--md-sys-shape-corner-medium);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.kurum-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.kurum-title {
+    font-family: var(--md-sys-typescale-title-large-font);
+    font-size: var(--md-sys-typescale-title-large-size);
+    font-weight: var(--md-sys-typescale-title-large-weight);
+    color: var(--md-sys-color-on-surface);
+    margin: 0 0 4px 0;
+    line-height: 1.3;
+}
+
+.kurum-type {
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    color: var(--md-sys-color-on-surface-variant);
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    padding: 4px 8px;
+    border-radius: var(--md-sys-shape-corner-small);
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.kurum-location {
+    font-family: var(--md-sys-typescale-body-medium-font);
+    font-size: var(--md-sys-typescale-body-medium-size);
+    color: var(--md-sys-color-on-surface-variant);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+
+.kurum-details {
+    margin-bottom: 16px;
+}
+
+.kurum-detail-item {
+    font-family: var(--md-sys-typescale-body-medium-font);
+    font-size: var(--md-sys-typescale-body-medium-size);
+    color: var(--md-sys-color-on-surface);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.kurum-detail-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.kurum-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.kurum-action-btn {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    border: none;
+    border-radius: var(--md-sys-shape-corner-full);
+    padding: 8px 16px;
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: 
+        box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.kurum-action-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--md-sys-color-on-primary);
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+}
+
+.kurum-action-btn:hover::before {
+    opacity: var(--md-sys-state-hover-opacity);
+}
+
+.kurum-action-btn:focus-visible::before {
+    opacity: var(--md-sys-state-focus-opacity);
+}
+
+.kurum-action-btn:active::before {
+    opacity: var(--md-sys-state-pressed-opacity);
+}
+
+.kurum-action-btn--secondary {
+    background-color: var(--md-sys-color-secondary);
+    color: var(--md-sys-color-on-secondary);
+}
+
+.kurum-action-btn--secondary::before {
+    background-color: var(--md-sys-color-on-secondary);
+}
+
+.kurum-action-btn--outline {
+    background-color: transparent;
+    color: var(--md-sys-color-primary);
+    border: 1px solid var(--md-sys-color-outline);
+}
+
+.kurum-action-btn--outline::before {
+    background-color: var(--md-sys-color-primary);
+}
+
+/* ===============================================
+   ARAMA-FİLTRELEME MENÜSÜ - Material Design 3
+   =============================================== */
+
+.search-filter-container {
+    background-color: var(--md-sys-color-surface-container-low);
+    border-radius: var(--md-sys-shape-corner-large);
+    padding: 24px;
+    margin-bottom: 24px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.search-title {
+    font-family: var(--md-sys-typescale-headline-medium-font);
+    font-size: var(--md-sys-typescale-headline-medium-size);
+    font-weight: var(--md-sys-typescale-headline-medium-weight);
+    color: var(--md-sys-color-on-surface);
+    margin: 0 0 8px 0;
+}
+
+.search-subtitle {
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    color: var(--md-sys-color-on-surface-variant);
+    margin: 0;
+}
+
+.search-input-container {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.search-input {
+    width: 100%;
+    background-color: var(--md-sys-color-surface-container-highest);
+    border: 1px solid var(--md-sys-color-outline);
+    border-radius: var(--md-sys-shape-corner-extra-large);
+    padding: 16px 56px 16px 16px;
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    color: var(--md-sys-color-on-surface);
+    outline: none;
+    transition: 
+        border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+        box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+    box-sizing: border-box;
+}
+
+.search-input::placeholder {
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.search-input:focus {
+    border-color: var(--md-sys-color-primary);
+    box-shadow: 0 0 0 2px rgba(187, 0, 18, 0.12);
+}
+
+.search-input:hover {
+    border-color: var(--md-sys-color-on-surface);
+}
+
+.search-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--md-sys-color-primary);
+    border: none;
+    border-radius: var(--md-sys-shape-corner-full);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--md-sys-color-on-primary);
+    position: relative;
+    overflow: hidden;
+    transition: 
+        box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.search-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--md-sys-color-on-primary);
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+}
+
+.search-button:hover::before {
+    opacity: var(--md-sys-state-hover-opacity);
+}
+
+.search-button:focus-visible::before {
+    opacity: var(--md-sys-state-focus-opacity);
+}
+
+.search-button:active::before {
+    opacity: var(--md-sys-state-pressed-opacity);
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-label {
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    color: var(--md-sys-color-on-surface);
+}
+
+.filter-select {
+    background-color: var(--md-sys-color-surface-container-highest);
+    border: 1px solid var(--md-sys-color-outline);
+    border-radius: var(--md-sys-shape-corner-small);
+    padding: 16px;
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    color: var(--md-sys-color-on-surface);
+    outline: none;
+    cursor: pointer;
+    transition: 
+        border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+        box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.filter-select:focus {
+    border-color: var(--md-sys-color-primary);
+    box-shadow: 0 0 0 2px rgba(187, 0, 18, 0.12);
+}
+
+.filter-select:hover {
+    border-color: var(--md-sys-color-on-surface);
+}
+
+.quick-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.quick-filter-chip {
+    background-color: var(--md-sys-color-surface-container-high);
+    border: 1px solid var(--md-sys-color-outline);
+    color: var(--md-sys-color-on-surface);
+    border-radius: var(--md-sys-shape-corner-small);
+    padding: 8px 16px;
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: 
+        background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+        border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.quick-filter-chip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--md-sys-color-on-surface);
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+}
+
+.quick-filter-chip:hover::before {
+    opacity: var(--md-sys-state-hover-opacity);
+}
+
+.quick-filter-chip:focus-visible::before {
+    opacity: var(--md-sys-state-focus-opacity);
+}
+
+.quick-filter-chip:active::before {
+    opacity: var(--md-sys-state-pressed-opacity);
+}
+
+.quick-filter-chip--selected {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    border-color: var(--md-sys-color-secondary);
+}
+
+.quick-filter-chip--selected::before {
+    background-color: var(--md-sys-color-on-secondary-container);
+}
+
+/* ===============================================
+   KURUM DETAY SAYFASI - Material Design 3
+   =============================================== */
+
+.kurum-detay-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+.kurum-detay-header {
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: var(--md-sys-shape-corner-large);
+    padding: 32px;
+    margin-bottom: 24px;
+    grid-column: 1 / -1;
+}
+
+.kurum-detay-header-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.kurum-detay-icon {
+    width: 72px;
+    height: 72px;
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    border-radius: var(--md-sys-shape-corner-large);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    flex-shrink: 0;
+}
+
+.kurum-detay-info {
+    flex: 1;
+}
+
+.kurum-detay-title {
+    font-family: var(--md-sys-typescale-headline-large-font);
+    font-size: var(--md-sys-typescale-headline-large-size);
+    font-weight: var(--md-sys-typescale-headline-large-weight);
+    color: var(--md-sys-color-on-surface);
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+}
+
+.kurum-detay-type {
+    font-family: var(--md-sys-typescale-title-medium-font);
+    font-size: var(--md-sys-typescale-title-medium-size);
+    font-weight: var(--md-sys-typescale-title-medium-weight);
+    color: var(--md-sys-color-on-surface-variant);
+    background-color: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
+    padding: 8px 16px;
+    border-radius: var(--md-sys-shape-corner-medium);
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.kurum-detay-location {
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    color: var(--md-sys-color-on-surface-variant);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.kurum-detay-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.kurum-detay-card {
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: var(--md-sys-shape-corner-large);
+    padding: 24px;
+    margin-bottom: 16px;
+}
+
+.kurum-detay-card-title {
+    font-family: var(--md-sys-typescale-title-large-font);
+    font-size: var(--md-sys-typescale-title-large-size);
+    font-weight: var(--md-sys-typescale-title-large-weight);
+    color: var(--md-sys-color-on-surface);
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.kurum-detay-card-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--md-sys-color-primary);
+}
+
+.kurum-iletisim-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.kurum-iletisim-item:last-child {
+    border-bottom: none;
+}
+
+.kurum-iletisim-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--md-sys-color-on-surface-variant);
+    flex-shrink: 0;
+}
+
+.kurum-iletisim-content {
+    flex: 1;
+}
+
+.kurum-iletisim-label {
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: 12px;
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    color: var(--md-sys-color-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.kurum-iletisim-value {
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    color: var(--md-sys-color-on-surface);
+}
+
+/* ===============================================
+   KURUM DETAY SAYFASI EK STİLLER
+   =============================================== */
+
+.kurum-detay-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.kurum-detay-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.kurum-hizmetler {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.hizmet-chip {
+    background-color: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
+    padding: 6px 12px;
+    border-radius: var(--md-sys-shape-corner-small);
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+}
+
+.kurum-harita-container {
+    margin-top: 16px;
+}
+
+.calisma-saatleri {
+    margin-top: 16px;
+}
+
+.saat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-family: var(--md-sys-typescale-body-medium-font);
+    font-size: var(--md-sys-typescale-body-medium-size);
+    color: var(--md-sys-color-on-surface);
+}
+
+.durum-aktif {
+    color: var(--md-sys-color-primary);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+}
+
+/* Mobile için kurum detay düzeni */
+@media (max-width: 599px) {
+    .kurum-hizmetler {
+        justify-content: center;
+    }
+    
+    .hizmet-chip {
+        text-align: center;
+        min-width: 80px;
+    }
+}
+
+/* ===============================================
+   RESPONSIVE DESIGN
+   =============================================== */
+
+/* Tablet (600dp - 1239dp) */
+@media (max-width: 1239px) and (min-width: 600px) {
+    .kurumlar-container {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        padding: 16px;
+    }
+    
+    .kurum-detay-container {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+    
+    .search-filter-container {
+        padding: 16px;
+    }
+    
+    .filters-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+}
+
+/* Phone (< 600dp) */
+@media (max-width: 599px) {
+    .kurumlar-container {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 12px;
+    }
+    
+    .kurum-card {
+        padding: 16px;
+    }
+    
+    .kurum-detay-container {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+    
+    .kurum-detay-header {
+        padding: 20px;
+    }
+    
+    .kurum-detay-header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+    
+    .kurum-detay-actions {
+        align-items: stretch;
+    }
+    
+    .search-filter-container {
+        padding: 16px;
+        margin: 0 8px 16px;
+    }
+    
+    .filters-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .quick-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .kurum-actions {
+        flex-direction: column;
+    }
+}
+
+/* ===============================================
+   ACCESSIBILITY ENHANCEMENTS
+   =============================================== */
+
+/* Focus indicators */
+.kurum-card:focus-visible,
+.kurum-action-btn:focus-visible,
+.search-input:focus-visible,
+.filter-select:focus-visible,
+.quick-filter-chip:focus-visible,
+.search-button:focus-visible {
+    outline: 2px solid var(--md-sys-color-primary);
+    outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .kurum-card,
+    .search-filter-container,
+    .kurum-detay-card {
+        border: 2px solid var(--md-sys-color-outline);
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .kurum-card,
+    .kurum-action-btn,
+    .search-input,
+    .filter-select,
+    .quick-filter-chip,
+    .search-button {
+        transition: none;
+    }
+    
+    .kurum-card::before,
+    .kurum-action-btn::before,
+    .quick-filter-chip::before,
+    .search-button::before {
+        transition: none;
+    }
+}

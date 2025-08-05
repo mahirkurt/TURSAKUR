@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TURSAKUR - Türkiye Sağlık Kuruluşları Haritası</title>
+    <meta name="description" content="Türkiye'deki tüm sağlık kuruluşlarını keşfedin. Hastane, klinik ve sağlık merkezlerini kolayca bulun.">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/style.css">
+    
+    <!-- Meta tags -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="TURSAKUR - Türkiye Sağlık Kuruluşları">
+    <meta property="og:description" content="Türkiye'deki tüm sağlık kuruluşlarını keşfedin">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tursakur.netlify.app">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <svg class="logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="45" fill="#2563eb"/>
+                            <path d="M30 50h40M50 30v40" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                        </svg>
+                        <h1>TURSAKUR</h1>
+                    </div>
+                    
+                    <nav class="nav">
+                        <a href="index.html" class="nav-link active">Ana Sayfa</a>
+                        <a href="map.html" class="nav-link">Harita</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="hero-title">
+                            Türkiye'nin En Kapsamlı<br>
+                            <span class="text-primary">Sağlık Kuruluşları</span> Haritası
+                        </h1>
+                        
+                        <p class="hero-description">
+                            Ülkemizdeki tüm hastane, klinik, eczane ve sağlık merkezlerini 
+                            kolayca bulun. Anlık konum bilgileri ve detaylı içerik ile.
+                        </p>
+                        
+                        <div class="hero-actions">
+                            <a href="map.html" class="btn btn-primary btn-large">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                Haritayı Keşfet
+                            </a>
+                            
+                            <a href="#statistics" class="btn btn-secondary btn-large">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 3v18h18"/>
+                                    <path d="m19 9-5 5-4-4-3 3"/>
+                                </svg>
+                                İstatistikler
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-image">
+                        <div class="hero-map-preview">
+                            <div class="map-dots">
+                                <div class="dot dot-istanbul"></div>
+                                <div class="dot dot-ankara"></div>
+                                <div class="dot dot-izmir"></div>
+                                <div class="dot dot-antalya"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Search Section -->
+            <section class="search-section">
+                <div class="container">
+                    <div class="search-container">
+                        <h2>Hızlı Arama</h2>
+                        <div class="search-bar">
+                            <div class="search-input-container">
+                                <input 
+                                    type="text" 
+                                    id="searchInput" 
+                                    placeholder="Hastane adı, şehir veya ilçe ara..."
+                                    class="search-input"
+                                >
+                                <button id="searchBtn" class="search-btn">
+                                    <svg class="search-icon" viewBox="0 0 24 24">
+                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statistics Section -->
+            <section id="statistics" class="statistics">
+                <div class="container">
+                    <h2 class="section-title">Rakamlarla TURSAKUR</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">🏥</div>
+                            <div class="stat-number" id="totalHospitals">3,555+</div>
+                            <div class="stat-label">Sağlık Kurumu</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">🌍</div>
+                            <div class="stat-number">81</div>
+                            <div class="stat-label">İl Kapsamı</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-number">900+</div>
+                            <div class="stat-label">İlçe Kapsamı</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">⚡</div>
+                            <div class="stat-number">7/24</div>
+                            <div class="stat-label">Güncel Veri</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">Özellikler</h2>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🗺️</div>
+                            <h3>İnteraktif Harita</h3>
+                            <p>Türkiye haritası üzerinde tüm sağlık kuruluşlarını görüntüleyin ve detaylarına erişin.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🔍</div>
+                            <h3>Gelişmiş Arama</h3>
+                            <p>İsim, konum ve kurum tipine göre filtreleme yapın. Aradığınızı hemen bulun.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">📱</div>
+                            <h3>Mobil Uyumlu</h3>
+                            <p>Tüm cihazlarda mükemmel çalışır. PWA desteği ile offline kullanım imkanı.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🚀</div>
+                            <h3>Hızlı & Güvenilir</h3>
+                            <p>Modern teknolojilerle geliştirilmiş, hızlı yüklenen ve güvenilir platform.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-info">
+                        <div class="logo">
+                            <svg class="logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="50" r="45" fill="#2563eb"/>
+                                <path d="M30 50h40M50 30v40" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                            </svg>
+                            <span>TURSAKUR</span>
+                        </div>
+                        <p>Türkiye'nin en kapsamlı sağlık kuruluşları haritası</p>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <div class="link-group">
+                            <h4>Platform</h4>
+                            <a href="map.html">Harita</a>
+                            <a href="#statistics">İstatistikler</a>
+                        </div>
+                        <div class="link-group">
+                            <h4>Destek</h4>
+                            <a href="#contact">İletişim</a>
+                            <a href="#about">Hakkında</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>&copy; 2025 TURSAKUR. Tüm hakları saklıdır.</p>
+                    <p>Veriler açık kaynaklardan derlenmiştir.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/ui-components.js"></script>
+    <script src="js/data-loader.js"></script>
+    
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
+</body>
+</html>

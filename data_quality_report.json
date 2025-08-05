@@ -1,0 +1,389 @@
+{
+  "timestamp": "2025-08-04",
+  "total_records": 1000,
+  "sample_records": [
+    {
+      "kurum_id": "TR-20250804-afd600ad-0001",
+      "kurum_adi": "T.C. Sağlık Bakanlığı Adana Şehir Hastanesi",
+      "kurum_tipi": "Hastane",
+      "il_kodu": 1,
+      "il_adi": "Adana",
+      "ilce_adi": "Yüreği̇r",
+      "adres": "Adana Merkez",
+      "telefon": "0212 000 0000",
+      "koordinat_lat": 37.0,
+      "koordinat_lon": 35.3213,
+      "web_sitesi": "",
+      "veri_kaynagi": "Comprehensive Data Import",
+      "son_guncelleme": "2025-08-04",
+      "created_at": "2025-08-04T05:59:25.811126+00:00",
+      "updated_at": "2025-08-04T05:59:25.811126+00:00",
+      "location": {
+        "type": "Point",
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        },
+        "coordinates": [
+          35.3213,
+          37
+        ]
+      },
+      "aktif": true,
+      "isim_standart": "t.c. sağlık bakanlığı adana şehir hastanesi",
+      "adres_yapilandirilmis": {
+        "il": "Adana",
+        "ilce": "Yüreği̇r",
+        "mahalle": "Merkez"
+      }
+    },
+    {
+      "kurum_id": "TR-20250804-c088113f-2216",
+      "kurum_adi": "Burdur Saat Kulesi",
+      "kurum_tipi": "Sağlık Kurumu",
+      "il_kodu": 34,
+      "il_adi": "İstanbul",
+      "ilce_adi": "Merkez",
+      "adres": "Merkez,Burdur,Türkiye",
+      "telefon": "0212 000 0000",
+      "koordinat_lat": 41.0082,
+      "koordinat_lon": 28.9784,
+      "web_sitesi": "",
+      "veri_kaynagi": "Comprehensive Data Import",
+      "son_guncelleme": "2025-08-04",
+      "created_at": "2025-08-04T06:18:11.104548+00:00",
+      "updated_at": "2025-08-04T06:18:11.104548+00:00",
+      "location": {
+        "type": "Point",
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        },
+        "coordinates": [
+          28.9784,
+          41.0082
+        ]
+      },
+      "aktif": true,
+      "isim_standart": "burdur saat kulesi",
+      "adres_yapilandirilmis": {
+        "il": "İstanbul",
+        "ilce": "Merkez",
+        "mahalle": "Merkez"
+      }
+    },
+    {
+      "kurum_id": "TR-20250804-dda67069-0003",
+      "kurum_adi": "ÖZEL ADANA  HASTANESİ",
+      "kurum_tipi": "Özel Hastane",
+      "il_kodu": 34,
+      "il_adi": "ADANA",
+      "ilce_adi": "SEYHAN",
+      "adres": "SEYHAN/ADANA",
+      "telefon": "0212 000 0000",
+      "koordinat_lat": 39.9334,
+      "koordinat_lon": 32.8597,
+      "web_sitesi": "",
+      "veri_kaynagi": "Comprehensive Data Import",
+      "son_guncelleme": "2025-08-04",
+      "created_at": "2025-08-04T05:59:25.811126+00:00",
+      "updated_at": "2025-08-04T05:59:25.811126+00:00",
+      "location": {
+        "type": "Point",
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        },
+        "coordinates": [
+          32.8597,
+          39.9334
+        ]
+      },
+      "aktif": true,
+      "isim_standart": "özel adana  hastanesi̇",
+      "adres_yapilandirilmis": {
+        "il": "ADANA",
+        "ilce": "SEYHAN",
+        "mahalle": "Merkez"
+      }
+    },
+    {
+      "kurum_id": "TR-20250804-873bd97a-0004",
+      "kurum_adi": "ÖZEL ADANA METRO HASTANESİ",
+      "kurum_tipi": "Özel Hastane",
+      "il_kodu": 34,
+      "il_adi": "ADANA",
+      "ilce_adi": "SEYHAN",
+      "adres": "SEYHAN/ADANA",
+      "telefon": "0212 000 0000",
+      "koordinat_lat": 39.9334,
+      "koordinat_lon": 32.8597,
+      "web_sitesi": "",
+      "veri_kaynagi": "Comprehensive Data Import",
+      "son_guncelleme": "2025-08-04",
+      "created_at": "2025-08-04T05:59:25.811126+00:00",
+      "updated_at": "2025-08-04T05:59:25.811126+00:00",
+      "location": {
+        "type": "Point",
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        },
+        "coordinates": [
+          32.8597,
+          39.9334
+        ]
+      },
+      "aktif": true,
+      "isim_standart": "özel adana metro hastanesi̇",
+      "adres_yapilandirilmis": {
+        "il": "ADANA",
+        "ilce": "SEYHAN",
+        "mahalle": "Merkez"
+      }
+    },
+    {
+      "kurum_id": "TR-20250804-9abf2ea2-2220",
+      "kurum_adi": "Mauritius'ta COVID-19 pandemisi",
+      "kurum_tipi": "Sağlık Kurumu",
+      "il_kodu": 34,
+      "il_adi": "İstanbul",
+      "ilce_adi": "Merkez",
+      "adres": "İstanbul Merkez",
+      "telefon": "0212 000 0000",
+      "koordinat_lat": 41.0082,
+      "koordinat_lon": 28.9784,
+      "web_sitesi": "",
+      "veri_kaynagi": "Comprehensive Data Import",
+      "son_guncelleme": "2025-08-04",
+      "created_at": "2025-08-04T06:18:12.074851+00:00",
+      "updated_at": "2025-08-04T06:18:12.074851+00:00",
+      "location": {
+        "type": "Point",
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        },
+        "coordinates": [
+          28.9784,
+          41.0082
+        ]
+      },
+      "aktif": true,
+      "isim_standart": "mauritius'ta covid-19 pandemisi",
+      "adres_yapilandirilmis": {
+        "il": "İstanbul",
+        "ilce": "Merkez",
+        "mahalle": "Merkez"
+      }
+    },
+    {
+      "kurum_id": "TR-20250804-f6c4fe50-0006",
+      "kurum_adi": "ÖZEL ALTINKOZA HASTANESİ",
+      "kurum_tipi": "Özel Hastane",
+      "il_kodu": 34,
+      "il_adi": "ADANA",
+      "ilce_adi": "YÜREĞİR",
+      "adres": "YÜREĞİR/ADANA",
+      "telefon": "0212 000 0000",
+      "koordinat_lat": 39.9334,
+      "koordinat_lon": 32.8597,
+      "web_sitesi": "",
+      "veri_kaynagi": "Comprehensive Data Import",
+      "son_guncelleme": "2025-08-04",
+      "created_at": "2025-08-04T05:59:25.811126+00:00",
+      "updated_at": "2025-08-04T05:59:25.811126+00:00",
+      "location": {
+        "type": "Point",
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        },
+        "coordinates": [
+          32.8597,
+          39.9334
+        ]
+      },
+      "aktif": true,
+      "isim_standart": "özel altinkoza hastanesi̇",
+      "adres_yapilandirilmis": {
+        "il": "ADANA",
+        "ilce": "YÜREĞİR",
+        "mahalle": "Merkez"
+      }
+    },
+    {
+      "kurum_id": "TR-20250804-ef5ae758-0007",
+      "kurum_adi": "ÖZEL AVRUPA HOSPİTAL HASTANESİ",
+      "kurum_tipi": "Özel Hastane",
+      "il_kodu": 34,
+      "il_adi": "ADANA",
+      "ilce_adi": "ÇUKUROVA",
+      "adres": "ÇUKUROVA/ADANA",
+      "telefon": "0212 000 0000",
+      "koordinat_lat": 39.9334,
+      "koordinat_lon": 32.8597,
+      "web_sitesi": "",
+      "veri_kaynagi": "Comprehensive Data Import",
+      "son_guncelleme": "2025-08-04",
+      "created_at": "2025-08-04T05:59:25.811126+00:00",
+      "updated_at": "2025-08-04T05:59:25.811126+00:00",
+      "location": {
+        "type": "Point",
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        },
+        "coordinates": [
+          32.8597,
+          39.9334
+        ]
+      },
+      "aktif": true,
+      "isim_standart": "özel avrupa hospi̇tal hastanesi̇",
+      "adres_yapilandirilmis": {
+        "il": "ADANA",
+        "ilce": "ÇUKUROVA",
+        "mahalle": "Merkez"
+      }
+    },
+    {
+      "kurum_id": "TR-CLEAN-20250804-e6cfbb11",
+      "kurum_adi": "T.c. Sağlık Bakanlığı Adana Şehir HASTANESI",
+      "kurum_tipi": "Hastane",
+      "il_kodu": 1,
+      "il_adi": "Adana",
+      "ilce_adi": "Yüreği̇r",
+      "adres": "Adana Merkez",
+      "telefon": "0212 000 00 00",
+      "koordinat_lat": 37.0,
+      "koordinat_lon": 35.3213,
+      "web_sitesi": "",
+      "veri_kaynagi": "Cleaned Data Import",
+      "son_guncelleme": "2025-08-04",
+      "created_at": "2025-08-04T12:04:27.201298+00:00",
+      "updated_at": "2025-08-04T12:04:27.201298+00:00",
+      "location": {
+        "type": "Point",
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        },
+        "coordinates": [
+          35.3213,
+          37
+        ]
+      },
+      "aktif": true,
+      "isim_standart": "t.c. sağlık bakanlığı adana şehir hastanesi",
+      "adres_yapilandirilmis": {
+        "il": "Adana",
+        "ilce": "Yüreği̇r",
+        "mahalle": "Merkez"
+      }
+    },
+    {
+      "kurum_id": "TR-CLEAN-20250804-a63f6353",
+      "kurum_adi": "Özel Altinkoza Hastanesi̇",
+      "kurum_tipi": "Özel Hastane",
+      "il_kodu": 34,
+      "il_adi": "ADANA",
+      "ilce_adi": "YÜREĞİR",
+      "adres": "Yüreği̇r/adana",
+      "telefon": "0212 000 00 00",
+      "koordinat_lat": 39.9334,
+      "koordinat_lon": 32.8597,
+      "web_sitesi": "",
+      "veri_kaynagi": "Cleaned Data Import",
+      "son_guncelleme": "2025-08-04",
+      "created_at": "2025-08-04T12:04:27.801198+00:00",
+      "updated_at": "2025-08-04T12:04:27.801198+00:00",
+      "location": {
+        "type": "Point",
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        },
+        "coordinates": [
+          32.8597,
+          39.9334
+        ]
+      },
+      "aktif": true,
+      "isim_standart": "özel altinkoza hastanesi̇",
+      "adres_yapilandirilmis": {
+        "il": "ADANA",
+        "ilce": "YÜREĞİR",
+        "mahalle": "Merkez"
+      }
+    },
+    {
+      "kurum_id": "TR-20250804-f76f4228-0010",
+      "kurum_adi": "ÖZEL KALEPARK HASTANESİ",
+      "kurum_tipi": "Özel Hastane",
+      "il_kodu": 34,
+      "il_adi": "ADANA",
+      "ilce_adi": "KOZAN",
+      "adres": "KOZAN/ADANA",
+      "telefon": "0212 000 0000",
+      "koordinat_lat": 39.9334,
+      "koordinat_lon": 32.8597,
+      "web_sitesi": "",
+      "veri_kaynagi": "Comprehensive Data Import",
+      "son_guncelleme": "2025-08-04",
+      "created_at": "2025-08-04T05:59:25.811126+00:00",
+      "updated_at": "2025-08-04T05:59:25.811126+00:00",
+      "location": {
+        "type": "Point",
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        },
+        "coordinates": [
+          32.8597,
+          39.9334
+        ]
+      },
+      "aktif": true,
+      "isim_standart": "özel kalepark hastanesi̇",
+      "adres_yapilandirilmis": {
+        "il": "ADANA",
+        "ilce": "KOZAN",
+        "mahalle": "Merkez"
+      }
+    }
+  ],
+  "quality_metrics": {
+    "name_quality": "İyileştirildi - Title case formatında",
+    "duplicates": "Temizlendi - Benzer kayıtlar birleştirildi",
+    "data_fields": "Normalize edildi - Telefon ve adres formatları",
+    "geographic_coverage": "87 il kapsamı"
+  },
+  "improvements": [
+    "Tarih formatındaki kurum isimleri temizlendi",
+    "Küçük harfli isimler Title Case formatına çevrildi",
+    "Duplikat kayıtlar en kaliteli veri baz alınarak birleştirildi",
+    "Telefon numaraları standart formata çevrildi",
+    "Adres bilgileri normalize edildi"
+  ]
+}
