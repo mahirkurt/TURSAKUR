@@ -14,26 +14,23 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build
-      run: npm run build
-      env:
-        NODE_ENV: production
-        VITE_SUPABASE_URL: https://moamwmxcpgjvyyawlygw.supabase.co
-        VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vYW13bXhjcGdqdnl5YXdseWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwMzA1NzgsImV4cCI6MjA2OTYwNjU3OH0.w88NfzOopSYo8Q23ypWaknnaZcSXnV0WPtiE2-ePGfU
+    - name: Verify static files
+      run: |
+        echo "Checking static files..."
+        ls -la
+        echo "Checking index.html exists..."
+        [ -f index.html ] && echo "✓ index.html found" || echo "✗ index.html missing"
+        echo "Checking JS files..."
+        [ -d js ] && echo "✓ js directory found" || echo "✗ js directory missing"
+        echo "Checking CSS files..."
+        [ -d styles ] && echo "✓ styles directory found" || echo "✗ styles directory missing"
+        echo "Checking data files..."
+        [ -d data ] && echo "✓ data directory found" || echo "✗ data directory missing"
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
-        cname: tursakur.github.io
+        publish_dir: ./
+        exclude_assets: '.github,scripts,logs,_build,__pycache__,.git*,*.py,*.md,requirements.txt,build.py,*.log'
