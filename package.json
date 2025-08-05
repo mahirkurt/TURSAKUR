@@ -5,7 +5,10 @@
   "description": "TURSAKUR - Türkiye Sağlık Kuruluşları Rehberi (Static HTML/CSS/JS Version)",
   "scripts": {
     "build": "echo 'Static files are already built. No build step required.' && exit 0",
-    "start": "echo 'This is a static site. Use a web server to serve the files.' && exit 0"
+    "start": "echo 'This is a static site. Use a web server to serve the files.' && exit 0",
+    "dev": "echo 'This is a static site. Use a local server like Live Server or python -m http.server' && exit 0",
+    "vercel": "vercel",
+    "vercel:prod": "vercel --prod"
   },
   "keywords": [
     "healthcare",

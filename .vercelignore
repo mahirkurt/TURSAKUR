@@ -1,9 +1,47 @@
 # Vercel deployment ignore
+
+# Development and build files
 .github/
 logs/
 __pycache__/
+_build/
 *.pyc
 *.log
-scripts/
-talimatnameler/
+*.md
 .git/
+.gitignore
+.gitattributes
+
+# Python scripts and configs
+scripts/
+requirements.txt
+*.py
+talimatnameler/
+
+# Development files
+.env*
+.vscode/
+node_modules/
+
+# Test and backup files
+data/raw/
+data/backup/
+test-*.html
+test-*.json
+*.png
+render*.yaml
+
+# Documentation
+README.md
+CONTRIBUTING.md
+LICENSE
+DEPLOY*.md
+FINAL*.md
+IDEAS*.md
+LOGO*.md
+VISUAL*.md
+UNIVERSITE*.md
+
+# Deployment configs (keep only necessary ones)
+netlify.toml
+render.yaml

@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://tursakur.vercel.app/sitemap.xml
+
+# Disallow unnecessary files
+Disallow: /data/raw/
+Disallow: /logs/
+Disallow: /scripts/
+Disallow: /_build/
+Disallow: /__pycache__/
+Disallow: /*.py
+Disallow: /*.log
+Disallow: /*.md
+Disallow: /package.json
+Disallow: /vercel.json
+Disallow: /.env*
