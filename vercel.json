@@ -1,6 +1,9 @@
 {
   "version": 2,
   "framework": null,
+  "buildCommand": "echo 'Static site - no build required'",
+  "outputDirectory": ".",
+  "installCommand": "echo 'No dependencies to install'",
   "public": true,
   "rewrites": [
     {
